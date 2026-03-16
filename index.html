@@ -79,10 +79,10 @@
       --crimson-glow:   rgba(192, 24, 46, 0.10);
       --crimson-border: rgba(192, 24, 46, 0.28);
 
-      --bg:             #0D0D0F;
-      --bg-surface:     #131316;
-      --bg-card:        #1A1A1E;
-      --bg-card-hover:  #202026;
+      --bg:             #111115;   /* rich charcoal — softer than near-black */
+      --bg-surface:     #17171C;
+      --bg-card:        #1F1F27;
+      --bg-card-hover:  #26262F;
 
       --border:         rgba(255, 255, 255, 0.07);
       --border-strong:  rgba(255, 255, 255, 0.12);
@@ -107,30 +107,39 @@
 
     /* ============================================================
        DESIGN TOKENS — LIGHT MODE (explicit: data-theme="light")
+
+       Design rationale:
+         • Canvas (#F2F3F5) is a cool off-white — airy, not blinding white
+         • Surface (#E6E8EC) gives section rhythm/depth
+         • Cards (#FFFFFF) pop off the canvas with real shadow depth
+         • --text-lo (#9A9A9F) IS the #999-family grey — it appears in
+           subtext, labels, borders, and chips so grey is present but
+           purposeful rather than overwhelming as a background colour
+         • Crimson reads boldly against the light canvas
     ============================================================ */
     [data-theme="light"] {
       color-scheme: light;
 
-      --crimson-glow:   rgba(192, 24, 46, 0.08);
-      --crimson-border: rgba(192, 24, 46, 0.24);
+      --crimson-glow:   rgba(192, 24, 46, 0.07);
+      --crimson-border: rgba(192, 24, 46, 0.22);
 
-      --bg:             #999999;
-      --bg-surface:     #A5A5A5;
-      --bg-card:        #B0B0B0;
-      --bg-card-hover:  #B9B9B9;
+      --bg:             #F2F3F5;   /* cool off-white canvas               */
+      --bg-surface:     #E6E8EC;   /* slightly deeper — alternating sects  */
+      --bg-card:        #FFFFFF;   /* pure white cards — float above canvas */
+      --bg-card-hover:  #FAFAFA;
 
-      --border:         rgba(0, 0, 0, 0.09);
-      --border-strong:  rgba(0, 0, 0, 0.17);
+      --border:         rgba(0, 0, 0, 0.07);
+      --border-strong:  rgba(0, 0, 0, 0.13);
 
       --text-hi:        #0D0D0F;
-      --text-mid:       #2C2C2C;
-      --text-lo:        #525252;
+      --text-mid:       #3A3A3F;
+      --text-lo:        #9A9A9F;   /* ← #999-family grey lives here        */
 
-      --nav-bg:         rgba(153, 153, 153, 0.90);
-      --mobile-menu-bg: #A5A5A5;
+      --nav-bg:         rgba(242, 243, 245, 0.92);
+      --mobile-menu-bg: #E6E8EC;
 
-      --shadow-card:    0 4px 20px rgba(0, 0, 0, 0.10), 0 1px 3px rgba(0, 0, 0, 0.06);
-      --shadow-crimson: 0 6px 28px rgba(192, 24, 46, 0.20);
+      --shadow-card:    0 2px 16px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.05);
+      --shadow-crimson: 0 6px 28px rgba(192, 24, 46, 0.22);
     }
 
     /* ============================================================
@@ -140,26 +149,26 @@
       :root:not([data-theme="dark"]):not([data-theme="light"]) {
         color-scheme: light;
 
-        --crimson-glow:   rgba(192, 24, 46, 0.08);
-        --crimson-border: rgba(192, 24, 46, 0.24);
+        --crimson-glow:   rgba(192, 24, 46, 0.07);
+        --crimson-border: rgba(192, 24, 46, 0.22);
 
-        --bg:             #999999;
-        --bg-surface:     #A5A5A5;
-        --bg-card:        #B0B0B0;
-        --bg-card-hover:  #B9B9B9;
+        --bg:             #F2F3F5;
+        --bg-surface:     #E6E8EC;
+        --bg-card:        #FFFFFF;
+        --bg-card-hover:  #FAFAFA;
 
-        --border:         rgba(0, 0, 0, 0.09);
-        --border-strong:  rgba(0, 0, 0, 0.17);
+        --border:         rgba(0, 0, 0, 0.07);
+        --border-strong:  rgba(0, 0, 0, 0.13);
 
         --text-hi:        #0D0D0F;
-        --text-mid:       #2C2C2C;
-        --text-lo:        #525252;
+        --text-mid:       #3A3A3F;
+        --text-lo:        #9A9A9F;
 
-        --nav-bg:         rgba(153, 153, 153, 0.90);
-        --mobile-menu-bg: #A5A5A5;
+        --nav-bg:         rgba(242, 243, 245, 0.92);
+        --mobile-menu-bg: #E6E8EC;
 
-        --shadow-card:    0 4px 20px rgba(0, 0, 0, 0.10), 0 1px 3px rgba(0, 0, 0, 0.06);
-        --shadow-crimson: 0 6px 28px rgba(192, 24, 46, 0.20);
+        --shadow-card:    0 2px 16px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.05);
+        --shadow-crimson: 0 6px 28px rgba(192, 24, 46, 0.22);
       }
     }
 
@@ -565,7 +574,36 @@
       transform: translateY(-2px);
     }
 
-    [data-theme="light"] .btn-ghost:hover { border-color: rgba(0,0,0,0.30); }
+    [data-theme="light"] .btn-ghost:hover { border-color: rgba(0,0,0,0.28); }
+
+    /* Light mode hero — lighter canvas + visible crimson grid */
+    [data-theme="light"] .hero,
+    [data-theme="light"] .hero::before {
+      background-color: var(--bg-surface);
+    }
+    [data-theme="light"] .hero::before {
+      background-image:
+        linear-gradient(rgba(192, 24, 46, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(192, 24, 46, 0.07) 1px, transparent 1px);
+    }
+    [data-theme="light"] .hero::after {
+      background: radial-gradient(circle, rgba(192, 24, 46, 0.08) 0%, transparent 68%);
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root:not([data-theme="dark"]):not([data-theme="light"]) .hero,
+      :root:not([data-theme="dark"]):not([data-theme="light"]) .hero::before {
+        background-color: var(--bg-surface);
+      }
+      :root:not([data-theme="dark"]):not([data-theme="light"]) .hero::before {
+        background-image:
+          linear-gradient(rgba(192, 24, 46, 0.07) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(192, 24, 46, 0.07) 1px, transparent 1px);
+      }
+      :root:not([data-theme="dark"]):not([data-theme="light"]) .hero::after {
+        background: radial-gradient(circle, rgba(192, 24, 46, 0.08) 0%, transparent 68%);
+      }
+    }
 
     /* Scroll indicator */
     .hero-scroll {
@@ -838,6 +876,11 @@
     }
 
     [data-theme="light"] .platform-chip { background: rgba(0,0,0,0.04); }
+
+    /* Light mode — form inputs use a slightly off-white, not the canvas grey */
+    [data-theme="light"] .form-group input,
+    [data-theme="light"] .form-group select,
+    [data-theme="light"] .form-group textarea { background: #F8F8FA; color: var(--text-hi); }
 
     .platform-chip svg { width: 11px; height: 11px; stroke: var(--text-lo); fill: none; }
 
