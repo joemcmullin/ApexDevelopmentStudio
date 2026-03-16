@@ -1,35 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Anti-FOUC: apply stored theme before first paint -->
+  <script>
+    (function(){
+      var t = localStorage.getItem('apex-theme');
+      if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- ================================================================
-       FAVICON
-       Apex Development Studio brand mark — crimson "A" apex shape
-       ================================================================ -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="apple-touch-icon" href="/favicon.svg" />
 
-  <!-- ================================================================
-       SECURITY META TAGS
-       GitHub Pages cannot set HTTP response headers directly, so
-       these <meta http-equiv> tags provide best-effort equivalents.
-       ================================================================ -->
-
-  <!--
-    Content Security Policy
-    Restricts which sources the browser may load resources from.
-      default-src 'self'         — Only load from this origin by default
-      script-src  'unsafe-inline'— Required: all JS is inline in this file
-      style-src   'unsafe-inline'— Required: all CSS is inline in this file
-      img-src     'self' data:   — Same-origin images + inline SVG data URIs
-      connect-src formspree.io   — Contact form POSTs to Formspree
-      form-action formspree.io   — Restrict <form action> targets
-      frame-ancestors 'none'     — Block iframe embedding (clickjacking)
-      base-uri    'self'         — Prevent <base href> injection
-      object-src  'none'         — No Flash/plugins
-  -->
   <meta http-equiv="Content-Security-Policy" content="
     default-src 'self';
     script-src 'self' 'unsafe-inline';
@@ -41,44 +25,24 @@
     base-uri 'self';
     object-src 'none';
   " />
-
-  <!-- Referrer Policy: send only origin (not path) on cross-origin navigations -->
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-
-  <!-- Prevent MIME-type sniffing -->
   <meta http-equiv="X-Content-Type-Options" content="nosniff" />
 
-  <!-- ================================================================
-       SEO — PRIMARY META TAGS
-       Title ≤ 60 chars | Description 150–160 chars
-       ================================================================ -->
   <title>Apex Development Studio — Independent iOS App Studio</title>
-  <meta name="description"
-        content="Apex Development Studio LLC is an independent Apple platform studio crafting thoughtful, privacy-first iOS apps for iPhone, iPad, and Mac. Makers of Journey Tracker." />
+  <meta name="description" content="Apex Development Studio LLC is an independent Apple platform studio crafting thoughtful, privacy-first iOS apps for iPhone, iPad, and Mac. Makers of Journey Tracker." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://apexdevelopmentstudio.com/" />
   <meta name="author" content="Apex Development Studio LLC" />
 
-  <!-- ================================================================
-       OPEN GRAPH (Facebook, LinkedIn, iMessage link previews)
-       ================================================================ -->
   <meta property="og:type"        content="website" />
   <meta property="og:url"         content="https://apexdevelopmentstudio.com/" />
   <meta property="og:site_name"   content="Apex Development Studio" />
   <meta property="og:title"       content="Apex Development Studio — Independent iOS App Studio" />
   <meta property="og:description" content="Independent Apple platform studio crafting thoughtful, privacy-first iOS apps for iPhone, iPad, and Mac." />
-
-  <!-- ================================================================
-       TWITTER / X CARD
-       ================================================================ -->
   <meta name="twitter:card"        content="summary" />
   <meta name="twitter:title"       content="Apex Development Studio" />
   <meta name="twitter:description" content="Independent iOS app studio crafting thoughtful, privacy-first apps for iPhone, iPad, and Mac." />
 
-  <!-- ================================================================
-       JSON-LD STRUCTURED DATA — Organization
-       Helps Google Knowledge Graph understand the company entity.
-       ================================================================ -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -104,34 +68,32 @@
 
   <style>
     /* ============================================================
-       DESIGN TOKENS
-       All colors, spacing, and radius values as CSS custom props.
-       Change a value here → updates everywhere.
+       DESIGN TOKENS — DARK MODE (default)
     ============================================================ */
     :root {
-      /* Brand — Crimson */
+      color-scheme: dark;
+
       --crimson:        #C0182E;
       --crimson-dark:   #8B0015;
       --crimson-light:  #E03A50;
       --crimson-glow:   rgba(192, 24, 46, 0.10);
       --crimson-border: rgba(192, 24, 46, 0.28);
 
-      /* Backgrounds — Dark grey spectrum */
       --bg:             #0D0D0F;
       --bg-surface:     #131316;
       --bg-card:        #1A1A1E;
       --bg-card-hover:  #202026;
 
-      /* Borders */
       --border:         rgba(255, 255, 255, 0.07);
       --border-strong:  rgba(255, 255, 255, 0.12);
 
-      /* Text */
       --text-hi:        #F5F5F7;
       --text-mid:       #AEAEB2;
       --text-lo:        #6E6E73;
 
-      /* Utility */
+      --nav-bg:         rgba(13, 13, 15, 0.85);
+      --mobile-menu-bg: #131316;
+
       --nav-h:          64px;
       --pad-section:    96px;
       --r-sm:           8px;
@@ -141,6 +103,64 @@
       --font:           -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
       --shadow-card:    0 4px 32px rgba(0, 0, 0, 0.45), 0 1px 4px rgba(0, 0, 0, 0.3);
       --shadow-crimson: 0 6px 32px rgba(192, 24, 46, 0.35);
+    }
+
+    /* ============================================================
+       DESIGN TOKENS — LIGHT MODE (explicit: data-theme="light")
+    ============================================================ */
+    [data-theme="light"] {
+      color-scheme: light;
+
+      --crimson-glow:   rgba(192, 24, 46, 0.08);
+      --crimson-border: rgba(192, 24, 46, 0.24);
+
+      --bg:             #999999;
+      --bg-surface:     #A5A5A5;
+      --bg-card:        #B0B0B0;
+      --bg-card-hover:  #B9B9B9;
+
+      --border:         rgba(0, 0, 0, 0.09);
+      --border-strong:  rgba(0, 0, 0, 0.17);
+
+      --text-hi:        #0D0D0F;
+      --text-mid:       #2C2C2C;
+      --text-lo:        #525252;
+
+      --nav-bg:         rgba(153, 153, 153, 0.90);
+      --mobile-menu-bg: #A5A5A5;
+
+      --shadow-card:    0 4px 20px rgba(0, 0, 0, 0.10), 0 1px 3px rgba(0, 0, 0, 0.06);
+      --shadow-crimson: 0 6px 28px rgba(192, 24, 46, 0.20);
+    }
+
+    /* ============================================================
+       DESIGN TOKENS — SYSTEM LIGHT (follows OS preference)
+    ============================================================ */
+    @media (prefers-color-scheme: light) {
+      :root:not([data-theme="dark"]):not([data-theme="light"]) {
+        color-scheme: light;
+
+        --crimson-glow:   rgba(192, 24, 46, 0.08);
+        --crimson-border: rgba(192, 24, 46, 0.24);
+
+        --bg:             #999999;
+        --bg-surface:     #A5A5A5;
+        --bg-card:        #B0B0B0;
+        --bg-card-hover:  #B9B9B9;
+
+        --border:         rgba(0, 0, 0, 0.09);
+        --border-strong:  rgba(0, 0, 0, 0.17);
+
+        --text-hi:        #0D0D0F;
+        --text-mid:       #2C2C2C;
+        --text-lo:        #525252;
+
+        --nav-bg:         rgba(153, 153, 153, 0.90);
+        --mobile-menu-bg: #A5A5A5;
+
+        --shadow-card:    0 4px 20px rgba(0, 0, 0, 0.10), 0 1px 3px rgba(0, 0, 0, 0.06);
+        --shadow-crimson: 0 6px 28px rgba(192, 24, 46, 0.20);
+      }
     }
 
     /* ============================================================
@@ -165,6 +185,7 @@
       color: var(--text-hi);
       line-height: 1.6;
       overflow-x: hidden;
+      transition: background 0.3s, color 0.3s;
     }
 
     ::selection {
@@ -172,12 +193,56 @@
       color: #fff;
     }
 
-    img {
-      display: block;
-      max-width: 100%;
+    img { display: block; max-width: 100%; }
+    a   { color: inherit; }
+
+    /* ============================================================
+       SCROLL REVEAL ANIMATIONS
+    ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition:
+        opacity  0.75s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        transform 0.75s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      will-change: opacity, transform;
     }
 
-    a { color: inherit; }
+    .reveal-left  { transform: translateX(-40px); }
+    .reveal-right { transform: translateX(40px); }
+    .reveal-scale { transform: scale(0.92) translateY(16px); }
+    .reveal-fade  { transform: none; }
+
+    .reveal.in-view {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+
+    /* Stagger delays */
+    .d1 { transition-delay: 0.08s; }
+    .d2 { transition-delay: 0.16s; }
+    .d3 { transition-delay: 0.24s; }
+    .d4 { transition-delay: 0.32s; }
+    .d5 { transition-delay: 0.42s; }
+
+    /* ============================================================
+       HERO ENTRANCE ANIMATIONS (load-time, not scroll)
+    ============================================================ */
+    @keyframes heroFadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    @keyframes heroFadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    .hero-eyebrow     { animation: heroFadeUp 0.7s 0.10s cubic-bezier(0.25,0.46,0.45,0.94) both; }
+    .hero-title       { animation: heroFadeUp 0.7s 0.26s cubic-bezier(0.25,0.46,0.45,0.94) both; }
+    .hero-description { animation: heroFadeUp 0.7s 0.42s cubic-bezier(0.25,0.46,0.45,0.94) both; }
+    .hero-actions     { animation: heroFadeUp 0.7s 0.56s cubic-bezier(0.25,0.46,0.45,0.94) both; }
+    .hero-scroll      { animation: heroFadeIn 0.7s 0.90s ease both; }
 
     /* ============================================================
        NAVIGATION
@@ -190,16 +255,14 @@
       display: flex;
       align-items: center;
       padding: 0 max(24px, env(safe-area-inset-left));
-      background: rgba(13, 13, 15, 0.80);
+      background: var(--nav-bg);
       backdrop-filter: blur(24px) saturate(180%);
       -webkit-backdrop-filter: blur(24px) saturate(180%);
       border-bottom: 1px solid var(--border);
-      transition: border-color 0.3s;
+      transition: border-color 0.3s, background 0.3s;
     }
 
-    .nav.scrolled {
-      border-bottom-color: var(--border-strong);
-    }
+    .nav.scrolled { border-bottom-color: var(--border-strong); }
 
     .nav-inner {
       display: flex;
@@ -210,7 +273,6 @@
       margin: 0 auto;
     }
 
-    /* Logo */
     .nav-logo {
       display: flex;
       align-items: center;
@@ -218,35 +280,18 @@
       text-decoration: none;
     }
 
-    .nav-logo-mark {
-      width: 32px;
-      height: 32px;
-      flex-shrink: 0;
-    }
+    .nav-logo-mark { width: 32px; height: 32px; flex-shrink: 0; }
 
-    .nav-wordmark {
+    .nav-wordmark        { display: flex; flex-direction: column; }
+    .nav-wordmark-name   { font-size: 0.875rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-hi); line-height: 1.15; }
+    .nav-wordmark-sub    { font-size: 0.62rem;  font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-lo); }
+
+    .nav-right {
       display: flex;
-      flex-direction: column;
+      align-items: center;
+      gap: 16px;
     }
 
-    .nav-wordmark-name {
-      font-size: 0.875rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--text-hi);
-      line-height: 1.15;
-    }
-
-    .nav-wordmark-sub {
-      font-size: 0.62rem;
-      font-weight: 500;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--text-lo);
-    }
-
-    /* Desktop links */
     .nav-links {
       display: flex;
       align-items: center;
@@ -281,6 +326,40 @@
       transform: translateY(-1px) !important;
     }
 
+    /* ── Theme toggle button ── */
+    .theme-toggle {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-strong);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, border-color 0.2s, transform 0.15s;
+      color: var(--text-mid);
+      padding: 0;
+      flex-shrink: 0;
+    }
+
+    .theme-toggle:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--crimson-border);
+      color: var(--text-hi);
+      transform: translateY(-1px);
+    }
+
+    .theme-toggle svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
     /* Hamburger (mobile only) */
     .nav-hamburger {
       display: none;
@@ -308,10 +387,11 @@
       top: var(--nav-h);
       left: 0;
       right: 0;
-      background: var(--bg-surface);
+      background: var(--mobile-menu-bg);
       border-bottom: 1px solid var(--border-strong);
       padding: 12px 24px 20px;
       z-index: 199;
+      transition: background 0.3s;
     }
 
     .nav-mobile.open { display: block; }
@@ -328,7 +408,7 @@
     }
 
     .nav-mobile a:last-child { border-bottom: none; }
-    .nav-mobile a:hover { color: var(--text-hi); }
+    .nav-mobile a:hover      { color: var(--text-hi); }
 
     /* ============================================================
        HERO
@@ -343,9 +423,9 @@
       position: relative;
       overflow: hidden;
       background: var(--bg);
+      transition: background 0.3s;
     }
 
-    /* Subtle grid lines */
     .hero::before {
       content: '';
       position: absolute;
@@ -358,7 +438,6 @@
       -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, black 30%, transparent 100%);
     }
 
-    /* Central radial crimson glow */
     .hero::after {
       content: '';
       position: absolute;
@@ -378,7 +457,6 @@
       max-width: 860px;
     }
 
-    /* Eyebrow pill */
     .hero-eyebrow {
       display: inline-flex;
       align-items: center;
@@ -395,6 +473,12 @@
       margin-bottom: 32px;
     }
 
+    [data-theme="light"] .hero-eyebrow { color: var(--crimson); }
+
+    @media (prefers-color-scheme: light) {
+      :root:not([data-theme="dark"]):not([data-theme="light"]) .hero-eyebrow { color: var(--crimson); }
+    }
+
     .hero-eyebrow-dot {
       width: 6px;
       height: 6px;
@@ -408,7 +492,6 @@
       50%       { opacity: 0.4; transform: scale(0.75); }
     }
 
-    /* Main headline */
     .hero-title {
       font-size: clamp(2.8rem, 7.5vw, 5.8rem);
       font-weight: 800;
@@ -418,11 +501,8 @@
       margin-bottom: 28px;
     }
 
-    .hero-title .accent {
-      color: var(--crimson);
-    }
+    .hero-title .accent { color: var(--crimson); }
 
-    /* Sub-headline */
     .hero-description {
       font-size: clamp(1rem, 2.2vw, 1.2rem);
       line-height: 1.75;
@@ -431,7 +511,6 @@
       margin: 0 auto 44px;
     }
 
-    /* CTA row */
     .hero-actions {
       display: flex;
       gap: 14px;
@@ -440,7 +519,7 @@
     }
 
     /* ============================================================
-       BUTTONS — SHARED
+       BUTTONS
     ============================================================ */
     .btn-primary {
       display: inline-flex;
@@ -486,6 +565,8 @@
       transform: translateY(-2px);
     }
 
+    [data-theme="light"] .btn-ghost:hover { border-color: rgba(0,0,0,0.30); }
+
     /* Scroll indicator */
     .hero-scroll {
       position: absolute;
@@ -519,12 +600,9 @@
     /* ============================================================
        SECTION SCAFFOLDING
     ============================================================ */
-    section { padding: var(--pad-section) 24px; }
+    section { padding: var(--pad-section) 24px; transition: background 0.3s; }
 
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
+    .container { max-width: 1100px; margin: 0 auto; }
 
     .section-eyebrow {
       font-size: 0.68rem;
@@ -559,7 +637,7 @@
     }
 
     /* ============================================================
-       ABOUT SECTION
+       ABOUT
     ============================================================ */
     .about { background: var(--bg-surface); }
 
@@ -578,18 +656,9 @@
     }
 
     .about-body p:last-child { margin-bottom: 0; }
+    .about-body strong { color: var(--text-hi); font-weight: 600; }
 
-    .about-body strong {
-      color: var(--text-hi);
-      font-weight: 600;
-    }
-
-    /* Values */
-    .values-stack {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
+    .values-stack { display: flex; flex-direction: column; gap: 16px; }
 
     .value-card {
       display: flex;
@@ -599,12 +668,13 @@
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: var(--r-md);
-      transition: border-color 0.25s, transform 0.2s;
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
     }
 
     .value-card:hover {
       border-color: var(--crimson-border);
-      transform: translateX(4px);
+      transform: translateX(6px);
+      box-shadow: var(--shadow-card);
     }
 
     .value-icon-wrap {
@@ -619,24 +689,10 @@
       justify-content: center;
     }
 
-    .value-icon-wrap svg {
-      width: 17px;
-      height: 17px;
-      stroke: var(--crimson);
-    }
+    .value-icon-wrap svg { width: 17px; height: 17px; stroke: var(--crimson); }
 
-    .value-body h4 {
-      font-size: 0.875rem;
-      font-weight: 700;
-      color: var(--text-hi);
-      margin-bottom: 4px;
-    }
-
-    .value-body p {
-      font-size: 0.82rem;
-      line-height: 1.5;
-      color: var(--text-lo);
-    }
+    .value-body h4 { font-size: 0.875rem; font-weight: 700; color: var(--text-hi); margin-bottom: 4px; }
+    .value-body p  { font-size: 0.82rem; line-height: 1.5; color: var(--text-lo); }
 
     /* ============================================================
        STATS BAR
@@ -646,6 +702,7 @@
       border-top:    1px solid var(--border);
       border-bottom: 1px solid var(--border);
       padding: 56px 24px;
+      transition: background 0.3s;
     }
 
     .stats-grid {
@@ -666,20 +723,11 @@
       margin-bottom: 6px;
     }
 
-    .stat-num em {
-      color: var(--crimson);
-      font-style: normal;
-    }
-
-    .stat-label {
-      font-size: 0.82rem;
-      color: var(--text-lo);
-      font-weight: 500;
-      letter-spacing: 0.02em;
-    }
+    .stat-num em    { color: var(--crimson); font-style: normal; }
+    .stat-label     { font-size: 0.82rem; color: var(--text-lo); font-weight: 500; letter-spacing: 0.02em; }
 
     /* ============================================================
-       PRODUCTS SECTION
+       PRODUCTS
     ============================================================ */
     .products { background: var(--bg); }
 
@@ -698,7 +746,6 @@
       gap: 24px;
     }
 
-    /* Product card base */
     .product-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -714,17 +761,15 @@
 
     .product-card:not(.product-card--placeholder):hover {
       border-color: var(--crimson-border);
-      transform: translateY(-5px);
+      transform: translateY(-6px);
       box-shadow: var(--shadow-card), 0 0 0 1px var(--crimson-border);
     }
 
-    /* Featured variant */
     .product-card--featured {
       border-color: var(--crimson-border);
       background: linear-gradient(145deg, var(--bg-card) 0%, rgba(192, 24, 46, 0.06) 100%);
     }
 
-    /* Placeholder / coming-soon */
     .product-card--placeholder {
       border-style: dashed;
       align-items: center;
@@ -735,13 +780,8 @@
       cursor: default;
     }
 
-    .product-card--placeholder:hover {
-      transform: none;
-      border-color: var(--border);
-      box-shadow: none;
-    }
+    .product-card--placeholder:hover { transform: none; border-color: var(--border); box-shadow: none; }
 
-    /* Card header row */
     .product-card-hd {
       display: flex;
       align-items: flex-start;
@@ -749,7 +789,6 @@
       gap: 16px;
     }
 
-    /* App icon container */
     .product-icon {
       width: 64px;
       height: 64px;
@@ -763,14 +802,8 @@
       overflow: hidden;
     }
 
-    .product-icon img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 16px;
-    }
+    .product-icon img { width: 100%; height: 100%; object-fit: cover; border-radius: 16px; }
 
-    /* Status badge */
     .badge {
       display: inline-block;
       font-size: 0.64rem;
@@ -781,56 +814,16 @@
       border-radius: 20px;
     }
 
-    .badge--soon {
-      background: rgba(255, 159, 10, 0.12);
-      color: #FF9F0A;
-      border: 1px solid rgba(255, 159, 10, 0.28);
-    }
+    .badge--soon { background: rgba(255,159,10,0.12); color: #FF9F0A; border: 1px solid rgba(255,159,10,0.28); }
+    .badge--live { background: rgba(52,199,89,0.12);  color: #34C759; border: 1px solid rgba(52,199,89,0.28); }
+    .badge--dev  { background: rgba(142,142,147,0.10); color: var(--text-lo); border: 1px solid rgba(142,142,147,0.18); }
 
-    .badge--live {
-      background: rgba(52, 199, 89, 0.12);
-      color: #34C759;
-      border: 1px solid rgba(52, 199, 89, 0.28);
-    }
+    .product-sub  { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--crimson); margin-bottom: 8px; }
+    .product-name { font-size: 1.45rem; font-weight: 800; letter-spacing: -0.02em; color: var(--text-hi); margin-bottom: 12px; }
+    .product-desc { font-size: 0.95rem; line-height: 1.65; color: var(--text-mid); }
 
-    .badge--dev {
-      background: rgba(142, 142, 147, 0.10);
-      color: var(--text-lo);
-      border: 1px solid rgba(142, 142, 147, 0.18);
-    }
-
-    /* Card body */
-    .product-sub {
-      font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--crimson);
-      margin-bottom: 8px;
-    }
-
-    .product-name {
-      font-size: 1.45rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      color: var(--text-hi);
-      margin-bottom: 12px;
-    }
-
-    .product-desc {
-      font-size: 0.95rem;
-      line-height: 1.65;
-      color: var(--text-mid);
-    }
-
-    /* Platform chips */
-    .platforms {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .platform-chip {
+    .platforms      { display: flex; gap: 8px; flex-wrap: wrap; }
+    .platform-chip  {
       display: inline-flex;
       align-items: center;
       gap: 5px;
@@ -838,20 +831,16 @@
       font-weight: 600;
       letter-spacing: 0.04em;
       color: var(--text-lo);
-      background: rgba(255, 255, 255, 0.04);
+      background: rgba(255,255,255,0.04);
       border: 1px solid var(--border);
       padding: 4px 10px;
       border-radius: 6px;
     }
 
-    .platform-chip svg {
-      width: 11px;
-      height: 11px;
-      stroke: var(--text-lo);
-      fill: none;
-    }
+    [data-theme="light"] .platform-chip { background: rgba(0,0,0,0.04); }
 
-    /* Card footer link */
+    .platform-chip svg { width: 11px; height: 11px; stroke: var(--text-lo); fill: none; }
+
     .product-cta {
       display: inline-flex;
       align-items: center;
@@ -866,12 +855,8 @@
       transition: gap 0.2s, color 0.2s;
     }
 
-    .product-cta:hover {
-      gap: 10px;
-      color: var(--crimson-light);
-    }
+    .product-cta:hover { gap: 10px; color: var(--crimson-light); }
 
-    /* Placeholder internals */
     .placeholder-circle {
       width: 52px;
       height: 52px;
@@ -883,28 +868,12 @@
       margin: 0 auto 18px;
     }
 
-    .placeholder-circle svg {
-      width: 22px;
-      height: 22px;
-      stroke: var(--text-lo);
-    }
-
-    .placeholder-title {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--text-lo);
-      margin-bottom: 6px;
-    }
-
-    .placeholder-note {
-      font-size: 0.8rem;
-      color: var(--text-lo);
-      opacity: 0.7;
-      line-height: 1.5;
-    }
+    .placeholder-circle svg { width: 22px; height: 22px; stroke: var(--text-lo); }
+    .placeholder-title { font-size: 0.95rem; font-weight: 600; color: var(--text-lo); margin-bottom: 6px; }
+    .placeholder-note  { font-size: 0.8rem; color: var(--text-lo); opacity: 0.7; line-height: 1.5; }
 
     /* ============================================================
-       CONTACT SECTION
+       CONTACT
     ============================================================ */
     .contact { background: var(--bg-surface); }
 
@@ -915,19 +884,9 @@
       align-items: start;
     }
 
-    /* Contact info side */
-    .contact-methods {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-      margin-top: 40px;
-    }
+    .contact-methods { display: flex; flex-direction: column; gap: 24px; margin-top: 40px; }
 
-    .contact-method {
-      display: flex;
-      gap: 16px;
-      align-items: flex-start;
-    }
+    .contact-method { display: flex; gap: 16px; align-items: flex-start; }
 
     .method-icon {
       width: 44px;
@@ -941,31 +900,15 @@
       justify-content: center;
     }
 
-    .method-icon svg {
-      width: 18px;
-      height: 18px;
-      stroke: var(--crimson);
-      fill: none;
-    }
+    .method-icon svg { width: 18px; height: 18px; stroke: var(--crimson); fill: none; }
 
-    .method-body h4 {
-      font-size: 0.875rem;
-      font-weight: 700;
-      color: var(--text-hi);
-      margin-bottom: 4px;
-    }
-
+    .method-body h4  { font-size: 0.875rem; font-weight: 700; color: var(--text-hi); margin-bottom: 4px; }
     .method-body a,
-    .method-body p {
-      font-size: 0.875rem;
-      color: var(--text-mid);
-      line-height: 1.5;
-      text-decoration: none;
-    }
-
+    .method-body p   { font-size: 0.875rem; color: var(--text-mid); line-height: 1.5; text-decoration: none; }
     .method-body a:hover { color: var(--crimson-light); }
 
-    /* Form card */
+    [data-theme="light"] .method-body a:hover { color: var(--crimson); }
+
     .form-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -1011,10 +954,7 @@
       box-shadow: 0 0 0 3px rgba(192, 24, 46, 0.14);
     }
 
-    .form-group textarea {
-      resize: vertical;
-      min-height: 120px;
-    }
+    .form-group textarea { resize: vertical; min-height: 120px; }
 
     .form-group select {
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236E6E73' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
@@ -1025,11 +965,7 @@
 
     .form-group select option { background: var(--bg-card); }
 
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 
     .form-submit {
       display: flex;
@@ -1057,11 +993,7 @@
       box-shadow: var(--shadow-crimson);
     }
 
-    .form-submit:disabled {
-      opacity: 0.55;
-      cursor: not-allowed;
-      transform: none;
-    }
+    .form-submit:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
 
     .form-status {
       display: none;
@@ -1093,12 +1025,10 @@
       background: var(--bg);
       border-top: 1px solid var(--border);
       padding: 56px 24px 36px;
+      transition: background 0.3s;
     }
 
-    .footer-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
+    .footer-inner { max-width: 1100px; margin: 0 auto; }
 
     .footer-top {
       display: flex;
@@ -1109,12 +1039,7 @@
       flex-wrap: wrap;
     }
 
-    .footer-brand {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      max-width: 300px;
-    }
+    .footer-brand { display: flex; flex-direction: column; gap: 14px; max-width: 300px; }
 
     .footer-logo {
       display: flex;
@@ -1123,49 +1048,16 @@
       text-decoration: none;
     }
 
-    .footer-brand-name {
-      font-size: 0.875rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--text-hi);
-    }
+    .footer-brand-name { font-size: 0.875rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-hi); }
+    .footer-brand-desc { font-size: 0.825rem; line-height: 1.65; color: var(--text-lo); }
 
-    .footer-brand-desc {
-      font-size: 0.825rem;
-      line-height: 1.65;
-      color: var(--text-lo);
-    }
+    .footer-cols { display: flex; gap: 56px; flex-wrap: wrap; }
 
-    .footer-cols {
-      display: flex;
-      gap: 56px;
-      flex-wrap: wrap;
-    }
+    .footer-col h5 { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-hi); margin-bottom: 16px; }
 
-    .footer-col h5 {
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--text-hi);
-      margin-bottom: 16px;
-    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
 
-    .footer-col ul {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .footer-col a {
-      font-size: 0.85rem;
-      color: var(--text-lo);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
+    .footer-col a { font-size: 0.85rem; color: var(--text-lo); text-decoration: none; transition: color 0.2s; }
     .footer-col a:hover { color: var(--text-hi); }
 
     .footer-bottom {
@@ -1178,76 +1070,42 @@
       gap: 12px;
     }
 
-    .footer-copy {
-      font-size: 0.8rem;
-      color: var(--text-lo);
-    }
-
-    .footer-copy a {
-      color: var(--text-lo);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
+    .footer-copy { font-size: 0.8rem; color: var(--text-lo); }
+    .footer-copy a { color: var(--text-lo); text-decoration: none; transition: color 0.2s; }
     .footer-copy a:hover { color: var(--text-hi); }
 
-    .footer-legal {
-      display: flex;
-      gap: 20px;
-    }
-
-    .footer-legal a {
-      font-size: 0.8rem;
-      color: var(--text-lo);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
+    .footer-legal { display: flex; gap: 20px; }
+    .footer-legal a { font-size: 0.8rem; color: var(--text-lo); text-decoration: none; transition: color 0.2s; }
     .footer-legal a:hover { color: var(--text-hi); }
 
     /* ============================================================
-       INLINE SVG ICON HELPERS
+       ICON HELPERS
     ============================================================ */
-    .icon-arrow {
-      display: inline-block;
-      width: 16px;
-      height: 16px;
-      vertical-align: middle;
-    }
+    .icon-arrow { display: inline-block; width: 16px; height: 16px; vertical-align: middle; }
 
     /* ============================================================
-       RESPONSIVE — 900 px breakpoint
+       RESPONSIVE — 900 px
     ============================================================ */
     @media (max-width: 900px) {
       :root { --pad-section: 72px; }
-
       .about-grid,
       .contact-grid { grid-template-columns: 1fr; gap: 48px; }
-
       .stats-grid { gap: 28px; }
-
       .footer-top { flex-direction: column; }
     }
 
     /* ============================================================
-       RESPONSIVE — 700 px breakpoint
+       RESPONSIVE — 700 px
     ============================================================ */
     @media (max-width: 700px) {
       :root { --pad-section: 56px; }
-
-      .nav-links     { display: none; }
-      .nav-hamburger { display: flex; }
-
-      .stats-grid {
-        grid-template-columns: 1fr;
-        gap: 32px;
-      }
-
-      .form-row { grid-template-columns: 1fr; }
-
-      .footer-bottom { flex-direction: column; text-align: center; }
-      .footer-legal  { justify-content: center; }
-      .footer-cols   { gap: 36px; }
+      .nav-links      { display: none; }
+      .nav-hamburger  { display: flex; }
+      .stats-grid     { grid-template-columns: 1fr; gap: 32px; }
+      .form-row       { grid-template-columns: 1fr; }
+      .footer-bottom  { flex-direction: column; text-align: center; }
+      .footer-legal   { justify-content: center; }
+      .footer-cols    { gap: 36px; }
     }
 
     /* ============================================================
@@ -1260,13 +1118,18 @@
     }
 
     /* ============================================================
-       REDUCED MOTION
+       REDUCED MOTION — disable all animations
     ============================================================ */
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         animation-duration: 0.01ms !important;
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
+      }
+      .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
       }
     }
   </style>
@@ -1280,7 +1143,6 @@
     <div class="nav-inner">
 
       <a href="/" class="nav-logo" aria-label="Apex Development Studio — Home">
-        <!-- Brand mark: crimson square with apex/mountain shape -->
         <svg class="nav-logo-mark" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <rect width="32" height="32" rx="8" fill="#C0182E"/>
           <path d="M16 7L26 24H6L16 7Z" fill="white" opacity="0.95"/>
@@ -1292,20 +1154,27 @@
         </div>
       </a>
 
-      <ul class="nav-links" role="list">
-        <li><a href="#about">About</a></li>
-        <li><a href="#products">Products</a></li>
-        <li><a href="#contact" class="nav-cta">Contact</a></li>
-      </ul>
+      <div class="nav-right">
+        <ul class="nav-links" role="list">
+          <li><a href="#about">About</a></li>
+          <li><a href="#products">Products</a></li>
+          <li><a href="#contact" class="nav-cta">Contact</a></li>
+        </ul>
 
-      <button class="nav-hamburger" id="hamburger"
-              aria-label="Open navigation menu"
-              aria-expanded="false"
-              aria-controls="mobile-menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+        <!-- Theme toggle -->
+        <button class="theme-toggle" id="theme-toggle" aria-label="Switch color mode">
+          <!-- Icon injected by JS -->
+        </button>
+
+        <button class="nav-hamburger" id="hamburger"
+                aria-label="Open navigation menu"
+                aria-expanded="false"
+                aria-controls="mobile-menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
 
     </div>
   </nav>
@@ -1323,7 +1192,6 @@
          HERO
     ============================================================ -->
     <section class="hero" aria-labelledby="hero-heading">
-
       <div class="hero-content">
 
         <div class="hero-eyebrow" aria-hidden="true">
@@ -1345,7 +1213,6 @@
         <div class="hero-actions">
           <a href="#products" class="btn-primary">
             View Our Work
-            <!-- Arrow right -->
             <svg class="icon-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true">
               <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -1355,12 +1222,10 @@
 
       </div>
 
-      <!-- Animated scroll cue -->
       <div class="hero-scroll" aria-hidden="true">
         <div class="hero-scroll-line"></div>
         Scroll
       </div>
-
     </section>
 
 
@@ -1373,34 +1238,34 @@
 
           <!-- Left: prose -->
           <div class="about-body">
-            <p class="section-eyebrow">About the Studio</p>
-            <h2 class="section-title" id="about-heading">
+            <p class="section-eyebrow reveal reveal-fade d1">About the Studio</p>
+            <h2 class="section-title reveal d2" id="about-heading">
               Crafted with Care.<br/>Shipped with Purpose.
             </h2>
 
-            <p>
+            <p class="reveal d3">
               Apex Development Studio LLC is an <strong>independent software studio</strong>
               focused on building native Apple platform applications that solve real
               problems. We believe the best apps are built thoughtfully — with careful
               architecture, clean design, and an unwavering commitment to user privacy.
             </p>
-            <p>
+            <p class="reveal d4">
               Every product we ship is a <strong>native SwiftUI application</strong> built
               with the tools Apple intended, optimized for the platforms users love. No
               web wrappers, no compromises. We care deeply about performance,
               accessibility, and the craft that shows in every interaction.
             </p>
-            <p>
+            <p class="reveal d5">
               We operate as a <strong>small, focused studio</strong>. That means every
               decision is deliberate, every feature is considered, and every product
               reflects our standards — not the output of a committee.
             </p>
           </div>
 
-          <!-- Right: values stack -->
+          <!-- Right: values -->
           <div class="values-stack" role="list" aria-label="Studio values">
 
-            <div class="value-card" role="listitem">
+            <div class="value-card reveal reveal-right d1" role="listitem">
               <div class="value-icon-wrap" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <rect x="3" y="11" width="18" height="11" rx="2"/>
@@ -1413,7 +1278,7 @@
               </div>
             </div>
 
-            <div class="value-card" role="listitem">
+            <div class="value-card reveal reveal-right d2" role="listitem">
               <div class="value-icon-wrap" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <polyline points="16 3 21 3 21 8"/>
@@ -1428,7 +1293,7 @@
               </div>
             </div>
 
-            <div class="value-card" role="listitem">
+            <div class="value-card reveal reveal-right d3" role="listitem">
               <div class="value-icon-wrap" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/>
@@ -1440,7 +1305,7 @@
               </div>
             </div>
 
-            <div class="value-card" role="listitem">
+            <div class="value-card reveal reveal-right d4" role="listitem">
               <div class="value-icon-wrap" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
@@ -1455,7 +1320,6 @@
             </div>
 
           </div><!-- /values-stack -->
-
         </div><!-- /about-grid -->
       </div><!-- /container -->
     </section>
@@ -1467,17 +1331,17 @@
     <div class="stats-bar" role="region" aria-label="Studio at a glance">
       <div class="stats-grid container">
 
-        <div class="stat-item">
+        <div class="stat-item reveal d1">
           <div class="stat-num"><em>100%</em></div>
           <div class="stat-label">Native SwiftUI</div>
         </div>
 
-        <div class="stat-item">
+        <div class="stat-item reveal d2">
           <div class="stat-num"><em>3</em></div>
           <div class="stat-label">Apple Platforms</div>
         </div>
 
-        <div class="stat-item">
+        <div class="stat-item reveal d3">
           <div class="stat-num"><em>0</em></div>
           <div class="stat-label">Third-Party Data Sales</div>
         </div>
@@ -1494,36 +1358,31 @@
 
         <div class="products-hd">
           <div>
-            <p class="section-eyebrow">Our Applications</p>
-            <h2 class="section-title" id="products-heading">What We've Built</h2>
+            <p class="section-eyebrow reveal reveal-fade">Our Applications</p>
+            <h2 class="section-title reveal d1" id="products-heading">What We've Built</h2>
           </div>
-          <p class="section-lead" style="max-width:340px; font-size:.95rem;">
+          <p class="section-lead reveal reveal-fade d2" style="max-width:340px; font-size:.95rem;">
             Native iOS, iPadOS, and macOS apps — shipped with care.
           </p>
         </div>
 
         <div class="products-grid">
 
-          <!-- ── Journey Tracker ── -->
+          <!-- Journey Tracker -->
           <a href="https://journeytracker.app"
-             class="product-card product-card--featured"
+             class="product-card product-card--featured reveal d1"
              target="_blank"
              rel="noopener noreferrer"
              aria-label="Journey Tracker — visit journeytracker.app">
 
             <div class="product-card-hd">
-              <!-- App icon: compass SVG placeholder -->
               <div class="product-icon" aria-hidden="true">
                 <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <circle cx="17" cy="17" r="12" stroke="#C0182E" stroke-width="1.5"/>
                   <circle cx="17" cy="17" r="2.5" fill="#C0182E"/>
-                  <!-- N needle -->
                   <path d="M17 8.5l2.8 6-2.8 2.5-2.8-2.5L17 8.5Z" fill="#C0182E" opacity="0.8"/>
-                  <!-- S needle -->
                   <path d="M17 25.5l-2.8-6 2.8-2.5 2.8 2.5L17 25.5Z" fill="#6E6E73"/>
-                  <!-- W needle -->
                   <path d="M8.5 17l6-2.8 2.5 2.8-2.5 2.8L8.5 17Z" fill="#6E6E73"/>
-                  <!-- E needle -->
                   <path d="M25.5 17l-6 2.8-2.5-2.8 2.5-2.8L25.5 17Z" fill="#C0182E" opacity="0.8"/>
                 </svg>
               </div>
@@ -1568,8 +1427,8 @@
 
           </a><!-- /Journey Tracker -->
 
-          <!-- ── Coming Soon placeholder ── -->
-          <div class="product-card product-card--placeholder"
+          <!-- Coming Soon placeholder -->
+          <div class="product-card product-card--placeholder reveal d2"
                aria-label="Additional apps in development">
             <div>
               <div class="placeholder-circle" aria-hidden="true">
@@ -1583,7 +1442,6 @@
           </div>
 
         </div><!-- /products-grid -->
-
       </div><!-- /container -->
     </section>
 
@@ -1599,7 +1457,7 @@
         <div class="contact-grid">
 
           <!-- Left: info -->
-          <div>
+          <div class="reveal reveal-left">
             <p class="section-eyebrow">Get in Touch</p>
             <h2 class="section-title" id="contact-heading">Let's Connect</h2>
             <p class="section-lead">
@@ -1633,9 +1491,7 @@
                 </div>
                 <div class="method-body">
                   <h4>Journey Tracker Support</h4>
-                  <a href="https://journeytracker.app/#contact"
-                     target="_blank"
-                     rel="noopener noreferrer">
+                  <a href="https://journeytracker.app/#contact" target="_blank" rel="noopener noreferrer">
                     Visit journeytracker.app for app support →
                   </a>
                 </div>
@@ -1658,21 +1514,17 @@
           </div>
 
           <!-- Right: form -->
-          <div class="form-card">
+          <div class="form-card reveal reveal-right">
             <form id="contact-form" novalidate aria-label="Contact form">
 
               <div class="form-row">
                 <div class="form-group">
                   <label for="cf-name">Name</label>
-                  <input type="text" id="cf-name" name="name"
-                         placeholder="Your name"
-                         required autocomplete="name" />
+                  <input type="text" id="cf-name" name="name" placeholder="Your name" required autocomplete="name" />
                 </div>
                 <div class="form-group">
                   <label for="cf-email">Email</label>
-                  <input type="email" id="cf-email" name="email"
-                         placeholder="you@example.com"
-                         required autocomplete="email" />
+                  <input type="email" id="cf-email" name="email" placeholder="you@example.com" required autocomplete="email" />
                 </div>
               </div>
 
@@ -1689,9 +1541,7 @@
 
               <div class="form-group">
                 <label for="cf-message">Message</label>
-                <textarea id="cf-message" name="message"
-                          placeholder="Tell us about your inquiry…"
-                          required></textarea>
+                <textarea id="cf-message" name="message" placeholder="Tell us about your inquiry…" required></textarea>
               </div>
 
               <button type="submit" class="form-submit" id="form-submit-btn">
@@ -1710,7 +1560,7 @@
       </div><!-- /container -->
     </section>
 
-  </main><!-- /main -->
+  </main>
 
 
   <!-- ============================================================
@@ -1719,9 +1569,8 @@
   <footer role="contentinfo">
     <div class="footer-inner">
 
-      <div class="footer-top">
+      <div class="footer-top reveal">
 
-        <!-- Brand -->
         <div class="footer-brand">
           <a href="/" class="footer-logo" aria-label="Apex Development Studio — Home">
             <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -1737,7 +1586,6 @@
           </p>
         </div>
 
-        <!-- Link columns -->
         <div class="footer-cols">
 
           <div class="footer-col">
@@ -1752,44 +1600,28 @@
           <div class="footer-col">
             <h5>Products</h5>
             <ul>
-              <li>
-                <a href="https://journeytracker.app"
-                   target="_blank"
-                   rel="noopener noreferrer">Journey Tracker</a>
-              </li>
+              <li><a href="https://journeytracker.app" target="_blank" rel="noopener noreferrer">Journey Tracker</a></li>
             </ul>
           </div>
 
           <div class="footer-col">
             <h5>Legal</h5>
             <ul>
-              <li>
-                <a href="https://journeytracker.app/#privacy"
-                   target="_blank"
-                   rel="noopener noreferrer">Privacy Policy</a>
-              </li>
-              <li>
-                <a href="https://journeytracker.app/#terms"
-                   target="_blank"
-                   rel="noopener noreferrer">Terms of Service</a>
-              </li>
+              <li><a href="https://journeytracker.app/#privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a></li>
+              <li><a href="https://journeytracker.app/#terms"   target="_blank" rel="noopener noreferrer">Terms of Service</a></li>
             </ul>
           </div>
 
         </div><!-- /footer-cols -->
-
       </div><!-- /footer-top -->
 
       <div class="footer-bottom">
         <p class="footer-copy">
-          &copy; 2026 <a href="/">Apex Development Studio LLC</a>.
-          All rights reserved.
+          &copy; 2026 <a href="/">Apex Development Studio LLC</a>. All rights reserved.
         </p>
         <nav class="footer-legal" aria-label="Legal links">
-          <a href="https://journeytracker.app/#privacy"
-             target="_blank" rel="noopener noreferrer">Privacy</a>
-          <a href="https://journeytracker.app/#terms"
-             target="_blank" rel="noopener noreferrer">Terms</a>
+          <a href="https://journeytracker.app/#privacy" target="_blank" rel="noopener noreferrer">Privacy</a>
+          <a href="https://journeytracker.app/#terms"   target="_blank" rel="noopener noreferrer">Terms</a>
           <a href="mailto:contact@apexdevelopmentstudio.com">Contact</a>
         </nav>
       </div>
@@ -1800,26 +1632,24 @@
 
   <!-- ============================================================
        JAVASCRIPT
-       All vanilla JS — no external dependencies.
   ============================================================ -->
   <script>
     'use strict';
 
-    // ── 1. Sticky nav border on scroll ────────────────────────────
+    // ── 1. Sticky nav border on scroll ──────────────────────────────
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
       nav.classList.toggle('scrolled', window.scrollY > 8);
     }, { passive: true });
 
 
-    // ── 2. Mobile hamburger menu ───────────────────────────────────
+    // ── 2. Mobile hamburger menu ─────────────────────────────────────
     const hamburger  = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobile-menu');
 
     hamburger.addEventListener('click', () => {
       const isOpen = mobileMenu.classList.toggle('open');
       hamburger.setAttribute('aria-expanded', String(isOpen));
-
       const [top, mid, bot] = hamburger.querySelectorAll('span');
       if (isOpen) {
         top.style.cssText = 'transform:rotate(45deg) translate(5px,5px)';
@@ -1836,22 +1666,75 @@
       hamburger.querySelectorAll('span').forEach(s => (s.style.cssText = ''));
     }
 
-    // Close if user taps outside the nav/menu
     document.addEventListener('click', e => {
-      if (!nav.contains(e.target) && !mobileMenu.contains(e.target)) {
-        closeMobileMenu();
-      }
+      if (!nav.contains(e.target) && !mobileMenu.contains(e.target)) closeMobileMenu();
     });
 
 
-    // ── 3. Contact form (Formspree) ────────────────────────────────
+    // ── 3. Theme toggle (dark / light / system) ─────────────────────
+    const themeToggle = document.getElementById('theme-toggle');
+    const html        = document.documentElement;
+
+    const THEME_CYCLE = ['dark', 'light', 'system'];
+
+    const ICONS = {
+      dark: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>`,
+      light: `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`,
+      system: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>`
+    };
+
+    const NEXT_LABELS = {
+      dark:   'Switch to light mode',
+      light:  'Switch to system mode',
+      system: 'Switch to dark mode'
+    };
+
+    function getStoredTheme() {
+      return localStorage.getItem('apex-theme') || 'system';
+    }
+
+    function applyTheme(theme) {
+      if (theme === 'dark')       html.setAttribute('data-theme', 'dark');
+      else if (theme === 'light') html.setAttribute('data-theme', 'light');
+      else                        html.removeAttribute('data-theme');
+
+      localStorage.setItem('apex-theme', theme);
+      themeToggle.innerHTML = ICONS[theme];
+      themeToggle.setAttribute('aria-label', NEXT_LABELS[theme]);
+    }
+
+    themeToggle.addEventListener('click', () => {
+      const current = getStoredTheme();
+      const idx     = THEME_CYCLE.indexOf(current);
+      applyTheme(THEME_CYCLE[(idx + 1) % THEME_CYCLE.length]);
+    });
+
+    // Initialise
+    applyTheme(getStoredTheme());
+
+
+    // ── 4. Scroll reveal (IntersectionObserver) ──────────────────────
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold:  0.12,
+      rootMargin: '0px 0px -48px 0px'
+    });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+
+    // ── 5. Contact form (Formspree) ──────────────────────────────────
     //
     //  HOW TO ACTIVATE:
     //  1. Create a free account at https://formspree.io
-    //  2. Create a new form and copy your unique endpoint URL
-    //  3. Replace 'https://formspree.io/f/REPLACE_ME' below
-    //     with your real endpoint, e.g.:
-    //     'https://formspree.io/f/xpzgabcd'
+    //  2. Create a new form → copy your endpoint URL
+    //  3. Replace 'REPLACE_ME' below with your form ID
     //
     const FORMSPREE_ENDPOINT = 'https://formspree.io/f/REPLACE_ME';
 
@@ -1863,13 +1746,11 @@
       e.preventDefault();
       clearStatus();
 
-      // Gather values
       const name    = contactForm['name'].value.trim();
       const email   = contactForm['email'].value.trim();
       const subject = contactForm['subject'].value;
       const message = contactForm['message'].value.trim();
 
-      // Client-side validation
       if (!name || !email || !subject || !message) {
         showStatus('error', 'Please fill in all fields before sending.');
         return;
@@ -1881,8 +1762,7 @@
         return;
       }
 
-      // Disable + loading state
-      submitBtn.disabled = true;
+      submitBtn.disabled    = true;
       submitBtn.textContent = 'Sending…';
 
       try {
@@ -1893,37 +1773,32 @@
         });
 
         if (res.ok) {
-          showStatus('success', '✓ Message sent! We\'ll be in touch soon.');
+          showStatus('success', "✓ Message sent! We'll be in touch soon.");
           contactForm.reset();
         } else {
           const data = await res.json().catch(() => ({}));
           throw new Error(data?.error || 'Server returned an error.');
         }
       } catch (err) {
-        showStatus(
-          'error',
-          'Something went wrong. Please email us directly at ' +
-          'contact@apexdevelopmentstudio.com'
-        );
+        showStatus('error', 'Something went wrong. Please email us directly at contact@apexdevelopmentstudio.com');
         console.error('[Contact form]', err);
       } finally {
         submitBtn.disabled = false;
         submitBtn.innerHTML =
           'Send Message ' +
           '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">' +
-          '<path d="M2 8h12M9 4l4 4-4 4" stroke="currentColor" ' +
-          'stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+          '<path d="M2 8h12M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>';
       }
     });
 
     function showStatus(type, msg) {
-      statusEl.className = 'form-status ' + type;
+      statusEl.className  = 'form-status ' + type;
       statusEl.textContent = msg;
       statusEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
     function clearStatus() {
-      statusEl.className = 'form-status';
+      statusEl.className   = 'form-status';
       statusEl.textContent = '';
     }
   </script>
