@@ -1,0 +1,8 @@
+# robots.txt — Apex Development Studio (apexdevelopmentstudio.com)
+# Allow all crawlers full access to the site.
+# Sitemap reference tells crawlers where to find the sitemap.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://apexdevelopmentstudio.com/sitemap.xml
