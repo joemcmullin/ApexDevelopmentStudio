@@ -19,8 +19,6 @@
     script-src 'self' 'unsafe-inline';
     style-src 'self' 'unsafe-inline';
     img-src 'self' data:;
-    connect-src https://formspree.io;
-    form-action https://formspree.io 'self';
     frame-ancestors 'none';
     base-uri 'self';
     object-src 'none';
@@ -1772,20 +1770,18 @@
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
 
-    // ── 5. Contact form (Formspree) ──────────────────────────────────
-    //
-    //  HOW TO ACTIVATE:
-    //  1. Create a free account at https://formspree.io
-    //  2. Create a new form → copy your endpoint URL
-    //  3. Replace 'REPLACE_ME' below with your form ID
-    //
-    const FORMSPREE_ENDPOINT = 'https://formspree.io/f/REPLACE_ME';
+    // ── 5. Contact form — mailto direct ─────────────────────────────
+    //  Validates fields, builds a pre-filled mailto: URL, and opens
+    //  the user's default email client addressed to Proton Mail.
+    //  No third-party services or network requests required.
+
+    const CONTACT_EMAIL = 'apexdevstudio@proton.me';
 
     const contactForm = document.getElementById('contact-form');
     const submitBtn   = document.getElementById('form-submit-btn');
     const statusEl    = document.getElementById('form-status');
 
-    contactForm.addEventListener('submit', async e => {
+    contactForm.addEventListener('submit', e => {
       e.preventDefault();
       clearStatus();
 
@@ -1794,6 +1790,7 @@
       const subject = contactForm['subject'].value;
       const message = contactForm['message'].value.trim();
 
+      // Validation
       if (!name || !email || !subject || !message) {
         showStatus('error', 'Please fill in all fields before sending.');
         return;
@@ -1805,37 +1802,28 @@
         return;
       }
 
-      submitBtn.disabled    = true;
-      submitBtn.textContent = 'Sending…';
+      // Build pre-filled mailto URL
+      const subjectLine = `[${subject}] Message from ${name}`;
+      const body =
+        `Name: ${name}\n` +
+        `Email: ${email}\n` +
+        `Subject: ${subject}\n` +
+        `\n${message}`;
 
-      try {
-        const res = await fetch(FORMSPREE_ENDPOINT, {
-          method:  'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body:    JSON.stringify({ name, email, subject, message })
-        });
+      const mailtoUrl =
+        `mailto:${CONTACT_EMAIL}` +
+        `?subject=${encodeURIComponent(subjectLine)}` +
+        `&body=${encodeURIComponent(body)}`;
 
-        if (res.ok) {
-          showStatus('success', "✓ Message sent! We'll be in touch soon.");
-          contactForm.reset();
-        } else {
-          const data = await res.json().catch(() => ({}));
-          throw new Error(data?.error || 'Server returned an error.');
-        }
-      } catch (err) {
-        showStatus('error', 'Something went wrong. Please email us directly at apexdevstudio@proton.me');
-        console.error('[Contact form]', err);
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML =
-          'Send Message ' +
-          '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">' +
-          '<path d="M2 8h12M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-      }
+      // Open email client
+      window.location.href = mailtoUrl;
+
+      showStatus('success', '✓ Your email client is opening with the message pre-filled. Just hit Send!');
+      contactForm.reset();
     });
 
     function showStatus(type, msg) {
-      statusEl.className  = 'form-status ' + type;
+      statusEl.className   = 'form-status ' + type;
       statusEl.textContent = msg;
       statusEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
