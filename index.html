@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Anti-FOUC: apply stored theme before first paint -->
+  <!-- Anti-FOUC: apply stored theme before first paint.
+       Default when nothing stored = 'light' (explicit attr blocks system-dark media query). -->
   <script>
     (function(){
-      var t = localStorage.getItem('apex-theme');
-      if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+      var t = localStorage.getItem('apex-theme') || 'light';
+      var d = document.documentElement;
+      if (t === 'dark')  d.setAttribute('data-theme', 'dark');
+      else               d.setAttribute('data-theme', 'light'); /* explicit light blocks OS-dark override */
     })();
   </script>
 
@@ -26,8 +29,8 @@
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta http-equiv="X-Content-Type-Options" content="nosniff" />
 
-  <title>Apex Development Studio — Independent iOS App Studio</title>
-  <meta name="description" content="Apex Development Studio LLC is an independent Apple platform studio crafting thoughtful, privacy-first iOS apps for iPhone, iPad, and Mac. Makers of Journey Tracker." />
+  <title>Apex Development Studio — Independent Software Studio</title>
+  <meta name="description" content="Apex Development Studio LLC is an independent software studio crafting thoughtful, privacy-first applications. We build native apps and beyond — software that genuinely helps people. Makers of Journey Tracker." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://apexdevelopmentstudio.com/" />
   <meta name="author" content="Apex Development Studio LLC" />
@@ -35,11 +38,11 @@
   <meta property="og:type"        content="website" />
   <meta property="og:url"         content="https://apexdevelopmentstudio.com/" />
   <meta property="og:site_name"   content="Apex Development Studio" />
-  <meta property="og:title"       content="Apex Development Studio — Independent iOS App Studio" />
-  <meta property="og:description" content="Independent Apple platform studio crafting thoughtful, privacy-first iOS apps for iPhone, iPad, and Mac." />
+  <meta property="og:title"       content="Apex Development Studio — Independent Software Studio" />
+  <meta property="og:description" content="Independent software studio crafting thoughtful, privacy-first applications built with precision and care." />
   <meta name="twitter:card"        content="summary" />
   <meta name="twitter:title"       content="Apex Development Studio" />
-  <meta name="twitter:description" content="Independent iOS app studio crafting thoughtful, privacy-first apps for iPhone, iPad, and Mac." />
+  <meta name="twitter:description" content="Independent software studio crafting thoughtful, privacy-first applications built with precision and care." />
 
   <script type="application/ld+json">
   {
@@ -48,7 +51,7 @@
     "name": "Apex Development Studio LLC",
     "url": "https://apexdevelopmentstudio.com/",
     "logo": "https://apexdevelopmentstudio.com/favicon.svg",
-    "description": "Independent Apple platform studio crafting thoughtful, privacy-first iOS applications for iPhone, iPad, and Mac.",
+    "description": "Independent software studio crafting thoughtful, privacy-first applications built with precision and care.",
     "contactPoint": {
       "@type": "ContactPoint",
       "contactType": "customer support",
@@ -66,32 +69,45 @@
 
   <style>
     /* ============================================================
-       DESIGN TOKENS — DARK MODE (default)
+       DESIGN TOKENS — LIGHT MODE (default)
     ============================================================ */
     :root {
-      color-scheme: dark;
+      color-scheme: light;
 
+      /* Brand */
       --crimson:        #C0182E;
       --crimson-dark:   #8B0015;
       --crimson-light:  #E03A50;
-      --crimson-glow:   rgba(192, 24, 46, 0.10);
-      --crimson-border: rgba(192, 24, 46, 0.28);
+      --crimson-glow:   rgba(192, 24, 46, 0.07);
+      --crimson-border: rgba(192, 24, 46, 0.22);
+      --purple:         #9B1DB5;
 
-      --bg:             #111115;   /* rich charcoal — softer than near-black */
-      --bg-surface:     #17171C;
-      --bg-card:        #1F1F27;
-      --bg-card-hover:  #26262F;
+      /* Gradient accent — same in both modes */
+      --grad-accent:    linear-gradient(135deg, #E03A50 0%, #C0182E 45%, #9B1DB5 100%);
+      --grad-btn:       linear-gradient(135deg, #C0182E 0%, #8B0DD4 100%);
 
-      --border:         rgba(255, 255, 255, 0.07);
-      --border-strong:  rgba(255, 255, 255, 0.12);
+      /* Backgrounds */
+      --bg:             #F2F3F5;
+      --bg-surface:     #E6E8EC;
+      --bg-card:        #FFFFFF;
+      --bg-card-solid:  #FFFFFF;
+      --bg-card-hover:  #FAFAFA;
+      --bg-form-input:  #F8F8FA;
 
-      --text-hi:        #F5F5F7;
-      --text-mid:       #AEAEB2;
-      --text-lo:        #6E6E73;
+      /* Borders */
+      --border:         rgba(0, 0, 0, 0.07);
+      --border-strong:  rgba(0, 0, 0, 0.13);
 
-      --nav-bg:         rgba(13, 13, 15, 0.85);
-      --mobile-menu-bg: #131316;
+      /* Text */
+      --text-hi:        #0D0D0F;
+      --text-mid:       #3A3A3F;
+      --text-lo:        #9A9A9F;
 
+      /* Navigation */
+      --nav-bg:         rgba(242, 243, 245, 0.92);
+      --mobile-menu-bg: #E6E8EC;
+
+      /* Layout */
       --nav-h:          64px;
       --pad-section:    96px;
       --r-sm:           8px;
@@ -99,74 +115,70 @@
       --r-lg:           20px;
       --r-xl:           28px;
       --font:           -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-      --shadow-card:    0 4px 32px rgba(0, 0, 0, 0.45), 0 1px 4px rgba(0, 0, 0, 0.3);
-      --shadow-crimson: 0 6px 32px rgba(192, 24, 46, 0.35);
-    }
 
-    /* ============================================================
-       DESIGN TOKENS — LIGHT MODE (explicit: data-theme="light")
-
-       Design rationale:
-         • Canvas (#F2F3F5) is a cool off-white — airy, not blinding white
-         • Surface (#E6E8EC) gives section rhythm/depth
-         • Cards (#FFFFFF) pop off the canvas with real shadow depth
-         • --text-lo (#9A9A9F) IS the #999-family grey — it appears in
-           subtext, labels, borders, and chips so grey is present but
-           purposeful rather than overwhelming as a background colour
-         • Crimson reads boldly against the light canvas
-    ============================================================ */
-    [data-theme="light"] {
-      color-scheme: light;
-
-      --crimson-glow:   rgba(192, 24, 46, 0.07);
-      --crimson-border: rgba(192, 24, 46, 0.22);
-
-      --bg:             #F2F3F5;   /* cool off-white canvas               */
-      --bg-surface:     #E6E8EC;   /* slightly deeper — alternating sects  */
-      --bg-card:        #FFFFFF;   /* pure white cards — float above canvas */
-      --bg-card-hover:  #FAFAFA;
-
-      --border:         rgba(0, 0, 0, 0.07);
-      --border-strong:  rgba(0, 0, 0, 0.13);
-
-      --text-hi:        #0D0D0F;
-      --text-mid:       #3A3A3F;
-      --text-lo:        #9A9A9F;   /* ← #999-family grey lives here        */
-
-      --nav-bg:         rgba(242, 243, 245, 0.92);
-      --mobile-menu-bg: #E6E8EC;
-
+      /* Shadows */
       --shadow-card:    0 2px 16px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.05);
       --shadow-crimson: 0 6px 28px rgba(192, 24, 46, 0.22);
     }
 
     /* ============================================================
-       DESIGN TOKENS — SYSTEM LIGHT (follows OS preference)
+       DESIGN TOKENS — DARK MODE (cinematic)
     ============================================================ */
-    @media (prefers-color-scheme: light) {
+    [data-theme="dark"] {
+      color-scheme: dark;
+
+      --crimson-glow:   rgba(192, 24, 46, 0.13);
+      --crimson-border: rgba(192, 24, 46, 0.35);
+
+      --grad-btn:       linear-gradient(135deg, #C0182E 0%, #9B1DB5 100%);
+
+      /* Deep blue-black void */
+      --bg:             #07070F;
+      --bg-surface:     #0C0C1A;
+      --bg-card:        rgba(255, 255, 255, 0.035);
+      --bg-card-solid:  #111126;
+      --bg-card-hover:  rgba(255, 255, 255, 0.062);
+      --bg-form-input:  #0E0E22;
+
+      --border:         rgba(255, 255, 255, 0.06);
+      --border-strong:  rgba(255, 255, 255, 0.11);
+
+      --text-hi:        #EFEFFA;
+      --text-mid:       #9292B4;
+      --text-lo:        #565672;
+
+      --nav-bg:         rgba(7, 7, 15, 0.82);
+      --mobile-menu-bg: #0C0C1A;
+
+      --shadow-card:    0 8px 56px rgba(0, 0, 0, 0.70), 0 2px 10px rgba(0, 0, 0, 0.5);
+      --shadow-crimson: 0 8px 48px rgba(192, 24, 46, 0.55), 0 2px 16px rgba(155, 29, 181, 0.22);
+    }
+
+    /* ============================================================
+       SYSTEM DARK PREFERENCE — tokens only
+       (element-level cinematic effects only apply to explicit [data-theme="dark"])
+    ============================================================ */
+    @media (prefers-color-scheme: dark) {
       :root:not([data-theme="dark"]):not([data-theme="light"]) {
-        color-scheme: light;
-
-        --crimson-glow:   rgba(192, 24, 46, 0.07);
-        --crimson-border: rgba(192, 24, 46, 0.22);
-
-        --bg:             #F2F3F5;
-        --bg-surface:     #E6E8EC;
-        --bg-card:        #FFFFFF;
-        --bg-card-hover:  #FAFAFA;
-
-        --border:         rgba(0, 0, 0, 0.07);
-        --border-strong:  rgba(0, 0, 0, 0.13);
-
-        --text-hi:        #0D0D0F;
-        --text-mid:       #3A3A3F;
-        --text-lo:        #9A9A9F;
-
-        --nav-bg:         rgba(242, 243, 245, 0.92);
-        --mobile-menu-bg: #E6E8EC;
-
-        --shadow-card:    0 2px 16px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.05);
-        --shadow-crimson: 0 6px 28px rgba(192, 24, 46, 0.22);
+        color-scheme: dark;
+        --crimson-glow:   rgba(192, 24, 46, 0.13);
+        --crimson-border: rgba(192, 24, 46, 0.35);
+        --grad-btn:       linear-gradient(135deg, #C0182E 0%, #9B1DB5 100%);
+        --bg:             #07070F;
+        --bg-surface:     #0C0C1A;
+        --bg-card:        rgba(255, 255, 255, 0.035);
+        --bg-card-solid:  #111126;
+        --bg-card-hover:  rgba(255, 255, 255, 0.062);
+        --bg-form-input:  #0E0E22;
+        --border:         rgba(255, 255, 255, 0.06);
+        --border-strong:  rgba(255, 255, 255, 0.11);
+        --text-hi:        #EFEFFA;
+        --text-mid:       #9292B4;
+        --text-lo:        #565672;
+        --nav-bg:         rgba(7, 7, 15, 0.82);
+        --mobile-menu-bg: #0C0C1A;
+        --shadow-card:    0 8px 56px rgba(0, 0, 0, 0.70), 0 2px 10px rgba(0, 0, 0, 0.5);
+        --shadow-crimson: 0 8px 48px rgba(192, 24, 46, 0.55), 0 2px 16px rgba(155, 29, 181, 0.22);
       }
     }
 
@@ -208,16 +220,16 @@
     ============================================================ */
     .reveal {
       opacity: 0;
-      transform: translateY(32px);
+      transform: translateY(36px);
       transition:
-        opacity  0.75s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-        transform 0.75s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        opacity  0.85s cubic-bezier(0.22, 0.61, 0.36, 1),
+        transform 0.85s cubic-bezier(0.22, 0.61, 0.36, 1);
       will-change: opacity, transform;
     }
 
-    .reveal-left  { transform: translateX(-40px); }
-    .reveal-right { transform: translateX(40px); }
-    .reveal-scale { transform: scale(0.92) translateY(16px); }
+    .reveal-left  { transform: translateX(-48px); }
+    .reveal-right { transform: translateX(48px); }
+    .reveal-scale { transform: scale(0.90) translateY(20px); }
     .reveal-fade  { transform: none; }
 
     .reveal.in-view {
@@ -225,31 +237,52 @@
       transform: none !important;
     }
 
-    /* Stagger delays */
     .d1 { transition-delay: 0.08s; }
     .d2 { transition-delay: 0.16s; }
-    .d3 { transition-delay: 0.24s; }
-    .d4 { transition-delay: 0.32s; }
-    .d5 { transition-delay: 0.42s; }
+    .d3 { transition-delay: 0.26s; }
+    .d4 { transition-delay: 0.36s; }
+    .d5 { transition-delay: 0.46s; }
 
     /* ============================================================
-       HERO ENTRANCE ANIMATIONS (load-time, not scroll)
+       HERO ENTRANCE ANIMATIONS
     ============================================================ */
     @keyframes heroFadeUp {
-      from { opacity: 0; transform: translateY(22px); }
+      from { opacity: 0; transform: translateY(28px); }
       to   { opacity: 1; transform: none; }
     }
-
     @keyframes heroFadeIn {
       from { opacity: 0; }
       to   { opacity: 1; }
     }
 
-    .hero-eyebrow     { animation: heroFadeUp 0.7s 0.10s cubic-bezier(0.25,0.46,0.45,0.94) both; }
-    .hero-title       { animation: heroFadeUp 0.7s 0.26s cubic-bezier(0.25,0.46,0.45,0.94) both; }
-    .hero-description { animation: heroFadeUp 0.7s 0.42s cubic-bezier(0.25,0.46,0.45,0.94) both; }
-    .hero-actions     { animation: heroFadeUp 0.7s 0.56s cubic-bezier(0.25,0.46,0.45,0.94) both; }
-    .hero-scroll      { animation: heroFadeIn 0.7s 0.90s ease both; }
+    .hero-eyebrow     { animation: heroFadeUp 0.8s 0.10s cubic-bezier(0.22,0.61,0.36,1) both; }
+    .hero-title       { animation: heroFadeUp 0.8s 0.28s cubic-bezier(0.22,0.61,0.36,1) both; }
+    .hero-description { animation: heroFadeUp 0.8s 0.46s cubic-bezier(0.22,0.61,0.36,1) both; }
+    .hero-actions     { animation: heroFadeUp 0.8s 0.62s cubic-bezier(0.22,0.61,0.36,1) both; }
+    .hero-scroll      { animation: heroFadeIn 0.8s 1.00s ease both; }
+
+    /* ============================================================
+       ORB & MISC KEYFRAMES
+    ============================================================ */
+    @keyframes orbCrimson {
+      0%, 100% { transform: translate(-50%, -50%) scale(1);    opacity: 0.75; }
+      50%       { transform: translate(-53%, -57%) scale(1.18); opacity: 1; }
+    }
+    @keyframes orbPurple {
+      0%, 100% { transform: translate(-50%, -50%) scale(1.08); opacity: 0.60; }
+      33%       { transform: translate(-44%, -44%) scale(0.92); opacity: 0.85; }
+      66%       { transform: translate(-55%, -52%) scale(1.12); opacity: 0.70; }
+    }
+    @keyframes dotPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.35; transform: scale(0.70); }
+    }
+    @keyframes scrollDrop {
+      0%   { transform: scaleY(0); transform-origin: top;    opacity: 0; }
+      45%  { transform: scaleY(1); transform-origin: top;    opacity: 1; }
+      55%  { transform: scaleY(1); transform-origin: bottom; opacity: 1; }
+      100% { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
+    }
 
     /* ============================================================
        NAVIGATION
@@ -266,10 +299,14 @@
       backdrop-filter: blur(24px) saturate(180%);
       -webkit-backdrop-filter: blur(24px) saturate(180%);
       border-bottom: 1px solid var(--border);
-      transition: border-color 0.3s, background 0.3s;
+      transition: border-color 0.3s, background 0.3s, box-shadow 0.3s;
     }
 
     .nav.scrolled { border-bottom-color: var(--border-strong); }
+
+    [data-theme="dark"] .nav.scrolled {
+      box-shadow: 0 1px 32px rgba(0, 0, 0, 0.5);
+    }
 
     .nav-inner {
       display: flex;
@@ -290,8 +327,23 @@
     .nav-logo-mark { width: 32px; height: 32px; flex-shrink: 0; }
 
     .nav-wordmark        { display: flex; flex-direction: column; }
-    .nav-wordmark-name   { font-size: 0.875rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-hi); line-height: 1.15; }
-    .nav-wordmark-sub    { font-size: 0.62rem;  font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-lo); }
+    .nav-wordmark-name   {
+      font-size: 0.875rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-hi);
+      line-height: 1.15;
+    }
+    .nav-wordmark-sub    { font-size: 0.62rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-lo); }
+
+    /* Dark: wordmark name becomes gradient text */
+    [data-theme="dark"] .nav-wordmark-name {
+      background: var(--grad-accent);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
 
     .nav-right {
       display: flex;
@@ -318,22 +370,24 @@
     .nav-links a:hover { color: var(--text-hi); }
 
     .nav-cta {
-      background: var(--crimson) !important;
+      background: var(--grad-btn) !important;
       color: #fff !important;
       padding: 8px 20px !important;
       border-radius: 20px !important;
       font-size: 0.8rem !important;
       font-weight: 700 !important;
       letter-spacing: 0.05em !important;
-      transition: background 0.2s, transform 0.15s !important;
+      transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s !important;
+      box-shadow: 0 2px 16px rgba(192, 24, 46, 0.28) !important;
     }
 
     .nav-cta:hover {
-      background: var(--crimson-light) !important;
+      opacity: 0.88 !important;
       transform: translateY(-1px) !important;
+      box-shadow: 0 4px 24px rgba(192, 24, 46, 0.42) !important;
     }
 
-    /* ── Theme toggle button ── */
+    /* Theme toggle */
     .theme-toggle {
       width: 36px;
       height: 36px;
@@ -344,7 +398,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background 0.2s, border-color 0.2s, transform 0.15s;
+      transition: background 0.2s, border-color 0.2s, transform 0.15s, box-shadow 0.2s;
       color: var(--text-mid);
       padding: 0;
       flex-shrink: 0;
@@ -357,6 +411,10 @@
       transform: translateY(-1px);
     }
 
+    [data-theme="dark"] .theme-toggle:hover {
+      box-shadow: 0 0 12px rgba(192, 24, 46, 0.22);
+    }
+
     .theme-toggle svg {
       width: 16px;
       height: 16px;
@@ -367,7 +425,7 @@
       stroke-linejoin: round;
     }
 
-    /* Hamburger (mobile only) */
+    /* Hamburger */
     .nav-hamburger {
       display: none;
       flex-direction: column;
@@ -429,61 +487,98 @@
       padding: calc(var(--nav-h) + 48px) 24px 80px;
       position: relative;
       overflow: hidden;
-      background: var(--bg);
+      background: var(--bg-surface);
       transition: background 0.3s;
     }
 
+    [data-theme="dark"] .hero { background: var(--bg); }
+
+    /* Subtle grid overlay — light default */
     .hero::before {
       content: '';
       position: absolute;
       inset: 0;
       background-image:
-        linear-gradient(rgba(192, 24, 46, 0.045) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(192, 24, 46, 0.045) 1px, transparent 1px);
-      background-size: 52px 52px;
-      mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, black 30%, transparent 100%);
-      -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, black 30%, transparent 100%);
+        linear-gradient(rgba(192, 24, 46, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(192, 24, 46, 0.07) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: radial-gradient(ellipse 85% 75% at 50% 50%, black 25%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 85% 75% at 50% 50%, black 25%, transparent 100%);
     }
 
-    .hero::after {
-      content: '';
+    /* Dark: grid — boosted opacity so lines are visible on near-black */
+    [data-theme="dark"] .hero::before {
+      background-image:
+        linear-gradient(rgba(192, 24, 46, 0.22) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(192, 24, 46, 0.22) 1px, transparent 1px);
+      mask-image: radial-gradient(ellipse 92% 82% at 50% 50%, black 35%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 92% 82% at 50% 50%, black 35%, transparent 100%);
+    }
+
+    /* Orbs — light default: subtle */
+    .hero-orb {
       position: absolute;
-      width: 800px;
-      height: 800px;
       border-radius: 50%;
+      pointer-events: none;
+      will-change: transform, opacity;
+    }
+
+    .hero-orb--crimson {
+      width: 900px;
+      height: 900px;
       background: radial-gradient(circle, rgba(192, 24, 46, 0.10) 0%, transparent 68%);
-      top: 50%;
+      top: 48%;
       left: 50%;
       transform: translate(-50%, -50%);
-      pointer-events: none;
+      animation: orbCrimson 11s ease-in-out infinite;
+    }
+
+    .hero-orb--purple {
+      width: 650px;
+      height: 650px;
+      background: radial-gradient(circle, rgba(155, 29, 181, 0.07) 0%, transparent 68%);
+      top: 55%;
+      left: 56%;
+      transform: translate(-50%, -50%);
+      animation: orbPurple 15s ease-in-out infinite;
+    }
+
+    /* Dark: stronger orbs */
+    [data-theme="dark"] .hero-orb--crimson {
+      background: radial-gradient(circle, rgba(192, 24, 46, 0.22) 0%, rgba(192, 24, 46, 0.08) 40%, transparent 68%);
+    }
+    [data-theme="dark"] .hero-orb--purple {
+      background: radial-gradient(circle, rgba(155, 29, 181, 0.18) 0%, rgba(155, 29, 181, 0.06) 45%, transparent 68%);
     }
 
     .hero-content {
       position: relative;
       z-index: 1;
-      max-width: 860px;
+      max-width: 900px;
     }
 
+    /* Eyebrow — light default */
     .hero-eyebrow {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: var(--crimson-glow);
-      border: 1px solid var(--crimson-border);
+      background: rgba(192, 24, 46, 0.07);
+      border: 1px solid rgba(192, 24, 46, 0.22);
       border-radius: 20px;
       padding: 7px 18px;
       font-size: 0.72rem;
       font-weight: 700;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--crimson-light);
-      margin-bottom: 32px;
+      color: var(--crimson);
+      margin-bottom: 36px;
     }
 
-    [data-theme="light"] .hero-eyebrow { color: var(--crimson); }
-
-    @media (prefers-color-scheme: light) {
-      :root:not([data-theme="dark"]):not([data-theme="light"]) .hero-eyebrow { color: var(--crimson); }
+    /* Dark: gradient eyebrow */
+    [data-theme="dark"] .hero-eyebrow {
+      background: linear-gradient(135deg, rgba(192, 24, 46, 0.14), rgba(155, 29, 181, 0.10));
+      border-color: rgba(192, 24, 46, 0.35);
+      color: var(--crimson-light);
     }
 
     .hero-eyebrow-dot {
@@ -494,28 +589,36 @@
       animation: dotPulse 2.2s ease-in-out infinite;
     }
 
-    @keyframes dotPulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50%       { opacity: 0.4; transform: scale(0.75); }
+    [data-theme="dark"] .hero-eyebrow-dot {
+      box-shadow: 0 0 6px rgba(192, 24, 46, 0.8);
     }
 
     .hero-title {
-      font-size: clamp(2.8rem, 7.5vw, 5.8rem);
+      font-size: clamp(3rem, 8vw, 6.5rem);
       font-weight: 800;
-      letter-spacing: -0.03em;
-      line-height: 1.04;
+      letter-spacing: -0.035em;
+      line-height: 1.02;
       color: var(--text-hi);
-      margin-bottom: 28px;
+      margin-bottom: 32px;
     }
 
+    /* Light: solid crimson accent */
     .hero-title .accent { color: var(--crimson); }
+
+    /* Dark: gradient accent text */
+    [data-theme="dark"] .hero-title .accent {
+      background: var(--grad-accent);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
 
     .hero-description {
       font-size: clamp(1rem, 2.2vw, 1.2rem);
-      line-height: 1.75;
+      line-height: 1.78;
       color: var(--text-mid);
-      max-width: 620px;
-      margin: 0 auto 44px;
+      max-width: 640px;
+      margin: 0 auto 48px;
     }
 
     .hero-actions {
@@ -532,24 +635,25 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: var(--crimson);
+      background: var(--grad-btn);
       color: #fff;
       text-decoration: none;
       font-size: 0.95rem;
       font-weight: 700;
-      padding: 14px 28px;
+      padding: 14px 30px;
       border-radius: var(--r-md);
       letter-spacing: 0.02em;
-      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-      box-shadow: 0 4px 24px rgba(192, 24, 46, 0.30);
+      transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 24px rgba(192, 24, 46, 0.32);
     }
 
     .btn-primary:hover {
-      background: var(--crimson-light);
+      opacity: 0.88;
       transform: translateY(-2px);
       box-shadow: var(--shadow-crimson);
     }
 
+    /* Light ghost: clean border */
     .btn-ghost {
       display: inline-flex;
       align-items: center;
@@ -559,48 +663,28 @@
       text-decoration: none;
       font-size: 0.95rem;
       font-weight: 500;
-      padding: 14px 28px;
+      padding: 14px 30px;
       border-radius: var(--r-md);
       border: 1px solid var(--border-strong);
       letter-spacing: 0.02em;
-      transition: color 0.2s, border-color 0.2s, transform 0.15s;
+      transition: color 0.2s, border-color 0.2s, background 0.2s, transform 0.15s;
     }
 
     .btn-ghost:hover {
       color: var(--text-hi);
-      border-color: rgba(255, 255, 255, 0.24);
+      border-color: rgba(0, 0, 0, 0.28);
       transform: translateY(-2px);
     }
 
-    [data-theme="light"] .btn-ghost:hover { border-color: rgba(0,0,0,0.28); }
-
-    /* Light mode hero — lighter canvas + visible crimson grid */
-    [data-theme="light"] .hero,
-    [data-theme="light"] .hero::before {
-      background-color: var(--bg-surface);
+    /* Dark ghost: glass */
+    [data-theme="dark"] .btn-ghost {
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
     }
-    [data-theme="light"] .hero::before {
-      background-image:
-        linear-gradient(rgba(192, 24, 46, 0.07) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(192, 24, 46, 0.07) 1px, transparent 1px);
-    }
-    [data-theme="light"] .hero::after {
-      background: radial-gradient(circle, rgba(192, 24, 46, 0.08) 0%, transparent 68%);
-    }
-
-    @media (prefers-color-scheme: light) {
-      :root:not([data-theme="dark"]):not([data-theme="light"]) .hero,
-      :root:not([data-theme="dark"]):not([data-theme="light"]) .hero::before {
-        background-color: var(--bg-surface);
-      }
-      :root:not([data-theme="dark"]):not([data-theme="light"]) .hero::before {
-        background-image:
-          linear-gradient(rgba(192, 24, 46, 0.07) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(192, 24, 46, 0.07) 1px, transparent 1px);
-      }
-      :root:not([data-theme="dark"]):not([data-theme="light"]) .hero::after {
-        background: radial-gradient(circle, rgba(192, 24, 46, 0.08) 0%, transparent 68%);
-      }
+    [data-theme="dark"] .btn-ghost:hover {
+      background: rgba(255, 255, 255, 0.07);
+      border-color: rgba(255, 255, 255, 0.24);
     }
 
     /* Scroll indicator */
@@ -615,22 +699,15 @@
       gap: 8px;
       color: var(--text-lo);
       font-size: 0.66rem;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
     }
 
     .hero-scroll-line {
       width: 1px;
-      height: 40px;
-      background: linear-gradient(to bottom, var(--crimson) 0%, transparent 100%);
-      animation: scrollDrop 2.4s ease-in-out infinite;
-    }
-
-    @keyframes scrollDrop {
-      0%   { transform: scaleY(0); transform-origin: top;    opacity: 0; }
-      45%  { transform: scaleY(1); transform-origin: top;    opacity: 1; }
-      55%  { transform: scaleY(1); transform-origin: bottom; opacity: 1; }
-      100% { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
+      height: 44px;
+      background: linear-gradient(to bottom, var(--crimson) 0%, rgba(155, 29, 181, 0.3) 70%, transparent 100%);
+      animation: scrollDrop 2.6s ease-in-out infinite;
     }
 
     /* ============================================================
@@ -643,24 +720,24 @@
     .section-eyebrow {
       font-size: 0.68rem;
       font-weight: 700;
-      letter-spacing: 0.20em;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--crimson);
       margin-bottom: 12px;
     }
 
     .section-title {
-      font-size: clamp(2rem, 4vw, 3rem);
+      font-size: clamp(2rem, 4vw, 3.2rem);
       font-weight: 800;
-      letter-spacing: -0.025em;
-      line-height: 1.1;
+      letter-spacing: -0.028em;
+      line-height: 1.08;
       color: var(--text-hi);
       margin-bottom: 20px;
     }
 
     .section-lead {
       font-size: 1.05rem;
-      line-height: 1.72;
+      line-height: 1.75;
       color: var(--text-mid);
       max-width: 560px;
     }
@@ -668,8 +745,13 @@
     hr.divider {
       height: 1px;
       border: none;
-      background: linear-gradient(90deg, transparent, var(--border-strong) 30%, var(--border-strong) 70%, transparent);
+      background: var(--border-strong);
       margin: 0;
+    }
+
+    /* Dark: gradient divider */
+    [data-theme="dark"] hr.divider {
+      background: linear-gradient(90deg, transparent, var(--crimson-border) 30%, rgba(155, 29, 181, 0.25) 70%, transparent);
     }
 
     /* ============================================================
@@ -677,16 +759,36 @@
     ============================================================ */
     .about { background: var(--bg-surface); }
 
+    /* Dark: add subtle glow via ::after */
+    [data-theme="dark"] .about {
+      position: relative;
+      overflow: hidden;
+    }
+
+    [data-theme="dark"] .about::after {
+      content: '';
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(155, 29, 181, 0.06) 0%, transparent 68%);
+      top: 20%;
+      right: -100px;
+      pointer-events: none;
+    }
+
     .about-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 80px;
       align-items: start;
+      position: relative;
+      z-index: 1;
     }
 
     .about-body p {
       font-size: 1.05rem;
-      line-height: 1.82;
+      line-height: 1.84;
       color: var(--text-mid);
       margin-bottom: 22px;
     }
@@ -694,8 +796,9 @@
     .about-body p:last-child { margin-bottom: 0; }
     .about-body strong { color: var(--text-hi); font-weight: 600; }
 
-    .values-stack { display: flex; flex-direction: column; gap: 16px; }
+    .values-stack { display: flex; flex-direction: column; gap: 14px; }
 
+    /* Value cards — light default: solid white */
     .value-card {
       display: flex;
       gap: 16px;
@@ -704,13 +807,23 @@
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: var(--r-md);
-      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s, background 0.3s;
     }
 
     .value-card:hover {
       border-color: var(--crimson-border);
-      transform: translateX(6px);
+      transform: translateX(8px);
       box-shadow: var(--shadow-card);
+    }
+
+    /* Dark: glass value cards */
+    [data-theme="dark"] .value-card {
+      backdrop-filter: blur(16px) saturate(150%);
+      -webkit-backdrop-filter: blur(16px) saturate(150%);
+    }
+    [data-theme="dark"] .value-card:hover {
+      background: var(--bg-card-hover);
+      box-shadow: var(--shadow-card), 0 0 0 1px rgba(192, 24, 46, 0.12);
     }
 
     .value-icon-wrap {
@@ -728,7 +841,7 @@
     .value-icon-wrap svg { width: 17px; height: 17px; stroke: var(--crimson); }
 
     .value-body h4 { font-size: 0.875rem; font-weight: 700; color: var(--text-hi); margin-bottom: 4px; }
-    .value-body p  { font-size: 0.82rem; line-height: 1.5; color: var(--text-lo); }
+    .value-body p  { font-size: 0.82rem; line-height: 1.52; color: var(--text-lo); }
 
     /* ============================================================
        STATS BAR
@@ -737,8 +850,29 @@
       background: var(--bg-card);
       border-top:    1px solid var(--border);
       border-bottom: 1px solid var(--border);
-      padding: 56px 24px;
+      padding: 60px 24px;
       transition: background 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Dark: glass stats bar */
+    [data-theme="dark"] .stats-bar {
+      backdrop-filter: blur(20px) saturate(160%);
+      -webkit-backdrop-filter: blur(20px) saturate(160%);
+      border-top-color: rgba(192, 24, 46, 0.22);
+    }
+
+    /* Dark: gradient line accent at top */
+    [data-theme="dark"] .stats-bar::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(192, 24, 46, 0.6), rgba(155, 29, 181, 0.4), transparent);
     }
 
     .stats-grid {
@@ -751,7 +885,7 @@
     }
 
     .stat-num {
-      font-size: 2.6rem;
+      font-size: 2.8rem;
       font-weight: 800;
       letter-spacing: -0.04em;
       line-height: 1;
@@ -759,8 +893,18 @@
       margin-bottom: 6px;
     }
 
-    .stat-num em    { color: var(--crimson); font-style: normal; }
-    .stat-label     { font-size: 0.82rem; color: var(--text-lo); font-weight: 500; letter-spacing: 0.02em; }
+    /* Light: solid crimson stat numbers */
+    .stat-num em { color: var(--crimson); font-style: normal; }
+
+    /* Dark: gradient stat numbers */
+    [data-theme="dark"] .stat-num em {
+      background: var(--grad-accent);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .stat-label { font-size: 0.82rem; color: var(--text-lo); font-weight: 500; letter-spacing: 0.03em; }
 
     /* ============================================================
        PRODUCTS
@@ -782,6 +926,7 @@
       gap: 24px;
     }
 
+    /* Product cards — light default: solid */
     .product-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -792,18 +937,38 @@
       gap: 24px;
       text-decoration: none;
       color: inherit;
-      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s, background 0.3s;
     }
 
     .product-card:not(.product-card--placeholder):hover {
       border-color: var(--crimson-border);
-      transform: translateY(-6px);
+      transform: translateY(-8px);
       box-shadow: var(--shadow-card), 0 0 0 1px var(--crimson-border);
     }
 
+    /* Dark: glass product cards */
+    [data-theme="dark"] .product-card {
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    [data-theme="dark"] .product-card:not(.product-card--placeholder):hover {
+      box-shadow: var(--shadow-card), 0 0 0 1px var(--crimson-border), 0 0 40px rgba(192, 24, 46, 0.12);
+    }
+
+    /* Light featured: subtle gradient */
     .product-card--featured {
-      border-color: var(--crimson-border);
-      background: linear-gradient(145deg, var(--bg-card) 0%, rgba(192, 24, 46, 0.06) 100%);
+      border-color: rgba(192, 24, 46, 0.20);
+      background: linear-gradient(145deg, var(--bg-card) 0%, rgba(192, 24, 46, 0.04) 100%);
+    }
+
+    /* Dark featured: cinematic gradient + glow */
+    [data-theme="dark"] .product-card--featured {
+      border-color: rgba(192, 24, 46, 0.38);
+      background: linear-gradient(145deg,
+        rgba(192, 24, 46, 0.10) 0%,
+        rgba(155, 29, 181, 0.06) 50%,
+        rgba(255, 255, 255, 0.025) 100%);
+      box-shadow: 0 0 0 1px rgba(192, 24, 46, 0.12), 0 16px 48px rgba(0, 0, 0, 0.40);
     }
 
     .product-card--placeholder {
@@ -812,11 +977,11 @@
       justify-content: center;
       text-align: center;
       min-height: 300px;
-      opacity: 0.55;
+      opacity: 0.45;
       cursor: default;
     }
 
-    .product-card--placeholder:hover { transform: none; border-color: var(--border); box-shadow: none; }
+    .product-card--placeholder:hover { transform: none !important; border-color: var(--border) !important; box-shadow: none !important; }
 
     .product-card-hd {
       display: flex;
@@ -856,7 +1021,7 @@
 
     .product-sub  { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--crimson); margin-bottom: 8px; }
     .product-name { font-size: 1.45rem; font-weight: 800; letter-spacing: -0.02em; color: var(--text-hi); margin-bottom: 12px; }
-    .product-desc { font-size: 0.95rem; line-height: 1.65; color: var(--text-mid); }
+    .product-desc { font-size: 0.95rem; line-height: 1.68; color: var(--text-mid); }
 
     .platforms      { display: flex; gap: 8px; flex-wrap: wrap; }
     .platform-chip  {
@@ -867,18 +1032,13 @@
       font-weight: 600;
       letter-spacing: 0.04em;
       color: var(--text-lo);
-      background: rgba(255,255,255,0.04);
+      background: rgba(0, 0, 0, 0.04);
       border: 1px solid var(--border);
       padding: 4px 10px;
       border-radius: 6px;
     }
 
-    [data-theme="light"] .platform-chip { background: rgba(0,0,0,0.04); }
-
-    /* Light mode — form inputs use a slightly off-white, not the canvas grey */
-    [data-theme="light"] .form-group input,
-    [data-theme="light"] .form-group select,
-    [data-theme="light"] .form-group textarea { background: #F8F8FA; color: var(--text-hi); }
+    [data-theme="dark"] .platform-chip { background: rgba(255, 255, 255, 0.04); }
 
     .platform-chip svg { width: 11px; height: 11px; stroke: var(--text-lo); fill: none; }
 
@@ -911,7 +1071,7 @@
 
     .placeholder-circle svg { width: 22px; height: 22px; stroke: var(--text-lo); }
     .placeholder-title { font-size: 0.95rem; font-weight: 600; color: var(--text-lo); margin-bottom: 6px; }
-    .placeholder-note  { font-size: 0.8rem; color: var(--text-lo); opacity: 0.7; line-height: 1.5; }
+    .placeholder-note  { font-size: 0.8rem; color: var(--text-lo); opacity: 0.6; line-height: 1.5; }
 
     /* ============================================================
        CONTACT
@@ -926,8 +1086,7 @@
     }
 
     .contact-methods { display: flex; flex-direction: column; gap: 24px; margin-top: 40px; }
-
-    .contact-method { display: flex; gap: 16px; align-items: flex-start; }
+    .contact-method  { display: flex; gap: 16px; align-items: flex-start; }
 
     .method-icon {
       width: 44px;
@@ -946,15 +1105,23 @@
     .method-body h4  { font-size: 0.875rem; font-weight: 700; color: var(--text-hi); margin-bottom: 4px; }
     .method-body a,
     .method-body p   { font-size: 0.875rem; color: var(--text-mid); line-height: 1.5; text-decoration: none; }
-    .method-body a:hover { color: var(--crimson-light); }
+    .method-body a:hover { color: var(--crimson); }
+    [data-theme="dark"] .method-body a:hover { color: var(--crimson-light); }
 
-    [data-theme="light"] .method-body a:hover { color: var(--crimson); }
-
+    /* Form card — light default: clean white */
     .form-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: var(--r-xl);
       padding: 36px;
+      box-shadow: var(--shadow-card);
+    }
+
+    /* Dark: glass form card */
+    [data-theme="dark"] .form-card {
+      backdrop-filter: blur(20px) saturate(150%);
+      -webkit-backdrop-filter: blur(20px) saturate(150%);
+      box-shadow: 0 8px 48px rgba(0, 0, 0, 0.35);
     }
 
     .form-group { margin-bottom: 18px; }
@@ -972,7 +1139,7 @@
     .form-group select,
     .form-group textarea {
       width: 100%;
-      background: var(--bg);
+      background: var(--bg-form-input);
       border: 1px solid var(--border-strong);
       border-radius: var(--r-sm);
       color: var(--text-hi);
@@ -995,6 +1162,12 @@
       box-shadow: 0 0 0 3px rgba(192, 24, 46, 0.14);
     }
 
+    [data-theme="dark"] .form-group input:focus,
+    [data-theme="dark"] .form-group select:focus,
+    [data-theme="dark"] .form-group textarea:focus {
+      box-shadow: 0 0 0 3px rgba(192, 24, 46, 0.16), 0 0 0 1px rgba(155, 29, 181, 0.10);
+    }
+
     .form-group textarea { resize: vertical; min-height: 120px; }
 
     .form-group select {
@@ -1004,7 +1177,7 @@
       padding-right: 36px;
     }
 
-    .form-group select option { background: var(--bg-card); }
+    .form-group select option { background: var(--bg-card-solid); }
 
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 
@@ -1014,7 +1187,7 @@
       justify-content: center;
       gap: 8px;
       width: 100%;
-      background: var(--crimson);
+      background: var(--grad-btn);
       color: #fff;
       border: none;
       border-radius: var(--r-sm);
@@ -1024,17 +1197,17 @@
       letter-spacing: 0.02em;
       padding: 13px;
       cursor: pointer;
-      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-      box-shadow: 0 4px 18px rgba(192, 24, 46, 0.28);
+      transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(192, 24, 46, 0.30);
     }
 
     .form-submit:hover {
-      background: var(--crimson-light);
+      opacity: 0.88;
       transform: translateY(-1px);
       box-shadow: var(--shadow-crimson);
     }
 
-    .form-submit:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+    .form-submit:disabled { opacity: 0.50; cursor: not-allowed; transform: none; }
 
     .form-status {
       display: none;
@@ -1067,9 +1240,23 @@
       border-top: 1px solid var(--border);
       padding: 56px 24px 36px;
       transition: background 0.3s;
+      position: relative;
+      overflow: hidden;
     }
 
-    .footer-inner { max-width: 1100px; margin: 0 auto; }
+    /* Dark: subtle gradient top-border accent */
+    [data-theme="dark"] footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(192, 24, 46, 0.40), rgba(155, 29, 181, 0.25), transparent);
+    }
+
+    .footer-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
 
     .footer-top {
       display: flex;
@@ -1090,11 +1277,11 @@
     }
 
     .footer-brand-name { font-size: 0.875rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-hi); }
-    .footer-brand-desc { font-size: 0.825rem; line-height: 1.65; color: var(--text-lo); }
+    .footer-brand-desc { font-size: 0.825rem; line-height: 1.68; color: var(--text-lo); }
 
     .footer-cols { display: flex; gap: 56px; flex-wrap: wrap; }
 
-    .footer-col h5 { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-hi); margin-bottom: 16px; }
+    .footer-col h5 { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-hi); margin-bottom: 16px; }
 
     .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
 
@@ -1125,7 +1312,7 @@
     .icon-arrow { display: inline-block; width: 16px; height: 16px; vertical-align: middle; }
 
     /* ============================================================
-       RESPONSIVE — 900 px
+       RESPONSIVE — 900px
     ============================================================ */
     @media (max-width: 900px) {
       :root { --pad-section: 72px; }
@@ -1136,7 +1323,7 @@
     }
 
     /* ============================================================
-       RESPONSIVE — 700 px
+       RESPONSIVE — 700px
     ============================================================ */
     @media (max-width: 700px) {
       :root { --pad-section: 56px; }
@@ -1147,6 +1334,8 @@
       .footer-bottom  { flex-direction: column; text-align: center; }
       .footer-legal   { justify-content: center; }
       .footer-cols    { gap: 36px; }
+      .hero-orb--crimson { width: 500px; height: 500px; }
+      .hero-orb--purple  { width: 380px; height: 380px; }
     }
 
     /* ============================================================
@@ -1159,7 +1348,7 @@
     }
 
     /* ============================================================
-       REDUCED MOTION — disable all animations
+       REDUCED MOTION
     ============================================================ */
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
@@ -1172,6 +1361,7 @@
         transform: none !important;
         transition: none !important;
       }
+      .hero-orb { animation: none !important; }
     }
   </style>
 </head>
@@ -1202,7 +1392,6 @@
           <li><a href="#contact" class="nav-cta">Contact</a></li>
         </ul>
 
-        <!-- Theme toggle -->
         <button class="theme-toggle" id="theme-toggle" aria-label="Switch color mode">
           <!-- Icon injected by JS -->
         </button>
@@ -1220,7 +1409,6 @@
     </div>
   </nav>
 
-  <!-- Mobile navigation dropdown -->
   <div class="nav-mobile" id="mobile-menu" role="navigation" aria-label="Mobile navigation">
     <a href="#about"    onclick="closeMobileMenu()">About</a>
     <a href="#products" onclick="closeMobileMenu()">Products</a>
@@ -1233,11 +1421,15 @@
          HERO
     ============================================================ -->
     <section class="hero" aria-labelledby="hero-heading">
+
+      <div class="hero-orb hero-orb--crimson" aria-hidden="true"></div>
+      <div class="hero-orb hero-orb--purple"  aria-hidden="true"></div>
+
       <div class="hero-content">
 
         <div class="hero-eyebrow" aria-hidden="true">
           <span class="hero-eyebrow-dot"></span>
-          Independent Apple Platform Studio
+          Independent Software Studio
         </div>
 
         <h1 class="hero-title" id="hero-heading">
@@ -1247,8 +1439,8 @@
 
         <p class="hero-description">
           Apex Development Studio LLC is an independent software studio dedicated
-          to crafting thoughtful, privacy-first iOS applications for iPhone, iPad,
-          and Mac — software that genuinely helps people.
+          to crafting thoughtful, privacy-first applications — built with precision,
+          care, and an unwavering respect for the people who use them.
         </p>
 
         <div class="hero-actions">
@@ -1277,7 +1469,6 @@
       <div class="container">
         <div class="about-grid">
 
-          <!-- Left: prose -->
           <div class="about-body">
             <p class="section-eyebrow reveal reveal-fade d1">About the Studio</p>
             <h2 class="section-title reveal d2" id="about-heading">
@@ -1286,15 +1477,16 @@
 
             <p class="reveal d3">
               Apex Development Studio LLC is an <strong>independent software studio</strong>
-              focused on building native Apple platform applications that solve real
-              problems. We believe the best apps are built thoughtfully — with careful
+              focused on building high-quality applications that solve real problems.
+              We believe the best software is built thoughtfully — with careful
               architecture, clean design, and an unwavering commitment to user privacy.
             </p>
             <p class="reveal d4">
-              Every product we ship is a <strong>native SwiftUI application</strong> built
-              with the tools Apple intended, optimized for the platforms users love. No
-              web wrappers, no compromises. We care deeply about performance,
-              accessibility, and the craft that shows in every interaction.
+              Every product we ship is crafted <strong>natively for the platform</strong>
+              it lives on — optimized for performance, tuned for the experience users
+              expect. No web wrappers, no shortcuts. We care deeply about
+              accessibility, the craft that shows in every interaction, and the trust
+              users place in the software they depend on.
             </p>
             <p class="reveal d5">
               We operate as a <strong>small, focused studio</strong>. That means every
@@ -1303,7 +1495,6 @@
             </p>
           </div>
 
-          <!-- Right: values -->
           <div class="values-stack" role="list" aria-label="Studio values">
 
             <div class="value-card reveal reveal-right d1" role="listitem">
@@ -1360,9 +1551,9 @@
               </div>
             </div>
 
-          </div><!-- /values-stack -->
-        </div><!-- /about-grid -->
-      </div><!-- /container -->
+          </div>
+        </div>
+      </div>
     </section>
 
 
@@ -1374,18 +1565,19 @@
 
         <div class="stat-item reveal d1">
           <div class="stat-num"><em>100%</em></div>
-          <div class="stat-label">Native SwiftUI</div>
+          <div class="stat-label">Native-First Development</div>
         </div>
 
         <div class="stat-item reveal d2">
-          <div class="stat-num"><em>3</em></div>
-          <div class="stat-label">Apple Platforms</div>
+          <div class="stat-num"><em>0</em></div>
+          <div class="stat-label">Compromises on Quality</div>
         </div>
 
         <div class="stat-item reveal d3">
           <div class="stat-num"><em>0</em></div>
           <div class="stat-label">Third-Party Data Sales</div>
         </div>
+
 
       </div>
     </div>
@@ -1409,7 +1601,6 @@
 
         <div class="products-grid">
 
-          <!-- Journey Tracker -->
           <a href="https://journeytracker.app"
              class="product-card product-card--featured reveal d1"
              target="_blank"
@@ -1466,9 +1657,8 @@
               </svg>
             </span>
 
-          </a><!-- /Journey Tracker -->
+          </a>
 
-          <!-- Coming Soon placeholder -->
           <div class="product-card product-card--placeholder reveal d2"
                aria-label="Additional apps in development">
             <div>
@@ -1482,8 +1672,8 @@
             </div>
           </div>
 
-        </div><!-- /products-grid -->
-      </div><!-- /container -->
+        </div>
+      </div>
     </section>
 
 
@@ -1497,7 +1687,6 @@
       <div class="container">
         <div class="contact-grid">
 
-          <!-- Left: info -->
           <div class="reveal reveal-left">
             <p class="section-eyebrow">Get in Touch</p>
             <h2 class="section-title" id="contact-heading">Let's Connect</h2>
@@ -1517,9 +1706,7 @@
                 </div>
                 <div class="method-body">
                   <h4>Business Inquiries</h4>
-                  <a href="mailto:apexdevstudio@proton.me">
-                    apexdevstudio@proton.me
-                  </a>
+                  <a href="mailto:apexdevstudio@proton.me">apexdevstudio@proton.me</a>
                 </div>
               </div>
 
@@ -1551,10 +1738,9 @@
                 </div>
               </div>
 
-            </div><!-- /contact-methods -->
+            </div>
           </div>
 
-          <!-- Right: form -->
           <div class="form-card reveal reveal-right">
             <form id="contact-form" novalidate aria-label="Contact form">
 
@@ -1595,10 +1781,10 @@
               <div class="form-status" id="form-status" role="status" aria-live="polite"></div>
 
             </form>
-          </div><!-- /form-card -->
+          </div>
 
-        </div><!-- /contact-grid -->
-      </div><!-- /container -->
+        </div>
+      </div>
     </section>
 
   </main>
@@ -1622,8 +1808,8 @@
             <span class="footer-brand-name">Apex Development Studio</span>
           </a>
           <p class="footer-brand-desc">
-            An independent iOS app studio crafting thoughtful, privacy-first
-            applications for iPhone, iPad, and Mac.
+            An independent software studio crafting thoughtful, privacy-first
+            applications built with precision and care.
           </p>
         </div>
 
@@ -1653,8 +1839,8 @@
             </ul>
           </div>
 
-        </div><!-- /footer-cols -->
-      </div><!-- /footer-top -->
+        </div>
+      </div>
 
       <div class="footer-bottom">
         <p class="footer-copy">
@@ -1667,7 +1853,7 @@
         </nav>
       </div>
 
-    </div><!-- /footer-inner -->
+    </div>
   </footer>
 
 
@@ -1712,32 +1898,36 @@
     });
 
 
-    // ── 3. Theme toggle (dark / light / system) ─────────────────────
+    // ── 3. Theme toggle (light / dark / system) ──────────────────────
+    //   Default when nothing stored = 'light'.
+    //   'light' sets data-theme="light" (blocks OS-dark media query).
+    //   'dark'  sets data-theme="dark".
+    //   'system' removes the attribute and lets the OS decide.
     const themeToggle = document.getElementById('theme-toggle');
     const html        = document.documentElement;
 
-    const THEME_CYCLE = ['dark', 'light', 'system'];
+    const THEME_CYCLE = ['light', 'dark', 'system'];
 
     const ICONS = {
-      dark: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>`,
-      light: `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`,
+      light:  `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`,
+      dark:   `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>`,
       system: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>`
     };
 
     const NEXT_LABELS = {
-      dark:   'Switch to light mode',
-      light:  'Switch to system mode',
-      system: 'Switch to dark mode'
+      light:  'Switch to dark mode',
+      dark:   'Switch to system mode',
+      system: 'Switch to light mode'
     };
 
     function getStoredTheme() {
-      return localStorage.getItem('apex-theme') || 'system';
+      return localStorage.getItem('apex-theme') || 'light';
     }
 
     function applyTheme(theme) {
       if (theme === 'dark')       html.setAttribute('data-theme', 'dark');
       else if (theme === 'light') html.setAttribute('data-theme', 'light');
-      else                        html.removeAttribute('data-theme');
+      else                        html.removeAttribute('data-theme'); /* system */
 
       localStorage.setItem('apex-theme', theme);
       themeToggle.innerHTML = ICONS[theme];
@@ -1750,7 +1940,6 @@
       applyTheme(THEME_CYCLE[(idx + 1) % THEME_CYCLE.length]);
     });
 
-    // Initialise
     applyTheme(getStoredTheme());
 
 
@@ -1762,24 +1951,15 @@
           revealObserver.unobserve(entry.target);
         }
       });
-    }, {
-      threshold:  0.12,
-      rootMargin: '0px 0px -48px 0px'
-    });
+    }, { threshold: 0.12, rootMargin: '0px 0px -48px 0px' });
 
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
 
-    // ── 5. Contact form — mailto direct ─────────────────────────────
-    //  Validates fields, builds a pre-filled mailto: URL, and opens
-    //  the user's default email client addressed to Proton Mail.
-    //  No third-party services or network requests required.
-
+    // ── 5. Contact form — mailto ─────────────────────────────────────
     const CONTACT_EMAIL = 'apexdevstudio@proton.me';
-
-    const contactForm = document.getElementById('contact-form');
-    const submitBtn   = document.getElementById('form-submit-btn');
-    const statusEl    = document.getElementById('form-status');
+    const contactForm   = document.getElementById('contact-form');
+    const statusEl      = document.getElementById('form-status');
 
     contactForm.addEventListener('submit', e => {
       e.preventDefault();
@@ -1790,33 +1970,24 @@
       const subject = contactForm['subject'].value;
       const message = contactForm['message'].value.trim();
 
-      // Validation
       if (!name || !email || !subject || !message) {
         showStatus('error', 'Please fill in all fields before sending.');
         return;
       }
 
-      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailPattern.test(email)) {
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         showStatus('error', 'Please enter a valid email address.');
         return;
       }
 
-      // Build pre-filled mailto URL
       const subjectLine = `[${subject}] Message from ${name}`;
       const body =
-        `Name: ${name}\n` +
-        `Email: ${email}\n` +
-        `Subject: ${subject}\n` +
-        `\n${message}`;
+        `Name: ${name}\nEmail: ${email}\nSubject: ${subject}\n\n${message}`;
 
-      const mailtoUrl =
+      window.location.href =
         `mailto:${CONTACT_EMAIL}` +
         `?subject=${encodeURIComponent(subjectLine)}` +
         `&body=${encodeURIComponent(body)}`;
-
-      // Open email client
-      window.location.href = mailtoUrl;
 
       showStatus('success', '✓ Your email client is opening with the message pre-filled. Just hit Send!');
       contactForm.reset();
