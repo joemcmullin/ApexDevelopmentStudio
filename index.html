@@ -7,8 +7,9 @@
     (function(){
       var t = localStorage.getItem('apex-theme') || 'light';
       var d = document.documentElement;
-      if (t === 'dark')  d.setAttribute('data-theme', 'dark');
-      else               d.setAttribute('data-theme', 'light'); /* explicit light blocks OS-dark override */
+      if (t === 'dark')        d.setAttribute('data-theme', 'dark');
+      else if (t !== 'system') d.setAttribute('data-theme', 'light');
+      /* system: leave data-theme unset — OS media query decides */
     })();
   </script>
 
@@ -513,6 +514,17 @@
         linear-gradient(90deg, rgba(192, 24, 46, 0.22) 1px, transparent 1px);
       mask-image: radial-gradient(ellipse 92% 82% at 50% 50%, black 35%, transparent 100%);
       -webkit-mask-image: radial-gradient(ellipse 92% 82% at 50% 50%, black 35%, transparent 100%);
+    }
+
+    /* System dark: same grid boost (data-theme is absent when system mode is active) */
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]):not([data-theme="dark"]) .hero::before {
+        background-image:
+          linear-gradient(rgba(192, 24, 46, 0.22) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(192, 24, 46, 0.22) 1px, transparent 1px);
+        mask-image: radial-gradient(ellipse 92% 82% at 50% 50%, black 35%, transparent 100%);
+        -webkit-mask-image: radial-gradient(ellipse 92% 82% at 50% 50%, black 35%, transparent 100%);
+      }
     }
 
     /* Orbs — light default: subtle */
