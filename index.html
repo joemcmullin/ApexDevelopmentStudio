@@ -1765,7 +1765,7 @@
 
               <div class="form-group">
                 <label for="cf-subject">Subject</label>
-                <select id="cf-subject" name="subject" required>
+                <select id="cf-subject" name="inquiry_type" required>
                   <option value="" disabled selected>Select a topic…</option>
                   <option value="business">Business Inquiry</option>
                   <option value="press">Press / Media</option>
@@ -1970,12 +1970,12 @@
       e.preventDefault();
       clearStatus();
 
-      const name    = contactForm['name'].value.trim();
-      const email   = contactForm['email'].value.trim();
-      const subject = contactForm['subject'].value;
-      const message = contactForm['message'].value.trim();
+      const name        = contactForm['name'].value.trim();
+      const email       = contactForm['email'].value.trim();
+      const inquiryType = contactForm['inquiry_type'].value;
+      const message     = contactForm['message'].value.trim();
 
-      if (!name || !email || !subject || !message) {
+      if (!name || !email || !inquiryType || !message) {
         showStatus('error', 'Please fill in all fields before sending.');
         return;
       }
@@ -1990,7 +1990,7 @@
 
       const formData = new FormData(contactForm);
       formData.append('access_key', 'dc20b60f-c2b1-42d8-aaca-3baac1ec76d0');
-      formData.append('subject', `[${subject}] Message from ${name}`);
+      formData.append('subject', `[${inquiryType}] Message from ${name}`);
 
       try {
         const response = await fetch('https://api.web3forms.com/submit', {
