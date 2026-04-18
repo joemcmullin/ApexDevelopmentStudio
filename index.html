@@ -15,10 +15,8 @@
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" href="Apex-mark.png" />
+  <link rel="apple-touch-icon" href="Apex-mark.png" />
 
   <meta http-equiv="Content-Security-Policy" content="
     default-src 'self';
@@ -54,7 +52,7 @@
     "@type": "Organization",
     "name": "Apex Development Studio LLC",
     "url": "https://apexdevelopmentstudio.com/",
-    "logo": "https://apexdevelopmentstudio.com/ApexNew.png",
+    "logo": "https://apexdevelopmentstudio.com/Apex-mark.png",
     "description": "Independent software studio crafting thoughtful, privacy-first applications built with precision and care.",
     "contactPoint": {
       "@type": "ContactPoint",
@@ -328,25 +326,16 @@
       text-decoration: none;
     }
 
-    .nav-logo-mark { width: 32px; height: 32px; flex-shrink: 0; }
+    .nav-lockup    { height: 34px; width: auto; flex-shrink: 0; }
+    .footer-lockup { height: 26px; width: auto; flex-shrink: 0; }
 
-    .nav-wordmark        { display: flex; flex-direction: column; }
-    .nav-wordmark-name   {
-      font-size: 0.875rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--text-hi);
-      line-height: 1.15;
-    }
-    .nav-wordmark-sub    { font-size: 0.62rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-lo); }
+    /* Dark mode: invert black logos to white */
+    [data-theme="dark"] .nav-lockup,
+    [data-theme="dark"] .footer-lockup { filter: invert(1); }
 
-    /* Dark: wordmark name becomes gradient text */
-    [data-theme="dark"] .nav-wordmark-name {
-      background: var(--grad-accent);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]):not([data-theme="dark"]) .nav-lockup,
+      :root:not([data-theme="light"]):not([data-theme="dark"]) .footer-lockup { filter: invert(1); }
     }
 
     .nav-right {
@@ -1389,11 +1378,7 @@
     <div class="nav-inner">
 
       <a href="/" class="nav-logo" aria-label="Apex Development Studio — Home">
-        <img src="ApexNew.png" class="nav-logo-mark" alt="Apex Development Studio logo" aria-hidden="true" />
-        <div class="nav-wordmark">
-          <span class="nav-wordmark-name">Apex Dev Studio</span>
-          <span class="nav-wordmark-sub">LLC</span>
-        </div>
+        <img src="apex-lockup.png" class="nav-lockup" alt="Apex Development Studio" />
       </a>
 
       <div class="nav-right">
@@ -1811,8 +1796,7 @@
 
         <div class="footer-brand">
           <a href="/" class="footer-logo" aria-label="Apex Development Studio — Home">
-            <img src="ApexNew.png" width="28" height="28" alt="Apex Development Studio logo" aria-hidden="true" />
-            <span class="footer-brand-name">Apex Development Studio</span>
+            <img src="apex-lockup.png" class="footer-lockup" alt="Apex Development Studio" />
           </a>
           <p class="footer-brand-desc">
             An independent software studio crafting thoughtful, privacy-first
