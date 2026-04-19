@@ -1367,9 +1367,167 @@
       }
       .hero-orb { animation: none !important; }
     }
+
+    /* ============================================================
+       PAGE LOADER — full-screen globe splash
+    ============================================================ */
+    /* Globe color tokens — tied to site's theme vars */
+    :root {
+      --gl-bg:    var(--bg);
+      --gl-fg:    var(--text-hi);
+      --gl-grat:  rgba(26, 26, 26, 0.18);
+      --gl-whirl: rgba(26, 26, 26, 0.40);
+    }
+    [data-theme="dark"] {
+      --gl-grat:  rgba(239, 239, 250, 0.14);
+      --gl-whirl: rgba(192, 24, 46, 0.65);   /* crimson whirl in dark */
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]):not([data-theme="dark"]) {
+        --gl-grat:  rgba(239, 239, 250, 0.14);
+        --gl-whirl: rgba(192, 24, 46, 0.65);
+      }
+    }
+
+    #page-loader {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      transition: opacity 0.7s ease;
+    }
+    #page-loader.gl-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .gl-lockup {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .gl-lockup-mark {
+      width: 72px;
+      height: 72px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+    .gl-lockup-text {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .gl-lockup-name {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 2.2rem;
+      font-weight: 400;
+      color: var(--text-hi);
+      line-height: 1;
+      letter-spacing: 0.01em;
+    }
+    .gl-lockup-sub {
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-mid);
+    }
+    [data-theme="dark"] .gl-lockup-mark { filter: invert(1); }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]):not([data-theme="dark"]) .gl-lockup-mark { filter: invert(1); }
+    }
+
+    /* Globe loader component styles */
+    .globe-loader {
+      width: 180px;
+      height: 180px;
+      display: block;
+      position: relative;
+    }
+    .globe-loader svg { display: block; width: 100%; height: 100%; overflow: visible; }
+    .globe-loader .gl-sphere { fill: var(--gl-bg); }
+    .globe-loader .gl-grat {
+      fill: none;
+      stroke: var(--gl-fg);
+      stroke-width: 0.5;
+      stroke-opacity: 0.18;
+      vector-effect: non-scaling-stroke;
+    }
+    .globe-loader .gl-land {
+      fill: none;
+      stroke: var(--gl-fg);
+      stroke-width: 0.9;
+      stroke-opacity: 0.92;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+      vector-effect: non-scaling-stroke;
+    }
+    .globe-loader .gl-rim {
+      fill: none;
+      stroke: var(--gl-fg);
+      stroke-width: 1.2;
+      vector-effect: non-scaling-stroke;
+    }
+    .globe-loader .gl-whirl {
+      fill: none;
+      stroke: var(--gl-whirl);
+      stroke-linecap: round;
+      vector-effect: non-scaling-stroke;
+    }
+    .globe-loader .gl-spin-cw   { animation: gl-spin-cw  3.8s linear infinite; transform-origin: 100px 100px; }
+    .globe-loader .gl-spin-ccw  { animation: gl-spin-ccw 2.6s linear infinite; transform-origin: 100px 100px; }
+    .globe-loader .gl-spin-slow { animation: gl-spin-cw  6s   linear infinite; transform-origin: 100px 100px; }
+    @keyframes gl-spin-cw  { to { transform: rotate(360deg); } }
+    @keyframes gl-spin-ccw { to { transform: rotate(-360deg); } }
+    @media (prefers-reduced-motion: reduce) {
+      .globe-loader .gl-spin-cw,
+      .globe-loader .gl-spin-ccw,
+      .globe-loader .gl-spin-slow { animation: none; }
+    }
   </style>
 </head>
 <body>
+
+  <!-- ============================================================
+       PAGE LOADER
+  ============================================================ -->
+  <div id="page-loader" aria-hidden="true">
+    <div class="gl-lockup">
+      <img src="Apex-mark.png" class="gl-lockup-mark" alt="" aria-hidden="true" />
+      <div class="gl-lockup-text">
+        <span class="gl-lockup-name">Apex</span>
+        <span class="gl-lockup-sub">Development · Studio</span>
+      </div>
+    </div>
+    <div class="globe-loader" role="img" aria-label="Loading">
+      <svg viewBox="0 0 200 200" aria-hidden="true">
+        <defs>
+          <mask id="glSphereMask"><circle cx="100" cy="100" r="60" fill="white"/></mask>
+        </defs>
+        <g class="gl-spin-cw">
+          <circle class="gl-whirl" cx="100" cy="100" r="78" stroke-width="1.1" stroke-dasharray="34 320"/>
+          <circle class="gl-whirl" cx="100" cy="100" r="78" stroke-width="1.1" stroke-dasharray="12 480" stroke-dashoffset="-120" opacity="0.6"/>
+        </g>
+        <g class="gl-spin-ccw">
+          <circle class="gl-whirl" cx="100" cy="100" r="86" stroke-width="0.8" stroke-dasharray="60 540" opacity="0.55"/>
+          <circle class="gl-whirl" cx="100" cy="100" r="86" stroke-width="0.8" stroke-dasharray="4 30" stroke-dashoffset="-20" opacity="0.4"/>
+        </g>
+        <g class="gl-spin-slow">
+          <circle class="gl-whirl" cx="100" cy="100" r="94" stroke-width="0.6" stroke-dasharray="2 14" opacity="0.35"/>
+        </g>
+        <circle class="gl-sphere" cx="100" cy="100" r="60"/>
+        <g mask="url(#glSphereMask)">
+          <path class="gl-grat" data-gl="grat"></path>
+          <path class="gl-land" data-gl="land"></path>
+        </g>
+        <circle class="gl-rim" cx="100" cy="100" r="60"/>
+      </svg>
+    </div>
+  </div>
 
   <!-- ============================================================
        NAVIGATION
@@ -2014,6 +2172,34 @@
       statusEl.className   = 'form-status';
       statusEl.textContent = '';
     }
+  </script>
+
+  <!-- Globe loader engine (land data + renderer) -->
+  <script src="globe-loader.js"></script>
+
+  <!-- Page loader fade-out -->
+  <script>
+    (function () {
+      var loader  = document.getElementById('page-loader');
+      var SHOW_MS = 2000;   // minimum display time
+      var FADE_MS = 700;    // fade-out duration (matches CSS transition)
+      var start   = performance.now();
+
+      function dismiss() {
+        var elapsed = performance.now() - start;
+        var wait    = Math.max(0, SHOW_MS - elapsed);
+        setTimeout(function () {
+          loader.classList.add('gl-out');
+          setTimeout(function () { loader.remove(); }, FADE_MS);
+        }, wait);
+      }
+
+      if (document.readyState === 'complete') {
+        dismiss();
+      } else {
+        window.addEventListener('load', dismiss);
+      }
+    })();
   </script>
 
 </body>
