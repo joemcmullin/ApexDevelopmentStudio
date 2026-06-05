@@ -941,6 +941,7 @@
 
     /* Product cards — light default: solid */
     .product-card {
+      position: relative;
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: var(--r-xl);
@@ -951,6 +952,28 @@
       text-decoration: none;
       color: inherit;
       transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s, background 0.3s;
+    }
+
+    /* ScreenPass mascot — flat squircle buddy, bobs gently below the badge */
+    .screen-buddy {
+      position: absolute;
+      top: 80px;
+      right: 38px;
+      width: 56px;
+      height: 56px;
+      z-index: 2;
+      pointer-events: none;
+      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.18));
+      animation: buddy-bob 1.5s ease-in-out infinite alternate;
+    }
+    .screen-buddy svg { width: 100%; height: 100%; display: block; }
+
+    @keyframes buddy-bob {
+      from { transform: translateY(3px); }
+      to   { transform: translateY(-5px); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .screen-buddy { animation: none; transform: translateY(-1px); }
     }
 
     .product-card:not(.product-card--placeholder):hover {
@@ -1772,14 +1795,7 @@
 
             <div class="product-card-hd">
               <div class="product-icon" aria-hidden="true">
-                <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17" cy="17" r="12" stroke="#C0182E" stroke-width="1.5"/>
-                  <circle cx="17" cy="17" r="2.5" fill="#C0182E"/>
-                  <path d="M17 8.5l2.8 6-2.8 2.5-2.8-2.5L17 8.5Z" fill="#C0182E" opacity="0.8"/>
-                  <path d="M17 25.5l-2.8-6 2.8-2.5 2.8 2.5L17 25.5Z" fill="#6E6E73"/>
-                  <path d="M8.5 17l6-2.8 2.5 2.8-2.5 2.8L8.5 17Z" fill="#6E6E73"/>
-                  <path d="M25.5 17l-6 2.8-2.5-2.8 2.5-2.8L25.5 17Z" fill="#C0182E" opacity="0.8"/>
-                </svg>
+                <img src="journeytracker-icon.png" alt="" width="64" height="64" />
               </div>
               <span class="badge badge--soon">Coming Soon</span>
             </div>
@@ -1823,17 +1839,25 @@
           </a>
 
           <a href="https://screenpassapp.com/"
-             class="product-card reveal d2"
+             class="product-card product-card--featured reveal d2"
              target="_blank"
              rel="noopener noreferrer"
              aria-label="ScreenPass — visit screenpassapp.com">
 
+            <div class="screen-buddy" aria-hidden="true">
+              <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="13" y="13" width="74" height="74" rx="26" fill="#FACC15"/>
+                <circle cx="35" cy="61" r="3.5" fill="#FFFFFF" opacity="0.35"/>
+                <circle cx="65" cy="61" r="3.5" fill="#FFFFFF" opacity="0.35"/>
+                <rect x="36.75" y="39" width="8.5" height="12" rx="4.25" fill="#1C1C1E"/>
+                <rect x="54.75" y="39" width="8.5" height="12" rx="4.25" fill="#1C1C1E"/>
+                <path d="M35 65 Q50 72.5 65 65" stroke="#1C1C1E" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+              </svg>
+            </div>
+
             <div class="product-card-hd">
               <div class="product-icon" aria-hidden="true">
-                <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M17 4.5l9 3.5v7.5c0 6-3.9 10.3-9 12-5.1-1.7-9-6-9-12V8l9-3.5Z" stroke="#C0182E" stroke-width="1.5" stroke-linejoin="round"/>
-                  <path d="M12.5 17.2l3.1 3.1 6.1-6.4" stroke="#C0182E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
+                <img src="screenpass-icon.png" alt="" width="64" height="64" />
               </div>
               <span class="badge badge--soon">Coming Soon</span>
             </div>
