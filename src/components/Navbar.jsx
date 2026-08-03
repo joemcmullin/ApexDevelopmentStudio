@@ -79,7 +79,7 @@ export function Navbar({ sentinelRef, onNavigate }) {
             position, so `#id` cannot address them. Contact is a real element
             in normal flow, so it stays a proper link. */}
         <nav className="hidden md:flex items-center gap-8 font-mono text-[0.7rem] uppercase tracking-[0.18em]">
-          {[['Story', 1], ['Promise', 3]].map(([label, act]) => (
+          {[['How We Work', 1], ['Promise', 3]].map(([label, act]) => (
             <button
               key={label}
               onClick={() => onNavigate?.(act)}

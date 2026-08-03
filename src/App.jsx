@@ -336,7 +336,7 @@ function ActHero({ onNavigate }) {
           <button onClick={() => onNavigate?.(1)}
                   className="ink-btn px-7 py-3 display text-[1.15rem] tracking-[0.1em] cursor-pointer"
                   style={{ background: 'var(--coral)', color: '#fff' }}>
-            OUR STORY
+            HOW WE WORK
           </button>
           <a href="#contact" className="ink-btn inline-block px-7 py-3 display text-[1.15rem] tracking-[0.1em] no-underline"
              style={{ background: 'var(--bg-card)', color: 'var(--ink)' }}>
@@ -350,7 +350,7 @@ function ActHero({ onNavigate }) {
 
 function ActWhoFor() {
   return (
-    <div className="max-w-[620px]">
+    <div className="max-w-[760px]">
       {/* Do not rewrite this beat. The founder called it out by name as the
           emotional centre of the page: "How we work / Every app starts with
           someone." Keep the eyebrow and both headline lines verbatim. */}
@@ -369,12 +369,26 @@ function ActWhoFor() {
         solve properly. We build it for them first. If it holds up for one real
         life, it will hold up for a great many.
       </p>
-      <p className="mt-5 max-w-[46ch] text-[1.02rem] leading-relaxed font-semibold body-copy"
-         style={{ color: 'var(--text-mid)' }}>
-        That is the whole method, and it does not change with the subject. A
-        health companion, a family tool, something we have not thought of yet —
-        same question every time: whose day does this have to survive?
-      </p>
+
+      {/* The link in the header is named for this section, so it has to be
+          worth arriving at — three steps rather than a single assertion. */}
+      <ol className="mt-9 list-none p-0 m-0 grid sm:grid-cols-3 gap-4 max-w-[720px]">
+        {[
+          ['01', 'START WITH ONE PERSON',
+            'A real problem belonging to someone real. Whose day does this have to survive?'],
+          ['02', 'BUILD IT NATIVE, KEEP IT CLOSE',
+            'On the device by default. Privacy is a constraint we design under, not a feature we add.'],
+          ['03', 'KNOW WHEN TO STOP',
+            'When the platform solves it better, we retire the app and say so. ScreenPass was exactly that.'],
+        ].map(([n, t, d]) => (
+          <li key={n} className="panel px-5 py-4">
+            <span className="display text-[1.5rem] leading-none" style={{ color: 'var(--coral)' }}>{n}</span>
+            <h3 className="display text-[1.05rem] tracking-[0.06em] mt-1.5" style={{ color: 'var(--ink)' }}>{t}</h3>
+            <p className="mt-1.5 text-[0.85rem] leading-relaxed font-semibold body-copy"
+               style={{ color: 'var(--text-mid)' }}>{d}</p>
+          </li>
+        ))}
+      </ol>
     </div>
   )
 }
@@ -584,7 +598,7 @@ function Outro({ onTop, onNavigate }) {
                     className="bg-transparent border-0 p-0 cursor-pointer text-[0.9rem] font-semibold body-copy text-left"
                     style={{ color: 'var(--text-mid)', font: 'inherit' }}
                   >
-                    Our story
+                    How we work
                   </button>
                 </li>
                 {[['Privacy', '/privacy/'], ['Terms', '/terms/']].map(([label, href]) => (
