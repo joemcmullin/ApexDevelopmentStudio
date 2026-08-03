@@ -6,9 +6,9 @@ import './index.css'
 /**
  * Terms of service.
  *
- * NOTE FOR THE OWNER: the governing-law section carries a placeholder that
- * must be set to the state Apex Development Studio LLC is registered in
- * before this is relied upon. It is marked clearly in the copy.
+ * Governing law is the Commonwealth of Virginia, confirmed by the owner.
+ * These remain a non-lawyer draft — sensible for the business as it works
+ * today, but worth a professional review given the health-adjacent audience.
  */
 const SECTIONS = [
   {
@@ -73,7 +73,8 @@ const SECTIONS = [
   {
     h: 'GOVERNING LAW',
     body: [
-      'These terms are governed by the laws of the State of [STATE TO BE CONFIRMED], United States, without regard to its conflict-of-law rules. This placeholder must be completed with the state in which Apex Development Studio LLC is registered before these terms are relied upon.',
+      'These terms are governed by the laws of the Commonwealth of Virginia, United States, without regard to its conflict-of-law rules.',
+      'Any dispute arising out of or relating to these terms or to our applications will be brought exclusively in the state or federal courts located in the Commonwealth of Virginia, and you and Apex Development Studio LLC each consent to the jurisdiction of those courts.',
     ],
   },
   {
