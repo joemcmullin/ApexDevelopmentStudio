@@ -138,7 +138,10 @@ export default function App() {
         // last frame's copy painted over whatever act is now on screen.
         if (p > i + 1.2 || arrive <= 0) {
           el.style.visibility = 'hidden'
-          if (content) content.style.opacity = '0'
+          if (content) {
+            content.style.opacity = '0'
+            content.style.pointerEvents = 'none'
+          }
           return
         }
         el.style.visibility = 'visible'
@@ -158,8 +161,13 @@ export default function App() {
         if (content) {
           const fadeIn = i === 0 ? 1 : remap(arrive, 0.6, 0.92)
           const fadeOut = 1 - remap(t, 0.28, 0.6)
-          content.style.opacity = (fadeIn * fadeOut).toFixed(3)
+          const op = fadeIn * fadeOut
+          content.style.opacity = op.toFixed(3)
           content.style.transform = `scale(${(1 + t * 0.5).toFixed(4)})`
+          // Only the act you can actually see accepts input. All five layers
+          // sit at inset-0, so without this the invisible ones swallow clicks
+          // meant for the visible one.
+          content.style.pointerEvents = op > 0.5 ? 'auto' : 'none'
         }
       })
 
@@ -256,10 +264,20 @@ export default function App() {
             <div
               key={`c-${a.id}`}
               ref={(el) => { contentRefs.current[i] = el }}
-              className="absolute inset-0 z-[40] flex items-center px-6 sm:px-12 pointer-events-none"
-              style={{ opacity: i === 0 ? 1 : 0, willChange: 'transform, opacity' }}
+              className="absolute inset-0 z-[40] flex items-center px-6 sm:px-12"
+              style={{
+                opacity: i === 0 ? 1 : 0,
+                // Driven per frame alongside opacity. Previously this layer was
+                // pointer-events-none with an allowlist that named only <a>,
+                // which silently killed every <button> in an act — including the
+                // hero's. An allowlist of tag names breaks the next time an
+                // element type is added; gating the whole layer on visibility
+                // cannot.
+                pointerEvents: i === 0 ? 'auto' : 'none',
+                willChange: 'transform, opacity',
+              }}
             >
-              <div className="max-w-[1180px] mx-auto w-full [&_a]:pointer-events-auto">
+              <div className="max-w-[1180px] mx-auto w-full">
                 <ActContent index={i} onNavigate={goToAct} />
               </div>
             </div>
