@@ -182,10 +182,24 @@ export default function App() {
     snap.current()
   }, [snap])
 
-  /** Jump to an act. Smooth, because this one is a navigation, not a reset. */
+  /**
+   * Jump to an act. Smooth, because this one is a navigation, not a reset.
+   *
+   * The two layouts measure differently and must not share one formula.
+   * Cinematic mode stacks the acts in a 165vh-per-act scroll track, so the
+   * position has to be computed. Reduced-motion mode renders them as ordinary
+   * ~100vh sections, where the computed offset overshoots — far enough by the
+   * last act to land in the footer instead. There the element is real, so ask
+   * the DOM where it is rather than doing arithmetic.
+   */
   const goToAct = useCallback((index) => {
+    const el = document.getElementById(ACTS[index]?.id)
+    if (reduced && el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      return
+    }
     window.scrollTo({ top: actScrollTop(index), behavior: 'smooth' })
-  }, [])
+  }, [reduced])
 
 
   const plateFor = (i) => PLATES[i % PLATES.length]
