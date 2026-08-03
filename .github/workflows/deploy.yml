@@ -1,0 +1,55 @@
+# Build the Vite site and publish it to GitHub Pages.
+#
+# Replaces the old "deploy from a branch" setup, where the compiled output
+# had to be committed by hand. Now the repo holds source only; this workflow
+# produces dist/ and hands it straight to Pages.
+name: Deploy site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:        # lets you re-run it from the Actions tab
+
+# Least privilege: read the code, write a Pages deployment, and prove
+# identity to Pages via OIDC. Nothing else.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# If two pushes land close together, let the newer one finish and cancel the
+# older — but never cancel a deploy already in flight.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      # npm ci installs exactly what package-lock.json pins, so a build here
+      # matches a build locally.
+      - run: npm ci
+      - run: npm run build
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
