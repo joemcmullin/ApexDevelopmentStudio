@@ -71,10 +71,10 @@
       },
       {
         "@type": "SoftwareApplication",
-        "name": "ScreenPass",
-        "applicationCategory": "UtilitiesApplication",
-        "operatingSystem": "iOS, iPadOS, macOS",
-        "url": "https://screenpassapp.com/"
+        "name": "Gleaming Beacon",
+        "applicationCategory": "LifestyleApplication",
+        "operatingSystem": "iOS, iPadOS, Android",
+        "url": "https://gleamingbeacon.com/"
       }
     ]
   }
@@ -986,6 +986,13 @@
       box-shadow: 0 0 0 1px rgba(192, 24, 46, 0.12), 0 16px 48px rgba(0, 0, 0, 0.40);
     }
 
+    /* Retired products — present for the record, visually stepped back.
+       Colour returns on hover so the card still feels interactive. */
+    .product-card--retired { opacity: 0.72; }
+    .product-card--retired .product-icon img { filter: grayscale(0.55); transition: filter 0.3s; }
+    .product-card--retired:hover { opacity: 1; }
+    .product-card--retired:hover .product-icon img { filter: grayscale(0); }
+
     .product-card--placeholder {
       border-style: dashed;
       align-items: center;
@@ -1090,6 +1097,25 @@
 
     .product-cta--muted { color: var(--text-lo); }
     .product-cta--muted:hover { color: var(--text-mid); }
+
+    /* Apple's official badge artwork — must not be recoloured or restyled,
+       only scaled. The hover lift is applied to the link, not the image. */
+    .app-store-badge {
+      display: inline-flex;
+      line-height: 0;
+      border-radius: 8px;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+
+    .app-store-badge img { height: 44px; width: auto; display: block; }
+    .app-store-badge:hover { transform: scale(1.04); opacity: 0.9; }
+
+    /* Dark mode: the badge is solid black, so give it a hairline edge
+       so it doesn't dissolve into the card background. */
+    [data-theme="dark"] .app-store-badge img {
+      border-radius: 8px;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.22);
+    }
 
     .placeholder-circle {
       width: 52px;
@@ -1778,7 +1804,7 @@
             <h2 class="section-title reveal d1" id="products-heading">What We've Built</h2>
           </div>
           <p class="section-lead reveal reveal-fade d2" style="max-width:340px; font-size:.95rem;">
-            Native iOS, iPadOS, and macOS apps — shipped with care.
+            Apps for iPhone, iPad, Mac, and Android — shipped with care.
           </p>
         </div>
 
@@ -1827,14 +1853,11 @@
 
             <div class="product-links">
               <a href="https://apps.apple.com/app/id6760089056"
-                 class="product-cta"
+                 class="app-store-badge"
                  target="_blank"
                  rel="noopener noreferrer"
                  aria-label="Download Journey Tracker on the App Store">
-                Download on the App Store
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                  <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
+                <img src="app-store-badge.svg" alt="Download on the App Store" width="150" height="50" />
               </a>
               <a href="https://journeytracker.app"
                  class="product-cta product-cta--muted"
@@ -1850,27 +1873,30 @@
 
           </div>
 
+          <!-- ScreenPass — discontinued. Deliberately not --featured: a retired
+               product should not carry the same visual weight as a shipping one. -->
           <a href="https://screenpassapp.com/"
-             class="product-card product-card--featured reveal d2"
+             class="product-card product-card--retired reveal d2"
              target="_blank"
              rel="noopener noreferrer"
-             aria-label="ScreenPass — visit screenpassapp.com">
+             aria-label="ScreenPass — discontinued; visit screenpassapp.com">
 
             <div class="product-card-hd">
               <div class="product-icon" aria-hidden="true">
                 <img src="screenpass-icon.png" alt="" width="64" height="64" />
               </div>
-              <span class="badge badge--soon">Coming Soon</span>
+              <span class="badge badge--dev">Discontinued</span>
             </div>
 
             <div>
               <p class="product-sub">Family Screen Time</p>
               <h3 class="product-name">ScreenPass</h3>
               <p class="product-desc">
-                The parental control app that gives kids a pass, not a prison.
-                Flexible downtime schedules, app limits, and earned screen time —
-                built on Apple's Screen Time framework so every setting stays
-                private and on-device.
+                <strong>ScreenPass has been discontinued.</strong> The app set out to
+                give kids a pass, not a prison — flexible downtime schedules, app
+                limits, and earned screen time. iOS now ships those capabilities
+                natively in Screen Time, so we retired the product rather than
+                duplicate what the system already does well.
               </p>
             </div>
 
@@ -1892,8 +1918,8 @@
               </span>
             </div>
 
-            <span class="product-cta" aria-hidden="true">
-              Visit screenpassapp.com
+            <span class="product-cta product-cta--muted" aria-hidden="true">
+              Read the sunset notice
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                 <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
@@ -1901,18 +1927,52 @@
 
           </a>
 
-          <div class="product-card product-card--placeholder reveal d3"
-               aria-label="Additional apps in development">
-            <div>
-              <div class="placeholder-circle" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round">
-                  <path d="M12 5v14M5 12h14"/>
-                </svg>
+          <a href="https://gleamingbeacon.com/"
+             class="product-card product-card--featured reveal d3"
+             target="_blank"
+             rel="noopener noreferrer"
+             aria-label="Gleaming Beacon — coming soon; visit gleamingbeacon.com">
+
+            <div class="product-card-hd">
+              <div class="product-icon" aria-hidden="true">
+                <img src="gleamingbeacon-icon.png" alt="" width="64" height="64" />
               </div>
-              <p class="placeholder-title">More Apps in Development</p>
-              <p class="placeholder-note">New products are in progress.<br/>Check back soon.</p>
+              <span class="badge badge--soon">Coming Soon</span>
             </div>
-          </div>
+
+            <div>
+              <p class="product-sub">Divination &amp; Astrology</p>
+              <h3 class="product-name">Gleaming Beacon</h3>
+              <p class="product-desc">
+                A beautifully crafted companion for tarot, Lenormand, runes, and
+                BaZi charts — readings that are yours alone, kept private and
+                unhurried. In active development for iPhone, iPad, and Android.
+              </p>
+            </div>
+
+            <div class="platforms" aria-label="Planned platforms">
+              <span class="platform-chip">
+                <svg viewBox="0 0 12 12" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="2" width="10" height="8" rx="1.5"/></svg>
+                iPhone
+              </span>
+              <span class="platform-chip">
+                <svg viewBox="0 0 12 12" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="1" width="10" height="10" rx="1.5"/></svg>
+                iPad
+              </span>
+              <span class="platform-chip">
+                <svg viewBox="0 0 12 12" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="1" width="7" height="10" rx="1.5"/><path d="M5 2.6h2"/></svg>
+                Android
+              </span>
+            </div>
+
+            <span class="product-cta" aria-hidden="true">
+              Visit gleamingbeacon.com
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+
+          </a>
 
         </div>
       </div>
@@ -1975,9 +2035,9 @@
                   </svg>
                 </div>
                 <div class="method-body">
-                  <h4>ScreenPass Support</h4>
+                  <h4>ScreenPass (Discontinued)</h4>
                   <a href="https://screenpassapp.com/" target="_blank" rel="noopener noreferrer">
-                    Visit screenpassapp.com for app support →
+                    Visit screenpassapp.com for the sunset notice →
                   </a>
                 </div>
               </div>
@@ -2080,6 +2140,7 @@
             <h5>Products</h5>
             <ul>
               <li><a href="https://journeytracker.app" target="_blank" rel="noopener noreferrer">Journey Tracker</a></li>
+              <li><a href="https://gleamingbeacon.com/" target="_blank" rel="noopener noreferrer">Gleaming Beacon</a></li>
               <li><a href="https://screenpassapp.com/" target="_blank" rel="noopener noreferrer">ScreenPass</a></li>
             </ul>
           </div>
