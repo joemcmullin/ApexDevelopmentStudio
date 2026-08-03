@@ -1,0 +1,358 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   ANIME DIRECTION
+
+   Shinkai-style background art carries the page: towering cel-shaded
+   clouds, golden-hour skies, god rays. The UI layer is manga: heavy ink
+   outlines, screentone halftone, speed lines, bold condensed display
+   type. No Japanese lettering anywhere — nothing ships that the
+   owner cannot read.
+
+   Apex crimson sits inside the sunset family as ONE accent among
+   coral/peach/lavender/cyan — the brand is present, not dominant.
+============================================================ */
+:root {
+  color-scheme: light;
+
+  --bg: #fff6ed;            /* warm paper */
+  --bg-surface: #ffece0;
+  --bg-card: #fffdfa;
+
+  --ink: #241d33;           /* deep indigo-black — never pure black */
+  --text-hi: #241d33;
+  --text-mid: #453a58;      /* body copy — sits over painted plates, so it
+                               carries more contrast than a flat page needs */
+  --text-lo: #7d7290;
+
+  /* Sunset cast */
+  --coral: #ff6b5a;
+  --peach: #ffb088;
+  --gold: #ffc94d;
+  --lavender: #a78bd9;
+  --cyan: #5fc8e8;
+  --accent: #c0182e;        /* Apex crimson — one voice in the chorus */
+
+  /* Strong enough that body copy stays readable over a bright painted
+     plate — the art still shows through, but text never fights it. */
+  --veil-top: rgba(255, 246, 237, 0.74);
+  --veil-bottom: rgba(255, 246, 237, 0.92);
+  --panel: rgba(255, 253, 250, 0.82);
+  --panel-border: var(--ink);
+  --copy-halo: rgba(255, 246, 237, 0.85);
+
+}
+
+.dark {
+  color-scheme: dark;
+
+  --bg: #171227;            /* night-sky indigo */
+  --bg-surface: #1f1935;
+  --bg-card: #241d3d;
+
+  --ink: #fdf4ea;
+  --text-hi: #fdf4ea;
+  --text-mid: #ded5ee;      /* was #c0b3d6 — washed out against the plates */
+  --text-lo: #a99cc4;
+
+  --veil-top: rgba(23, 18, 39, 0.62);
+  --veil-bottom: rgba(23, 18, 39, 0.92);
+  --panel: rgba(36, 29, 61, 0.72);
+  --panel-border: rgba(253, 244, 234, 0.5);
+  --copy-halo: rgba(23, 18, 39, 0.9);
+
+}
+
+* { -webkit-font-smoothing: antialiased; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text-hi);
+  font-family: 'Zen Kaku Gothic New', Geist, ui-sans-serif, system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+/* ---------- Screentone ----------
+   The manga halftone dot field. Sits over everything at low opacity so
+   the painted plates read as printed cels rather than photographs. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  opacity: 0.16;
+  background-image: radial-gradient(circle at center, var(--ink) 0.7px, transparent 0.8px);
+  background-size: 4px 4px;
+  mix-blend-mode: multiply;
+}
+.dark body::before { mix-blend-mode: screen; opacity: 0.1; }
+
+/* ---------- Body copy ----------
+   This text sits on top of painted artwork, not a flat panel, so weight
+   and contrast alone are not quite enough — a soft shadow in the page's
+   own background colour separates it from whatever is behind it without
+   reading as a drop shadow. */
+.body-copy {
+  font-weight: 600;
+  letter-spacing: 0.004em;
+  text-shadow: 0 1px 2px var(--copy-halo), 0 0 10px var(--copy-halo);
+}
+
+/* Inside panels there is already a solid backing, so drop the halo and
+   let the weight do the work. */
+.panel .body-copy { text-shadow: none; }
+
+/* ---------- Display type ----------
+   0.86 leading reads as a tight poster lockup at desktop sizes, but the
+   moment a headline wraps on a narrow screen the lines collide. Leading
+   opens up as the viewport narrows. */
+.display {
+  font-family: 'Bebas Neue', 'Zen Kaku Gothic New', sans-serif;
+  letter-spacing: 0.01em;
+  line-height: 0.88;
+}
+
+/* Second line of a two-line headline. Previously pulled up with a negative
+   margin, which is what caused the overlap on mobile — it now sits on its
+   own baseline with a hair of separation. */
+.headline-line { margin-top: 0.06em; }
+
+/* Cel-shaded headline: hard ink shadow, no blur — like a painted title card.
+   The offset is em-based so it scales down with the type instead of staying
+   5px thick on a 2.6rem mobile headline and swallowing the line below. */
+.cel {
+  text-shadow:
+    0.04em 0.04em 0 var(--bg),
+    0.07em 0.07em 0 var(--ink);
+}
+.dark .cel { text-shadow: 0.04em 0.04em 0 var(--bg), 0.07em 0.07em 0 var(--coral); }
+
+@media (max-width: 720px) {
+  .display { line-height: 0.98; }
+  .headline-line { margin-top: 0.12em; }
+  /* A 2px stroke is proportionally huge on small type and closes the
+     counters; thin it so the outlined line stays legible. */
+  .outline-title { -webkit-text-stroke-width: 1.2px; }
+}
+
+/* Outlined title treatment */
+.outline-title {
+  -webkit-text-stroke: 2px var(--ink);
+  paint-order: stroke fill;
+}
+
+/* The brand PNGs are dark ink on transparency, so dark mode inverts them
+   rather than shipping a second asset — the same approach the live site
+   already uses for its loader lockup. */
+.brand-ink { display: block; }
+.dark .brand-ink { filter: invert(1); }
+
+/* ---------- Painted brand assets ----------
+   The anime editions are warm gold on transparency. That glows on a dark
+   field but nearly vanishes on a light one, so each mode gets its own
+   treatment instead of a second asset:
+     light — a tight ink edge (drop-shadow used as a stroke) plus a touch
+             of darkening, which is also just correct anime linework.
+     dark  — a warm bloom, letting the gradient do what it wants to do.
+   Never invert these; they are already full colour. */
+.brand-anime { display: block; }
+
+:root:not(.dark) .brand-anime {
+  filter:
+    drop-shadow(0 0 1.2px rgba(36, 29, 51, 0.95))
+    drop-shadow(0 0 2.5px rgba(36, 29, 51, 0.55))
+    drop-shadow(0 2px 3px rgba(36, 29, 51, 0.3))
+    saturate(1.1) brightness(0.94);
+}
+
+.dark .brand-anime {
+  filter: drop-shadow(0 2px 14px rgba(255, 150, 90, 0.38));
+}
+
+.hero-lockup { max-width: 80vw; }
+
+.sunset-text {
+  background: linear-gradient(100deg, var(--coral) 0%, var(--gold) 45%, var(--lavender) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ---------- Speed lines ----------
+   Radial burst behind a focal element. Pure CSS: a repeating conic
+   gradient masked to a ring so the centre stays clear. */
+.speedlines {
+  position: absolute;
+  inset: -40%;
+  pointer-events: none;
+  background: repeating-conic-gradient(
+    from 0deg at 50% 50%,
+    var(--ink) 0deg 0.32deg,
+    transparent 0.32deg 2.4deg
+  );
+  opacity: 0.09;
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent 26%, #000 62%, transparent 78%);
+  mask-image: radial-gradient(circle at 50% 50%, transparent 26%, #000 62%, transparent 78%);
+  animation: spinSlow 90s linear infinite;
+}
+@keyframes spinSlow { to { transform: rotate(360deg); } }
+
+/* ---------- Manga panel ----------
+   Thick ink border + hard offset shadow. No soft blur anywhere. */
+.panel {
+  background: var(--panel);
+  border: 2.5px solid var(--panel-border);
+  border-radius: 18px;
+  box-shadow: 6px 6px 0 var(--panel-border);
+  backdrop-filter: blur(10px) saturate(1.2);
+  -webkit-backdrop-filter: blur(10px) saturate(1.2);
+  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.28s;
+}
+.panel:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 10px 10px 0 var(--panel-border);
+}
+
+/* Ink button — solid fill, hard shadow, springy press */
+.ink-btn {
+  border: 2.5px solid var(--ink);
+  border-radius: 999px;
+  box-shadow: 4px 4px 0 var(--ink);
+  transition: transform 0.24s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.24s;
+}
+.ink-btn:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 var(--ink); }
+.ink-btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+
+/* ---------- Return-to-top launch ----------
+   The mark is already an upward arrow, so the button is just the mark
+   given somewhere to go. Idle it breathes, hover lights the ring and
+   rushes the speed lines in, click fires it up its own trail. */
+.rtt {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 84px;
+  height: 84px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+  isolation: isolate;
+}
+
+.rtt-mark {
+  position: relative;
+  z-index: 2;
+  animation: rttBreathe 3.4s ease-in-out infinite;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes rttBreathe {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-5px); }
+}
+.rtt:hover .rtt-mark { transform: translateY(-8px) scale(1.06); }
+
+/* Ring that lights up under the mark */
+.rtt-ring {
+  position: absolute;
+  inset: 6px;
+  z-index: 1;
+  border-radius: 999px;
+  border: 2px solid var(--coral);
+  opacity: 0.22;
+  transition: opacity 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+.rtt:hover .rtt-ring {
+  opacity: 0.85;
+  transform: scale(1.06);
+  box-shadow: 0 0 18px -2px var(--coral);
+}
+
+/* Speed lines — the anime "whoosh", rushing inward on hover */
+.rtt-lines {
+  position: absolute;
+  inset: -34%;
+  z-index: 0;
+  border-radius: 999px;
+  background: repeating-conic-gradient(
+    from 0deg at 50% 50%,
+    var(--coral) 0deg 0.5deg,
+    transparent 0.5deg 6deg
+  );
+  -webkit-mask-image: radial-gradient(circle, transparent 38%, #000 58%, transparent 74%);
+  mask-image: radial-gradient(circle, transparent 38%, #000 58%, transparent 74%);
+  opacity: 0;
+  transform: scale(1.25);
+  transition: opacity 0.35s, transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.rtt:hover .rtt-lines { opacity: 0.5; transform: scale(1); }
+
+/* Vertical trail the arrow rides on the way out */
+.rtt-trail {
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+  z-index: 0;
+  width: 3px;
+  height: 0;
+  transform: translateX(-50%);
+  border-radius: 3px;
+  background: linear-gradient(to top, transparent, var(--coral), transparent);
+  opacity: 0;
+}
+
+/* Click: the arrow shoots up and the trail streaks after it. */
+.rtt--launch .rtt-mark { animation: rttLaunch 0.46s cubic-bezier(0.5, 0, 0.75, 0) forwards; }
+.rtt--launch .rtt-trail { animation: rttTrail 0.46s ease-out forwards; }
+.rtt--launch .rtt-lines { opacity: 0.75; transform: scale(0.82); }
+
+@keyframes rttLaunch {
+  0%   { transform: translateY(0) scale(1); opacity: 1; }
+  30%  { transform: translateY(8px) scale(0.92); opacity: 1; }
+  100% { transform: translateY(-180px) scale(1.15); opacity: 0; }
+}
+@keyframes rttTrail {
+  0%   { height: 0; opacity: 0; }
+  35%  { height: 30px; opacity: 0.9; }
+  100% { height: 190px; opacity: 0; }
+}
+
+/* ---------- Sparkle particles ---------- */
+.sparkle {
+  position: absolute;
+  width: 6px; height: 6px;
+  background: #fff;
+  clip-path: polygon(50% 0%, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0% 50%, 40% 40%);
+  animation: twinkle 3.6s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0; transform: scale(0.4) rotate(0deg); }
+  50%      { opacity: 0.95; transform: scale(1) rotate(45deg); }
+}
+
+/* ---------- Brand mark draw-on ----------
+   Resting state is VISIBLE — the animation reveals from hidden via
+   fill-mode backwards, so the mark never renders as an empty tile. */
+.mark-stroke { stroke-dasharray: 100; stroke-dashoffset: 0; }
+.mark-draw .mark-stroke {
+  animation: draw 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards;
+}
+@keyframes draw { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .mark-draw .mark-stroke,
+  .speedlines,
+  .rtt-mark,
+  .sparkle { animation: none; }
+  .rtt-mark { transform: none !important; }
+  .rtt-ring { opacity: 0.6; }
+  .sparkle { opacity: 0.8; }
+  .panel:hover, .ink-btn:hover { transform: none; }
+  * { scroll-behavior: auto !important; }
+}

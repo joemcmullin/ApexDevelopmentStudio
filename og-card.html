@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    position: relative;
+    font-family: 'Zen Kaku Gothic New', system-ui, sans-serif;
+    background: #171227;
+  }
+  .plate {
+    position: absolute; inset: 0;
+    background: url('public/plates/scene-window.jpg') center/cover no-repeat;
+  }
+  .veil {
+    position: absolute; inset: 0;
+    background: linear-gradient(to right,
+      rgba(23,18,39,0.94) 0%, rgba(23,18,39,0.86) 46%, rgba(23,18,39,0.42) 100%);
+  }
+  .tone {
+    position: absolute; inset: 0; opacity: 0.14; mix-blend-mode: screen;
+    background-image: radial-gradient(circle at center, #fdf4ea 0.7px, transparent 0.8px);
+    background-size: 4px 4px;
+  }
+  .wrap { position: relative; padding: 74px 80px; height: 100%;
+          display: flex; flex-direction: column; justify-content: space-between; }
+  .lockup { width: 300px; filter: drop-shadow(0 2px 14px rgba(255,150,90,0.38)); }
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 104px; line-height: 0.86; color: #fdf4ea;
+    letter-spacing: 0.01em;
+    text-shadow: 3px 3px 0 #171227, 5px 5px 0 #ff6b5a;
+  }
+  h1 .grad {
+    background: linear-gradient(100deg,#ff6b5a 0%,#ffc94d 45%,#a78bd9 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    text-shadow: none;
+  }
+  p { margin-top: 22px; font-size: 25px; line-height: 1.45; color: #c0b3d6; max-width: 22ch; font-weight: 500; }
+  .pill {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 9px 20px; border-radius: 999px;
+    border: 2px solid #fdf4ea; align-self: flex-start;
+    font-family: 'Bebas Neue', sans-serif; font-size: 21px; letter-spacing: 0.2em; color: #fdf4ea;
+  }
+  .dot { width: 9px; height: 9px; border-radius: 999px; background: #4ea862; }
+</style>
+</head>
+<body>
+  <div class="plate"></div>
+  <div class="veil"></div>
+  <div class="tone"></div>
+  <div class="wrap">
+    <img class="lockup" src="public/apex-lockup-anime.png" alt="Apex Development Studio" />
+    <div>
+      <h1>QUIET THINGS<br /><span class="grad">PEOPLE LEAN ON</span></h1>
+      <p>An independent studio. Nothing tracked, nothing sold.</p>
+    </div>
+    <div class="pill"><span class="dot"></span> APEXDEVELOPMENTSTUDIO.COM</div>
+  </div>
+</body>
+</html>
