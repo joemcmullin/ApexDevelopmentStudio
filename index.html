@@ -32,7 +32,7 @@
   <meta http-equiv="X-Content-Type-Options" content="nosniff" />
 
   <title>Apex Development Studio — Independent Software Studio</title>
-  <meta name="description" content="Apex Development Studio LLC is an independent software studio crafting thoughtful, privacy-first applications. We build native apps and beyond — software that genuinely helps people. Makers of Journey Tracker and ScreenPass." />
+  <meta name="description" content="Apex Development Studio LLC is an independent software studio crafting thoughtful, privacy-first applications. We build native apps and beyond — software that genuinely helps people. Makers of Journey Tracker, now available on the App Store." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://apexdevelopmentstudio.com/" />
   <meta name="author" content="Apex Development Studio LLC" />
@@ -65,7 +65,9 @@
         "name": "Journey Tracker",
         "applicationCategory": "HealthApplication",
         "operatingSystem": "iOS, iPadOS, macOS",
-        "url": "https://journeytracker.app"
+        "url": "https://journeytracker.app",
+        "installUrl": "https://apps.apple.com/app/id6760089056",
+        "downloadUrl": "https://apps.apple.com/app/id6760089056"
       },
       {
         "@type": "SoftwareApplication",
@@ -1071,6 +1073,24 @@
 
     .product-cta:hover { gap: 10px; color: var(--crimson-light); }
 
+    /* Multi-link footer row — used on shipped products that have both an
+       App Store listing and a marketing site. Owns the divider/spacing that
+       a lone .product-cta would otherwise provide. */
+    .product-links {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px 22px;
+      margin-top: auto;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .product-links .product-cta { margin-top: 0; padding-top: 0; border-top: 0; }
+
+    .product-cta--muted { color: var(--text-lo); }
+    .product-cta--muted:hover { color: var(--text-mid); }
+
     .placeholder-circle {
       width: 52px;
       height: 52px;
@@ -1764,27 +1784,26 @@
 
         <div class="products-grid">
 
-          <a href="https://journeytracker.app"
-             class="product-card product-card--featured reveal d1"
-             target="_blank"
-             rel="noopener noreferrer"
-             aria-label="Journey Tracker — visit journeytracker.app">
+          <!-- Journey Tracker — shipped 2026-08. This card is a <div>, not an <a>,
+               because a live product carries two destinations (App Store + marketing
+               site) and anchors cannot nest. -->
+          <div class="product-card product-card--featured reveal d1">
 
             <div class="product-card-hd">
               <div class="product-icon" aria-hidden="true">
                 <img src="journeytracker-icon.png" alt="" width="64" height="64" />
               </div>
-              <span class="badge badge--soon">Coming Soon</span>
+              <span class="badge badge--live">On the App Store</span>
             </div>
 
             <div>
               <p class="product-sub">GLP-1 Therapy Tracker</p>
               <h3 class="product-name">Journey Tracker</h3>
               <p class="product-desc">
-                A private, beautifully designed iOS companion for GLP-1 therapy.
-                Track weight, injections, lab results, body composition, hydration,
-                fasting windows, and health milestones — all secured on-device,
-                synced privately via iCloud.
+                Now available on the App Store. A private, beautifully designed iOS
+                companion for GLP-1 therapy. Track weight, injections, lab results,
+                body composition, hydration, fasting windows, and health milestones —
+                all secured on-device, synced privately via iCloud.
               </p>
             </div>
 
@@ -1806,14 +1825,30 @@
               </span>
             </div>
 
-            <span class="product-cta" aria-hidden="true">
-              Visit journeytracker.app
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </span>
+            <div class="product-links">
+              <a href="https://apps.apple.com/app/id6760089056"
+                 class="product-cta"
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 aria-label="Download Journey Tracker on the App Store">
+                Download on the App Store
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                  <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+              <a href="https://journeytracker.app"
+                 class="product-cta product-cta--muted"
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 aria-label="Journey Tracker — visit journeytracker.app">
+                journeytracker.app
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                  <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
 
-          </a>
+          </div>
 
           <a href="https://screenpassapp.com/"
              class="product-card product-card--featured reveal d2"
