@@ -986,12 +986,12 @@
       box-shadow: 0 0 0 1px rgba(192, 24, 46, 0.12), 0 16px 48px rgba(0, 0, 0, 0.40);
     }
 
-    /* Retired products — present for the record, visually stepped back.
-       Colour returns on hover so the card still feels interactive. */
-    .product-card--retired { opacity: 0.72; }
-    .product-card--retired .product-icon img { filter: grayscale(0.55); transition: filter 0.3s; }
-    .product-card--retired:hover { opacity: 1; }
-    .product-card--retired:hover .product-icon img { filter: grayscale(0); }
+    /* Retired products — stepped back by omitting the --featured gradient and
+       muting the eyebrow only. The app icon is NEVER filtered or faded: it is
+       brand artwork and must render in its true colours (ScreenPass is yellow,
+       not sand). Card-level opacity is deliberately avoided here because it
+       cascades to the icon and a child cannot opt back out of it. */
+    .product-card--retired .product-sub { color: var(--text-lo); }
 
     .product-card--placeholder {
       border-style: dashed;
