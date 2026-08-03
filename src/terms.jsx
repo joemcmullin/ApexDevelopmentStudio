@@ -7,8 +7,9 @@ import './index.css'
  * Terms of service.
  *
  * Governing law is the Commonwealth of Virginia, confirmed by the owner.
- * These remain a non-lawyer draft — sensible for the business as it works
- * today, but worth a professional review given the health-adjacent audience.
+ * Reviewed by an attorney (2026-08-03). Treat the wording as settled: changes
+ * here are a legal decision, not a copy edit, so raise them with the owner
+ * rather than tidying the prose.
  */
 const SECTIONS = [
   {

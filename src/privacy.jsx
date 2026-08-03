@@ -10,6 +10,11 @@ import './index.css'
  * third-party requests — Google Fonts, Web3Forms, GitHub Pages logging — and
  * a policy that claimed "nothing leaves your device, full stop" would be
  * false. Those are disclosed plainly below.
+ *
+ * Reviewed by an attorney (2026-08-03). Treat the wording as settled. The
+ * disclosures track real behaviour, so if the site's third parties change —
+ * a new font host, a different form processor, any analytics at all — this
+ * page becomes inaccurate and must be updated with it.
  */
 const SECTIONS = [
   {
