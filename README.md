@@ -26,13 +26,27 @@ flowchart LR
 
 | Section | What it does |
 |---|---|
+| Header | Menu links on the right (desktop); menu button and ripple menu (phones). No call-to-action button in the header. |
 | Hero | "Built to hold up in the field." over a live amber contour map; the summit and APEX label follow the cursor, and a tap plants a peak |
-| Work | Three seamless tiles. **Journey Tracker:** a deck of iPhone screens (hover shuffles, press-and-hold pauses). **Gleaming Beacon:** the animated lighthouse medallion in a sand stream ported from gleamingbeacon.com. **HINA** (client work): a real-time recording of hinapacific.org scrolling, which pauses on hover |
+| Work | Three seamless tiles. **Journey Tracker:** a deck of iPhone screens (hover shuffles, press-and-hold pauses). **Gleaming Beacon:** the animated lighthouse medallion in a sand stream ported from gleamingbeacon.com. **HINA** (client work): a real-time recording of hinapacific.org scrolling, which pauses on hover. **Joe McMullin Photography** (personal project) with a drifting Milky Way panorama |
 | What we build | White band: iOS, Android and Web capabilities |
 | Numbers | 40+ / 22 / 18 / 3 |
 | Founder | "Built on service. Technology for life's essential needs." A Biography accordion that closes itself once scrolled away, plus a joemcmullin.com photography tile |
 | Start a project | 4-step intake: kind → platforms and stage → the idea, timeline and budget → contact details and optional NDA request, with a review before sending |
 | Contact | Compact amber band with the contact form |
+
+## Other pages
+
+| URL | Page |
+|---|---|
+| `/services/` | Services overview and the 6-step process (Discovery → Security, before design → Design → Build → Launch → Support) |
+| `/services/ios-app-development/`, `/services/android-app-development/`, `/services/web-development/` | Service pages with FAQs |
+| `/work/journey-tracker/` | Journey Tracker case study |
+| `/about/` | Founder biography |
+| `/start/` | Standalone 4-step project intake |
+| `/404.html` | Branded not-found page |
+
+Shared header and footer live in `partials/` and are inserted at build time by the `apex-includes` plugin in `vite.config.js` (`<!-- @include nav.html -->`). Inner pages load `src/page.js`, forms live in `src/forms.js`, and the phone menu is `src/nav.js`. On phones the header shows a menu button that opens a full-screen "contour ripple" menu.
 
 Privacy (`/privacy/`) and Terms (`/terms/`) keep their attorney-reviewed text, restyled to match.
 
