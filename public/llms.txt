@@ -1,6 +1,6 @@
 # Apex Development Studio LLC
 
-> Veteran-owned independent software studio in Aldie, Virginia (Northern Virginia). Designs and ships native iOS and Android apps and mission-driven websites. Founded by Joe McMullin, a retired U.S. Army Master Sergeant with nearly two decades in enterprise and federal IT.
+> Veteran-owned independent software studio in Aldie, Virginia (Northern Virginia). Designs and ships native iOS and Android apps and mission-driven websites. Founded by Joe McMullin, a veteran with 22 years of military service and nearly two decades in enterprise and federal IT.
 
 ## Services
 - iOS, iPadOS and macOS apps: Swift, SwiftUI, HealthKit, CloudKit, StoreKit 2

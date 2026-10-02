@@ -17,7 +17,7 @@ Rules for every piece:
 - [ ] Getting a HealthKit app with clinical health records through App Review: five rejection cycles and what finally worked (Journey Tracker, Apr–Sep 2026)
 - [ ] One app, two platforms: building Journey Tracker in SwiftUI and planning the Kotlin/Jetpack Compose version
 - [ ] No server by design: why our apps keep your data on your phone and in your own iCloud
-- [ ] From First Sergeant to founder: what 22 years in the Army taught me about shipping software
+- [ ] From soldier to founder: what 22 years in the Army taught me about shipping software
 - [ ] Bare metal to hybrid cloud: lessons from two decades of federal data-center operations (white paper)
 - [ ] STIG, ATO and RMF in plain English: what founders selling to government need to know (white paper)
 - [ ] Building a website for a humanitarian nonprofit: research, brand and copy before code (needs HINA permission first)

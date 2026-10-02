@@ -274,6 +274,72 @@ import { initNav } from './nav.js'
     })(0);
   })();
 
+  /* ================= numbers: slot-reel digits =================
+     Each digit becomes a reel. Reels spin while the band scrolls into view,
+     then decelerate and snap onto the real number once the band reaches the
+     middle of the screen. The final number is never shown before the spin. */
+  (() => {
+    const band = document.querySelector('.nums');
+    if (!band || reduce) return;
+    const SPEED = 26;          // cells per second while spinning
+    const LOOPS = 7;           // strip length in 0-9 loops
+    const reels = [];
+    band.querySelectorAll('.num b').forEach((b, n) => {
+      const target = b.textContent.trim();
+      b.setAttribute('aria-label', target);
+      b.textContent = '';
+      [...target].forEach((ch, i) => {
+        if (!/\d/.test(ch)) { const s = document.createElement('span'); s.textContent = ch; s.setAttribute('aria-hidden', 'true'); b.append(s); return; }
+        const win = document.createElement('span'); win.className = 'reel'; win.setAttribute('aria-hidden', 'true');
+        const strip = document.createElement('span'); strip.className = 'reel-strip';
+        strip.innerHTML = Array.from({length: LOOPS*10}, (_, k) => `<span>${k % 10}</span>`).join('');
+        win.append(strip); b.append(win);
+        reels.push({ strip, d: +ch, delay: n*.18 + i*.22, off: Math.random()*10 });
+      });
+    });
+
+    // easeOutBack with a light overshoot: fast start, slow finish, small snap past and back.
+    const S = .7, ease = x => 1 + (S+1)*Math.pow(x-1, 3) + S*Math.pow(x-1, 2);
+    const set = (r, pos, vel) => { r.strip.style.transform = `translateY(${-pos}em)`; r.strip.style.filter = vel > 6 ? `blur(${Math.min(1.4, vel/22).toFixed(2)}px)` : ''; };
+    const spinPos = (r, t) => 10 + ((r.off + SPEED*t) % 10);
+
+    let state = 'idle', t0 = 0, tLand = 0, raf = 0;
+    const reset = () => { state = 'idle'; cancelAnimationFrame(raf); raf = 0; reels.forEach(r => { r.land = null; r.off = Math.random()*10; set(r, spinPos(r, 0), 0); }); };
+    reset();
+
+    const frame = now => {
+      raf = 0;
+      const t = (now - t0) / 1000;
+      const rect = band.getBoundingClientRect(), mid = rect.top + rect.height/2;
+      if (state === 'spin' && t > .6 && mid <= innerHeight*.58){
+        state = 'land'; tLand = t;
+        reels.forEach(r => {
+          const p0 = spinPos(r, t + r.delay), dur = 1.5 + r.delay*1.6;
+          const ideal = SPEED*dur/(3+S);                 // matches spin speed at the start of the ease
+          const dist = ideal + (((r.d - (p0 + ideal)) % 10) + 10) % 10;
+          r.land = { p0, dist, dur, start: tLand };
+        });
+      }
+      let moving = false;
+      reels.forEach(r => {
+        if (!r.land){ set(r, spinPos(r, t + r.delay), SPEED); moving = true; return; }
+        const { p0, dist, dur } = r.land;
+        // all reels start easing together; later digits take longer, so they land left to right
+        const x = Math.min(1, Math.max(0, (t - r.land.start) / dur));
+        const e = ease(x), de = (ease(Math.min(1, x + .01)) - e) / .01;
+        set(r, p0 + dist*e, x < 1 ? dist*de/dur : 0);
+        if (x < 1) moving = true;
+      });
+      if (moving) raf = requestAnimationFrame(frame);
+      else state = 'done';
+    };
+
+    new IntersectionObserver(([e]) => {
+      if (e.isIntersecting && state === 'idle'){ state = 'spin'; t0 = performance.now(); raf = requestAnimationFrame(frame); }
+      else if (!e.isIntersecting) reset();       // replays next time the band comes into view
+    }, { threshold: 0 }).observe(band);
+  })();
+
   initForms();
   initNav();
 })();

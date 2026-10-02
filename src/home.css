@@ -190,7 +190,10 @@ section{padding-block:clamp(72px,10vw,128px)}
 .num{padding:40px 24px;text-align:center}
 .num+.num{border-left:1px solid var(--line)}
 .num b{display:block;font-family:var(--f-display);font-size:clamp(44px,5.4vw,72px);font-weight:800;line-height:1;color:var(--amber);font-variant-numeric:tabular-nums;letter-spacing:-.03em}
-.num span{display:block;margin-top:12px;color:var(--ink-2);font-size:15px;max-width:22ch;margin-inline:auto}
+.num b .reel{display:inline-block;height:1em;overflow:hidden;vertical-align:top;-webkit-mask-image:linear-gradient(transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(transparent,#000 8%,#000 92%,transparent)}
+.num b .reel-strip{display:block;will-change:transform}
+.num b .reel-strip span{display:block;height:1em;line-height:1;margin:0}
+.num > span{display:block;margin-top:12px;color:var(--ink-2);font-size:15px;max-width:22ch;margin-inline:auto}
 @media (max-width:760px){.nums{grid-template-columns:repeat(2,minmax(0,1fr))}.num:nth-child(3){border-left:0}.num:nth-child(n+3){border-top:1px solid var(--line)}}
 
 /* ---------- founder: executive briefing ---------- */

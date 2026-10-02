@@ -30,7 +30,7 @@ flowchart LR
 | Hero | "Built to hold up in the field." over a live amber contour map; the summit and APEX label follow the cursor, and a tap plants a peak |
 | Work | Three seamless tiles. **Journey Tracker:** a deck of iPhone screens (hover shuffles, press-and-hold pauses). **Gleaming Beacon:** the animated lighthouse medallion in a sand stream ported from gleamingbeacon.com. **HINA** (client work): a real-time recording of hinapacific.org scrolling, which pauses on hover. **Joe McMullin Photography** (personal project) with a drifting Milky Way panorama |
 | What we build | White band: iOS, Android and Web capabilities |
-| Numbers | 40+ / 22 / 18 / 3 |
+| Numbers | 22 / 18 / 3 / 6, slot-reel digits that spin in and land when the band reaches mid-screen |
 | Founder | "Built on service. Technology for life's essential needs." A Biography accordion that closes itself once scrolled away, plus a joemcmullin.com photography tile |
 | Start a project | 4-step intake: kind → platforms and stage → the idea, timeline and budget → contact details and optional NDA request, with a review before sending |
 | Contact | Compact amber band with the contact form |
