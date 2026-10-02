@@ -1,5 +1,6 @@
 import { resolve, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { readFileSync } from 'node:fs'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
@@ -34,8 +35,27 @@ function buildStamp() {
   }
 }
 
+
+/**
+ * Shared header and footer. Any page can write <!-- @include nav.html --> and
+ * the build replaces it with partials/nav.html, so every page carries the same
+ * markup without a framework.
+ */
+function includes() {
+  return {
+    name: 'apex-includes',
+    transformIndexHtml: {
+      order: 'pre',
+      handler(html) {
+        return html.replace(/<!--\s*@include\s+([\w.-]+)\s*-->/g, (_, file) =>
+          readFileSync(resolve(__dirname, 'partials', file), 'utf8'))
+      },
+    },
+  }
+}
+
 export default defineConfig({
-  plugins: [react(), buildStamp()],
+  plugins: [includes(), react(), buildStamp()],
   base: '/',
   build: {
     outDir: 'dist',
@@ -47,6 +67,13 @@ export default defineConfig({
         main: resolve(__dirname, 'index.html'),
         privacy: resolve(__dirname, 'privacy/index.html'),
         terms: resolve(__dirname, 'terms/index.html'),
+        services: resolve(__dirname, 'services/index.html'),
+        ios: resolve(__dirname, 'services/ios-app-development/index.html'),
+        android: resolve(__dirname, 'services/android-app-development/index.html'),
+        web: resolve(__dirname, 'services/web-development/index.html'),
+        journeyTracker: resolve(__dirname, 'work/journey-tracker/index.html'),
+        about: resolve(__dirname, 'about/index.html'),
+        start: resolve(__dirname, 'start/index.html'),
       },
     },
   },

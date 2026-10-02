@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0C0B09" />
+    <title>Journey Tracker Case Study: Native HealthKit App | Apex Development Studio LLC</title>
+    <meta name="description" content="How Apex Development Studio built Journey Tracker, a private GLP-1 companion for iPhone, iPad and Mac, and took it through App Review with clinical health records." />
+    <link rel="canonical" href="https://apexdevelopmentstudio.com/work/journey-tracker/" />
+    <link rel="preload" href="/fonts/plus-jakarta-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Apex Development Studio LLC" />
+    <meta property="og:url" content="https://apexdevelopmentstudio.com/work/journey-tracker/" />
+    <meta property="og:title" content="Case study: Journey Tracker — Apex Development Studio LLC" />
+    <meta property="og:description" content="How Apex Development Studio built Journey Tracker, a private GLP-1 companion for iPhone, iPad and Mac, and took it through App Review with clinical health records." />
+    <meta property="og:image" content="https://apexdevelopmentstudio.com/media/og/journey-tracker.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Case study: Journey Tracker — Apex Development Studio LLC" />
+    <meta name="twitter:description" content="How Apex Development Studio built Journey Tracker, a private GLP-1 companion for iPhone, iPad and Mac, and took it through App Review with clinical health records." />
+    <meta name="twitter:image" content="https://apexdevelopmentstudio.com/media/og/journey-tracker.jpg" />
+
+    <script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Home",
+     "item": "https://apexdevelopmentstudio.com/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Work",
+     "item": "https://apexdevelopmentstudio.com/#work"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "name": "Journey Tracker",
+     "item": "https://apexdevelopmentstudio.com/work/journey-tracker/"
+    }
+   ]
+  },
+  {
+   "@type": "Article",
+   "headline": "Journey Tracker: a private GLP-1 companion, from first build to the App Store",
+   "author": {
+    "@id": "https://apexdevelopmentstudio.com/#joe"
+   },
+   "publisher": {
+    "@id": "https://apexdevelopmentstudio.com/#org"
+   },
+   "datePublished": "2026-10-02",
+   "dateModified": "2026-10-02",
+   "image": "https://apexdevelopmentstudio.com/media/og/journey-tracker.jpg",
+   "mainEntityOfPage": "https://apexdevelopmentstudio.com/work/journey-tracker/",
+   "about": {
+    "@type": "SoftwareApplication",
+    "name": "Journey Tracker",
+    "url": "https://journeytracker.app",
+    "sameAs": "https://apps.apple.com/app/id6760089056",
+    "applicationCategory": "HealthApplication",
+    "operatingSystem": "iOS, iPadOS, macOS",
+    "publisher": {
+     "@id": "https://apexdevelopmentstudio.com/#org"
+    }
+   }
+  }
+ ]
+}
+    </script>
+  </head>
+  <body>
+<!-- @include nav.html -->
+
+<main id="top">
+<section class="page-hero">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/#work">Work</a><span aria-hidden="true">/</span><span aria-current="page">Journey Tracker</span></nav>
+    <div class="eyebrow">Case study · Apex product</div>
+    <h1>Journey Tracker: <span class="amber">a private GLP-1 companion,</span> from first build to the App Store.</h1>
+    <p class="lede">How we designed, built and shipped a native health app for iPhone, iPad and Mac, worked through App Review's toughest health-data questions, and kept every person's data on their own devices.</p>
+    <div class="ctas"><a class="btn btn-amber" href="https://journeytracker.app" target="_blank" rel="noopener">journeytracker.app ↗</a><a class="btn btn-ghost" href="/start/">Start a project</a></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap split">
+    <div class="label"><div class="eyebrow">At a glance</div><h2>The project.</h2></div>
+    <div class="prose">
+      <dl class="rows">
+        <div><dt>Product</dt><dd>Apex Development Studio's own app</dd></div>
+        <div><dt>Platforms</dt><dd>iPhone, iPad and Mac. Android is in planning.</dd></div>
+        <div><dt>Category</dt><dd>Health and fitness: GLP-1 therapy and weight-loss tracking</dd></div>
+        <div><dt>Status</dt><dd>Live on the App Store</dd></div>
+        <div><dt>Stack</dt><dd>Swift, SwiftUI, Swift Charts, HealthKit, Core Data with CloudKit, StoreKit 2</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap split">
+    <div class="label"><div class="eyebrow">The problem</div><h2>Too much to track, too little privacy.</h2></div>
+    <div class="prose">
+      <p>People on GLP-1 medications such as tirzepatide and semaglutide keep track of a lot: weekly doses, injection sites, weight, symptoms, hydration and lab results. Most trackers handle it by asking for an account and storing everything on their own servers.</p>
+      <p>We wanted one place for all of it that felt like a first-party Apple app, with <strong>no account and no company server</strong> holding anyone's health data.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap split">
+    <div class="label"><div class="eyebrow">What we built</div><h2>One app for the whole routine.</h2></div>
+    <div class="prose">
+      <ul>
+        <li><strong>Dose logging and countdown</strong> to the next injection, with dose changes marked on the charts</li>
+        <li><strong>Estimated medication levels</strong> charted over time</li>
+        <li><strong>Injection site rotation</strong>, so the same site isn't overused</li>
+        <li><strong>Labs by marker</strong>, including clinical health records imported through HealthKit</li>
+        <li><strong>Strides</strong> walking sessions on a map, plus weight, body composition and progress photos</li>
+        <li><strong>PDF reports</strong> to bring to a doctor's appointment</li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap" style="margin-top:28px"><div class="shots"><figure><img src="/media/jt-home-320.webp" srcset="/media/jt-home-320.webp 320w, /media/jt-home.webp 480w" sizes="200px" width="320" height="695" alt="Home: next dose, total loss, Strides, A1C" loading="lazy" decoding="async"><figcaption>Home: next dose, total loss, Strides, A1C</figcaption></figure><figure><img src="/media/jt-levels-chart-320.webp" srcset="/media/jt-levels-chart-320.webp 320w, /media/jt-levels-chart.webp 480w" sizes="200px" width="320" height="695" alt="Estimated medication levels" loading="lazy" decoding="async"><figcaption>Estimated medication levels</figcaption></figure><figure><img src="/media/jt-injection-sites-320.webp" srcset="/media/jt-injection-sites-320.webp 320w, /media/jt-injection-sites.webp 480w" sizes="200px" width="320" height="695" alt="Injection site rotation" loading="lazy" decoding="async"><figcaption>Injection site rotation</figcaption></figure><figure><img src="/media/jt-labs-by-marker-320.webp" srcset="/media/jt-labs-by-marker-320.webp 320w, /media/jt-labs-by-marker.webp 480w" sizes="200px" width="320" height="695" alt="Labs by marker" loading="lazy" decoding="async"><figcaption>Labs by marker</figcaption></figure><figure><img src="/media/jt-dose-counter-320.webp" srcset="/media/jt-dose-counter-320.webp 320w, /media/jt-dose-counter.webp 480w" sizes="200px" width="320" height="695" alt="Dose counter" loading="lazy" decoding="async"><figcaption>Dose counter</figcaption></figure><figure><img src="/media/jt-reports-320.webp" srcset="/media/jt-reports-320.webp 320w, /media/jt-reports.webp 480w" sizes="200px" width="320" height="695" alt="PDF reports" loading="lazy" decoding="async"><figcaption>PDF reports</figcaption></figure></div></div>
+</section>
+
+<section class="block">
+  <div class="wrap split">
+    <div class="label"><div class="eyebrow">Privacy by design</div><h2>No server to breach.</h2></div>
+    <div class="prose">
+      <p>Everything a person enters is stored on their device. When they turn on sync, it goes through <strong>their own iCloud account</strong> using Core Data and CloudKit, which Apex can't read. Health data is read through HealthKit only with permission, never leaves the device through us, and is never used for advertising.</p>
+      <p>Building it this way meant no backend to run, no database of health records to protect, and a privacy policy that can be short and true.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap split">
+    <div class="label"><div class="eyebrow">App Review</div><h2>The hardest part wasn't the code.</h2></div>
+    <div class="prose">
+      <p>Journey Tracker was first submitted in April 2026. Health apps get Apple's closest review, and this one reads <strong>clinical health records</strong>, which brings extra questions about why the data is needed and how it's protected.</p>
+      <p>It took several review cycles. Each round went the same way: answer Apple precisely, fix exactly what they flagged, document the reasoning in the review notes, and resubmit. We also removed features that could read as medical advice, so the app stays a tracker, not a clinician. The clinical health records questions were settled when version 1.5.2 was approved on 1 September 2026.</p>
+      <div class="stat-row">
+        <div><b>5</b><span>review cycles to clear clinical health records</span></div>
+        <div><b>3</b><span>App Store releases in September 2026</span></div>
+        <div><b>1,667</b><span>automated tests passing (September 2026)</span></div>
+      </div>
+      <p>Since then, every release goes through the same gate: automated tests, an accessibility check, a privacy and security review, and a written release verification report before it's submitted.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap split">
+    <div class="label"><div class="eyebrow">What's next</div><h2>Android, specced from the iOS app.</h2></div>
+    <div class="prose">
+      <p>Journey Tracker is coming to Android. The Android version is being specced feature by feature from the iOS app and will be built natively in Kotlin and Jetpack Compose, with Health Connect in place of HealthKit.</p>
+      <p>Building something similar? See <a href="/services/ios-app-development/">iOS app development</a> and <a href="/services/android-app-development/">Android app development</a>.</p>
+    </div>
+  </div>
+</section>
+<section class="cta-band">
+  <div class="wrap">
+    <h2>Have a health or fitness app in mind?</h2>
+    <a class="btn" href="/start/">Start a project</a>
+  </div>
+</section>
+</main>
+
+<!-- @include footer.html -->
+    <script type="module" src="/src/page.js"></script>
+  </body>
+</html>

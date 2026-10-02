@@ -204,21 +204,7 @@
     </script>
   </head>
   <body>
-<header class="nav">
-  <div class="wrap">
-    <a class="brand" href="#top">
-      <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="29" fill="none" stroke="#F2B233" stroke-width="3"/><path d="M32 13 L45 47 L32 39 L19 47 Z" fill="#F2B233"/></svg>
-      <span>Apex Development Studio LLC<small>iOS · Android · Web</small></span>
-    </a>
-    <ul>
-      <li><a href="#work">Work</a></li>
-      <li><a href="#capabilities">Capabilities</a></li>
-      <li><a href="#founder">Founder</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-    <a class="btn btn-amber" href="#start">Start a project</a>
-  </div>
-</header>
+<!-- @include nav.html -->
 
 <main id="top">
   <section class="hero" id="hero" style="padding:0">
@@ -267,7 +253,7 @@
             <h3>Journey Tracker</h3>
             <p>A GLP-1 therapy and weight-loss companion. Log doses, see estimated medication levels, rotate injection sites, follow labs over time and walk with Strides. Health data stays on your devices and in your own iCloud.</p>
             <ul><li class="chip">SwiftUI</li><li class="chip">HealthKit</li><li class="chip">CloudKit</li><li class="chip">StoreKit 2</li></ul>
-            <a class="link" href="https://journeytracker.app" target="_blank" rel="noopener">journeytracker.app ↗</a>
+            <span class="links"><a class="link" href="/work/journey-tracker/">Read the case study →</a><a class="link" href="https://journeytracker.app" target="_blank" rel="noopener">journeytracker.app ↗</a></span>
           </div>
           <div class="visual">
             <div class="deck" id="deck" role="group" aria-label="Journey Tracker screens. Hover to shuffle through them, or tap to see the next one.">
@@ -344,18 +330,21 @@
           <h3>Apple</h3>
           <p>SwiftUI apps that pass App Review and feel like they belong on the device.</p>
           <ul><li>HealthKit, CloudKit, StoreKit 2</li><li>Widgets, Live Activities, Apple Watch</li><li>VoiceOver and Dynamic Type from day one</li></ul>
+          <a class="cap-link" href="/services/ios-app-development/">iOS app development →</a>
         </div>
         <div class="cap">
           <span class="tag">Android</span>
           <h3>Android</h3>
           <p>Kotlin and Jetpack Compose with Material 3, kept in step with the iOS version.</p>
           <ul><li>Health Connect and Play Billing</li><li>Shared Kotlin core where it pays off</li><li>TalkBack and large-font tested</li></ul>
+          <a class="cap-link" href="/services/android-app-development/">Android app development →</a>
         </div>
         <div class="cap">
           <span class="tag">Web</span>
           <h3>Web</h3>
           <p>Marketing sites and mission sites that load fast and are easy to keep current.</p>
           <ul><li>React, static and edge hosting</li><li>Brand, copy and research included</li><li>Privacy policies that match the code</li></ul>
+          <a class="cap-link" href="/services/web-development/">Web development →</a>
         </div>
       </div>
     </div>
@@ -383,6 +372,7 @@
             <div class="av" aria-hidden="true">JM</div>
             <div><b>Joe McMullin</b><small>Founder &amp; Principal · U.S. Army Veteran</small></div>
           </div>
+          <a class="cap-link" href="/about/" style="margin-top:16px;display:inline-block;color:var(--amber)">Full biography →</a>
         </div>
       </div>
 
@@ -565,12 +555,7 @@
   </section>
 </main>
 
-<footer>
-  <div class="wrap">
-    <span>© 2026 Apex Development Studio LLC · Aldie, Virginia</span>
-    <span class="mono"><a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a></span>
-  </div>
-</footer>
+<!-- @include footer.html -->
 
 
 
