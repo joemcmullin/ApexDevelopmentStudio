@@ -1,3 +1,4 @@
+@import './fonts.css';
 /* Layout: dark stage, one amber signal. Hero = live amber contour map that climbs toward the cursor;
    each product tile carries its own live visual (card deck, sand stream, self-scrolling site). */
 :root{
@@ -8,9 +9,9 @@
   --line:#2A2620;
   --ink:#F3EEE4;
   --ink-2:#B9B2A4;
-  --muted:#7E776A;
+  --muted:#9A9284;        /* ≥4.5:1 on the stage for small labels */
   --amber:#F2B233;
-  --amber-deep:#C98A12;
+  --amber-deep:#8F600A;     /* small amber text on white needs ≥4.5:1 */
   --paper:#F3EEE4;
   --paper-ink:#16130E;
   --paper-ink-2:#5A5246;
@@ -52,6 +53,19 @@ h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;letter-spacing:
 .btn-ghost:hover{border-color:var(--ink-2)}
 .nav .btn{padding:10px 18px;font-size:14px}
 @media (max-width:860px){.nav ul{display:none}}
+/* Phones: one line for the name, one line for the button, nothing squeezed. */
+.nav .btn{white-space:nowrap;flex:none}
+.brand{min-width:0}
+.brand > span{min-width:0}
+@media (max-width:520px){
+  .nav .wrap{gap:12px;padding-block:12px}
+  .brand{gap:10px;font-size:15px;line-height:1.15}
+  .brand > span{max-width:9.5em}   /* wraps as "Apex Development / Studio LLC" rather than squeezing the button */
+  .brand svg{width:28px;height:28px}
+  .brand small{display:none}
+  .nav .btn{padding:9px 14px;font-size:13px}
+}
+@media (max-width:360px){.brand{font-size:12.5px;gap:8px}.brand svg{width:24px;height:24px}.brand > span{max-width:none}.nav .btn{padding:8px 12px;font-size:12.5px}}
 
 /* ---------- hero: amber contour map ---------- */
 .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line);cursor:crosshair;touch-action:pan-y}

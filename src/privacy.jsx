@@ -7,7 +7,7 @@ import './legal.css'
  * Privacy policy.
  *
  * Written to be accurate rather than reassuring. The site really does make
- * third-party requests — Google Fonts, Web3Forms, GitHub Pages logging — and
+ * third-party requests — Web3Forms and GitHub Pages logging — and
  * a policy that claimed "nothing leaves your device, full stop" would be
  * false. Those are disclosed plainly below.
  *
@@ -39,7 +39,6 @@ const SECTIONS = [
       'This site sets no advertising or analytics cookies. It does, however, involve a few third parties, and you should know about them:',
       [
         'Hosting — the site is served by GitHub Pages. GitHub records standard web server information, including IP addresses, as described in the GitHub Privacy Statement.',
-        'Fonts — typefaces load from Google Fonts, which means your browser makes a request to Google servers and Google receives your IP address.',
         'Contact form — if you send us a message, your name, email address, chosen subject and message are transmitted through Web3Forms, which relays them to our inbox. We use that information only to reply to you. The “Start a project” form works the same way and also sends the details you choose to share about your idea, such as its platforms, stage, timeline and budget.',
         'Browser storage — this site does not store anything in your browser’s cookies or local storage.',
       ],

@@ -1,3 +1,4 @@
+@import './fonts.css';
 /* Legal pages: the home page's dark stage and amber signal, tuned for long reading. */
 :root{
   --stage:#0C0B09;
@@ -5,7 +6,7 @@
   --line:#2A2620;
   --ink:#F3EEE4;
   --ink-2:#B9B2A4;
-  --muted:#7E776A;
+  --muted:#9A9284;
   --amber:#F2B233;
   --f-body:"Plus Jakarta Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
   --f-mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;

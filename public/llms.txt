@@ -1,0 +1,19 @@
+# Apex Development Studio LLC
+
+> Veteran-owned independent software studio in Aldie, Virginia (Northern Virginia). Designs and ships native iOS and Android apps and mission-driven websites. Founded by Joe McMullin, a retired U.S. Army Master Sergeant with nearly two decades in enterprise and federal IT.
+
+## Services
+- iOS, iPadOS and macOS apps: Swift, SwiftUI, HealthKit, CloudKit, StoreKit 2
+- Android apps: Kotlin, Jetpack Compose, Health Connect, Play Billing
+- Websites for mission-driven organizations: research, brand, copy, build and hosting
+
+## Work
+- [Journey Tracker](https://journeytracker.app): GLP-1 therapy and weight-loss companion for iPhone, iPad and Mac; live on the App Store. Health data stays on the user's devices and their own iCloud.
+- [Gleaming Beacon](https://gleamingbeacon.com): personal life-alignment app for iOS and Android, coming soon. All charts are computed on the device.
+- [HINA — Humanitarian Initiative for Native Advancement](https://hinapacific.org): client website, built end to end.
+
+## Contact
+- Website: https://apexdevelopmentstudio.com/
+- Start a project: https://apexdevelopmentstudio.com/#start
+- Email: support@apexdevelopmentstudio.com
+- Founder: https://www.linkedin.com/in/joemcmullin · https://joemcmullin.com

@@ -6,7 +6,8 @@ import './home.css'
   /* ================= hero: amber contour map ================= */
   const hero = document.getElementById('hero');
   const cv = document.getElementById('topo'), ctx = cv.getContext('2d');
-  const CELL = 9;
+  // Coarser grid on phones: the field is recomputed every frame, so cell count is the CPU cost.
+  const CELL = matchMedia('(max-width: 700px)').matches ? 14 : 9;
   let W = 0, H = 0, cols, rows, F, noise;
   const hills = [[.08,.85,.22,.38],[.30,.12,.18,.24],[.90,.80,.25,.4],[.58,.98,.2,.28],[.98,.12,.16,.24]];
   const peaks = [];
@@ -22,7 +23,6 @@ import './home.css'
     for (let j=0;j<rows;j++) for (let i=0;i<cols;i++){ const x=i*CELL/W, y=j*CELL/H; noise[j*cols+i] = .05*Math.sin(x*11+y*3) + .04*Math.sin(y*13 - x*5 + 1.3) + .03*Math.sin((x+y)*21); }
     drawTopo(performance.now());
   }
-  new ResizeObserver(resize).observe(hero);
   new IntersectionObserver(e => { heroVisible = e[0].isIntersecting; }).observe(hero);
 
   hero.addEventListener('pointermove', e => { const r = hero.getBoundingClientRect(); summit.tx = (e.clientX-r.left)/W; summit.ty = (e.clientY-r.top)/H; summit.th = 1.45; });
@@ -102,8 +102,10 @@ import './home.css'
     if (heroVisible && !document.hidden && t - lastTopo > 24){ drawTopo(t); lastTopo = t; }
     requestAnimationFrame(topoLoop);
   }
-  resize();
-  if (!reduce) requestAnimationFrame(topoLoop);
+  // Let the headline paint first (it is the page's largest element); the map starts once the browser is idle.
+  const startTopo = () => { new ResizeObserver(resize).observe(hero); if (!reduce) requestAnimationFrame(topoLoop); };
+  if (document.readyState === 'complete') (window.requestIdleCallback || setTimeout)(startTopo, { timeout: 1200 });
+  else addEventListener('load', () => (window.requestIdleCallback || setTimeout)(startTopo, { timeout: 1200 }), { once:true });
 
   /* ================= Journey Tracker: shuffling iPhone deck ================= */
   const deck = document.getElementById('deck');
