@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { LegalPage } from './components/LegalPage.jsx'
-import './index.css'
+import './legal.css'
 
 /**
  * Terms of service.
@@ -89,7 +89,7 @@ const SECTIONS = [
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <LegalPage
-      title="TERMS"
+      title="Terms"
       updated="3 August 2026"
       lede="The plain-language agreement between you and Apex Development Studio LLC covering this website and the applications we publish."
       sections={SECTIONS}

@@ -2,36 +2,403 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0C0B09" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" href="/Apex-mark.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-    <title>Apex Development Studio — Independent Software Studio</title>
-    <meta name="description" content="Apex Development Studio LLC is an independent software studio crafting thoughtful, privacy-first applications. Makers of Journey Tracker, now available on the App Store." />
+    <title>Apex Development Studio LLC — iOS, Android &amp; Web</title>
+    <meta name="description" content="Apex Development Studio LLC designs and ships native iOS and Android apps and mission-driven websites. Makers of Journey Tracker and Gleaming Beacon. Veteran-founded, privacy by default." />
+    <link rel="canonical" href="https://apexdevelopmentstudio.com/" />
 
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Apex Development Studio — Independent Software Studio" />
-    <meta property="og:description" content="Privacy-first applications, built with precision and care." />
-    <meta property="og:image" content="/og-image.png" />
+    <meta property="og:url" content="https://apexdevelopmentstudio.com/" />
+    <meta property="og:title" content="Apex Development Studio LLC — Built to hold up in the field." />
+    <meta property="og:description" content="Native iOS and Android apps and mission-driven websites, private by default and built to last." />
+    <meta property="og:image" content="https://apexdevelopmentstudio.com/og-image.png" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content="/og-image.png" />
+    <meta name="twitter:image" content="https://apexdevelopmentstudio.com/og-image.png" />
+
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"Organization","name":"Apex Development Studio LLC","url":"https://apexdevelopmentstudio.com/","logo":"https://apexdevelopmentstudio.com/Apex-mark.png","email":"support@apexdevelopmentstudio.com","founder":{"@type":"Person","name":"Joe McMullin","url":"https://joemcmullin.com"},"address":{"@type":"PostalAddress","addressLocality":"Aldie","addressRegion":"VA","addressCountry":"US"}}
+    </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-
-    <script>
-      // Theme boot — runs before paint so there is no flash of the wrong theme.
-      (function () {
-        var stored = localStorage.getItem('theme');
-        var mode = stored || 'dark';
-        var dark = mode === 'dark' || (mode === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
-        document.documentElement.classList.toggle('dark', dark);
-      })();
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet" />
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Apex Development Studio LLC home">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="29" fill="none" stroke="#F2B233" stroke-width="3"/><path d="M32 13 L45 47 L32 39 L19 47 Z" fill="#F2B233"/></svg>
+      <span>Apex Development Studio LLC<small>iOS · Android · Web</small></span>
+    </a>
+    <ul>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#capabilities">Capabilities</a></li>
+      <li><a href="#founder">Founder</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="btn btn-amber" href="#start">Start a project</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" id="hero" style="padding:0">
+    <canvas id="topo" aria-hidden="true"></canvas>
+    <div class="wrap">
+      <div class="hero-copy">
+        <div class="eyebrow">Independent software studio · Northern Virginia</div>
+        <h1>Built to hold up <span class="amber">in the field.</span></h1>
+        <p class="lede">Apex Development Studio designs and ships native iOS and Android apps and mission-driven websites. Every product is private by default, built to last, and held to a standard learned in the Army and in federal IT.</p>
+        <div class="ctas">
+          <a class="btn btn-amber" href="#work">See the work ↗</a>
+          <a class="btn btn-ghost" href="#founder">Meet the founder</a>
+        </div>
+        <div class="platforms">
+          <span class="chip">SwiftUI</span><span class="chip">Kotlin + Compose</span><span class="chip">React</span><span class="chip">On-device first</span>
+        </div>
+      </div>
+    </div>
+    <span class="legend" id="legend">Move to raise the summit · tap to plant a peak</span>
+  </section>
+
+  <div class="ticker" aria-hidden="true"><div class="track">
+    <span>Native iOS</span><span>Native Android</span><span>Web platforms</span><span>Privacy by default</span><span>HealthKit &amp; Health Connect</span><span>Accessibility built in</span><span>Cloud &amp; security</span>
+    <span>Native iOS</span><span>Native Android</span><span>Web platforms</span><span>Privacy by default</span><span>HealthKit &amp; Health Connect</span><span>Accessibility built in</span><span>Cloud &amp; security</span>
+  </div></div>
+
+  <section id="work">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <div class="eyebrow">Selected work</div>
+          <h2>Three products. <span class="amber">Three platforms.</span></h2>
+        </div>
+      </div>
+
+      <div class="work">
+        <article class="project">
+          <div class="copy">
+            <div class="meta">
+              <img class="icon-tile" src="/media/jt-icon.png" alt="Journey Tracker app icon" width="56" height="56">
+              <div>
+                <span class="status live"><i></i>Live on the App Store</span>
+                <div class="kind">iPhone · iPad · Mac · Android planned</div>
+              </div>
+            </div>
+            <h3>Journey Tracker</h3>
+            <p>A GLP-1 therapy and weight-loss companion. Log doses, see estimated medication levels, rotate injection sites, follow labs over time and walk with Strides. Health data stays on your devices and in your own iCloud.</p>
+            <ul><li class="chip">SwiftUI</li><li class="chip">HealthKit</li><li class="chip">CloudKit</li><li class="chip">StoreKit 2</li></ul>
+            <a class="link" href="https://journeytracker.app" target="_blank" rel="noopener">journeytracker.app ↗</a>
+          </div>
+          <div class="visual">
+            <div class="deck" id="deck" role="group" aria-label="Journey Tracker screens. Hover to shuffle through them, or tap to see the next one.">
+              <div class="iphone"><img src="/media/jt-home.jpg" alt="Home screen: next dose, total loss, Strides and A1C"></div>
+              <div class="iphone"><img src="/media/jt-levels-chart.jpg" alt="Estimated medication levels chart" loading="lazy"></div>
+              <div class="iphone"><img src="/media/jt-dose-counter.jpg" alt="Dose counter" loading="lazy"></div>
+              <div class="iphone"><img src="/media/jt-injection-sites.jpg" alt="Injection site rotation" loading="lazy"></div>
+              <div class="iphone"><img src="/media/jt-labs-by-marker.jpg" alt="Labs grouped by marker" loading="lazy"></div>
+              <div class="iphone"><img src="/media/jt-stride.jpg" alt="Strides walking map" loading="lazy"></div>
+              <div class="iphone"><img src="/media/jt-reports.jpg" alt="PDF reports" loading="lazy"></div>
+              <div class="iphone"><img src="/media/jt-logbook.jpg" alt="Logbook" loading="lazy"></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="project" id="gbTile">
+          <canvas class="gb-sand" id="sand" aria-hidden="true"></canvas>
+          <div class="copy">
+            <div class="meta">
+              <img class="icon-round" src="/media/gb-icon.png" alt="Gleaming Beacon lantern medallion" width="56" height="56">
+              <div>
+                <span class="status soon"><i></i>Coming soon</span>
+                <div class="kind">iOS · Android</div>
+              </div>
+            </div>
+            <h3>Gleaming Beacon</h3>
+            <p>A personal life-alignment app that brings together astronomy, numerology, feng shui and Eastern traditions. Every chart is computed on your phone, so your birth, home and family details never leave it.</p>
+            <ul><li class="chip">On-device computation</li><li class="chip">iOS</li><li class="chip">Android</li></ul>
+            <a class="link" href="https://gleamingbeacon.com" target="_blank" rel="noopener">gleamingbeacon.com ↗</a>
+          </div>
+          <div class="visual gb-visual" id="gbVisual">
+            <img src="/media/gb-medallion-anim.webp" alt="Gleaming Beacon medallion, its lantern light sweeping like a lighthouse" width="341" height="341">
+            <span class="vhint">Move through the sand</span>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="copy">
+            <div class="meta">
+              <span class="icon-mono" aria-hidden="true">HINA</span>
+              <div>
+                <span class="status client"><i></i>Client work · Web</span>
+                <div class="kind">Research · Brand · Copy · Build · Hosting</div>
+              </div>
+            </div>
+            <h3>HINA</h3>
+            <div class="kind" style="margin-top:-10px">Humanitarian Initiative for Native Advancement</div>
+            <p>HINA strengthens communities across the Pacific and Asia through trusted partnerships and local capacity. We built its launch site end to end: the research, the brand system, the copy, the build and the hosting.</p>
+            <ul><li class="chip">React</li><li class="chip">Brand system</li><li class="chip">Copy &amp; research</li></ul>
+            <a class="link" href="https://hinapacific.org" target="_blank" rel="noopener">hinapacific.org ↗</a>
+          </div>
+          <div class="visual site-visual" id="hinaVisual">
+            <video id="hinaVideo" muted loop playsinline preload="none" poster="/media/hina-poster.jpg" aria-label="The HINA website scrolling from top to bottom with its animations playing">
+              <source src="/media/hina-scroll.mp4" type="video/mp4">
+            </video>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="capabilities" class="paper">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <div class="eyebrow">What we build</div>
+          <h2>Native where it matters. Web where it reaches.</h2>
+        </div>
+        <p>Each platform gets its own code written in its own language, so the apps feel right on the phone in your hand. The same standards for privacy, accessibility and testing apply to every one.</p>
+      </div>
+      <div class="caps">
+        <div class="cap">
+          <span class="tag">iOS · iPadOS · macOS</span>
+          <h3>Apple</h3>
+          <p>SwiftUI apps that pass App Review and feel like they belong on the device.</p>
+          <ul><li>HealthKit, CloudKit, StoreKit 2</li><li>Widgets, Live Activities, Apple Watch</li><li>VoiceOver and Dynamic Type from day one</li></ul>
+        </div>
+        <div class="cap">
+          <span class="tag">Android</span>
+          <h3>Android</h3>
+          <p>Kotlin and Jetpack Compose with Material 3, kept in step with the iOS version.</p>
+          <ul><li>Health Connect and Play Billing</li><li>Shared Kotlin core where it pays off</li><li>TalkBack and large-font tested</li></ul>
+        </div>
+        <div class="cap">
+          <span class="tag">Web</span>
+          <h3>Web</h3>
+          <p>Marketing sites and mission sites that load fast and are easy to keep current.</p>
+          <ul><li>React, static and edge hosting</li><li>Brand, copy and research included</li><li>Privacy policies that match the code</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="nums" aria-label="Founder experience in numbers">
+      <div class="num"><b>40+</b><span>years leading, building and delivering</span></div>
+      <div class="num"><b>22</b><span>years of U.S. Army service, retired Master Sergeant</span></div>
+      <div class="num"><b>18</b><span>years in enterprise and federal IT</span></div>
+      <div class="num"><b>3</b><span>platforms we ship on: iOS, Android, web</span></div>
+    </div>
+  </div>
+
+  <section id="founder">
+    <div class="wrap">
+      <div class="founder-head">
+        <div>
+          <div class="eyebrow">Founder</div>
+          <h2>Built on service. <span class="amber">Technology for life's essential needs.</span></h2>
+        </div>
+        <div>
+          <p>Health, community, and the everyday systems people count on. Apex builds for the needs that matter most, led by a founder whose career has been about people and systems that could not fail.</p>
+          <div class="who">
+            <div class="av" aria-hidden="true">JM</div>
+            <div><b>Joe McMullin</b><small>Founder &amp; Principal · U.S. Army Veteran</small></div>
+          </div>
+        </div>
+      </div>
+
+      <details class="brief" id="brief">
+        <summary>
+          <span class="t"><b>Biography</b><span>Joe McMullin · Founder &amp; Principal</span></span>
+          <span class="toggle"><span class="more">Read more</span><span class="less">Close</span><i aria-hidden="true">+</i></span>
+        </summary>
+        <div class="brief-body">
+          <p class="lead">Joe McMullin is the Founder and Principal of Apex Development Studio LLC and a Senior Program Manager who leads cloud engineering and cloud security teams in secure government environments. His career runs from leading Soldiers in combat, through running 24/7 data-center and hybrid-cloud operations for federal agencies, to building native mobile apps himself. Apex is where those careers meet: dependable technology for health, community, and the everyday needs people rely on.</p>
+
+          <div class="cols">
+            <div>
+              <h3>Military leadership · 1985–2007</h3>
+              <p><b>22 years in the U.S. Army Corps of Engineers.</b> Joe rose from Combat Engineer to Master Sergeant. He served as an Operations Sergeant at Headquarters, Eighth U.S. Army, and trained new Soldiers as a Drill Sergeant. In Iraq he served as a Platoon Sergeant, and he later served as First Sergeant of HHC, 317th Engineer Battalion.</p>
+              <p>He served overseas in Panama, Iraq and two tours in Korea, and was awarded the Bronze Star Medal and five Meritorious Service Medals.</p>
+            </div>
+            <div>
+              <h3>Enterprise &amp; federal technology · 2008–today</h3>
+              <p><b>Nearly two decades in federal and healthcare IT.</b> His work has spanned bare-metal servers, virtualization and hybrid cloud. He was a Systems Engineer and Task Manager at SAIC, then a Technical Program Manager for a global healthcare software company, where his engineers earned government recognition for a record-breaking data-center recovery.</p>
+              <p>As Director of Operations at Navstar, he ran cybersecurity and hybrid-cloud infrastructure. At Deloitte, he led a team of 12 Program Managers on a $285M enterprise IT contract for the Defense Counterintelligence and Security Agency. Today he leads cloud engineering and security teams covering STIG hardening, ATO and RMF compliance on AWS GovCloud and Microsoft 365 GCC High.</p>
+            </div>
+            <div>
+              <h3>Builder · Apex Development Studio</h3>
+              <p><b>Hands-on, not just in charge.</b> Joe designs and ships native SwiftUI and Kotlin apps with health integrations like HealthKit and Health Connect, as well as web platforms for mission-driven organizations.</p>
+              <p>He also practices applied AI and machine learning, including deep learning, computer vision and multi-model AI workflows. He runs the studio with the discipline he learned in uniform: plan the mission, test before shipping, and support what you launch.</p>
+            </div>
+          </div>
+
+          <div class="cred">
+            <dl>
+              <dt>Education</dt><dd>Bachelor's degree, Information Security and Forensics, Fountainhead College of Technology (FCT), Tennessee<br>Cornell University, Business Strategy certificate (2020)</dd>
+              <dt>Sectors</dt><dd>Federal and defense · Healthcare · Finance and markets</dd>
+            </dl>
+            <dl>
+              <dt>Security</dt><dd>CNSS national information-assurance standards 4011–4016: INFOSEC Professional, Senior Systems Manager, System Administrator, ISSO, System Certifier, Risk Analyst</dd>
+            </dl>
+          </div>
+
+          <div class="comp" aria-label="Core competencies">
+            <span class="chip">Program &amp; portfolio leadership</span><span class="chip">Cloud engineering</span><span class="chip">Cybersecurity &amp; RMF</span><span class="chip">Data-center operations</span><span class="chip">Team building &amp; mentoring</span><span class="chip">Federal contracting</span><span class="chip">iOS &amp; Android development</span><span class="chip">Applied AI / ML</span>
+          </div>
+
+          <a class="personal" href="https://joemcmullin.com" target="_blank" rel="noopener">
+            <div class="pano" aria-hidden="true">
+              <img src="/media/milkyway-pano.jpg" alt="" loading="lazy">
+              <canvas id="twinkle"></canvas>
+            </div>
+            <div class="personal-cap">
+              <span class="tag">Personal project · Photography</span>
+              <b>Years of light, kept in one place.</b>
+              <span class="meta-line">Milky Way over Harmony Borax Works, Death Valley · stacked panorama · April 2023</span>
+              <span class="go">joemcmullin.com ↗</span>
+            </div>
+          </a>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="pipe">
+      <div>
+        <div class="eyebrow">In the pipeline</div>
+        <h3 style="margin-top:14px">More iOS and Android apps are on the way.</h3>
+        <p>Each new idea goes through the same steps: research, demand testing, and a build that passes our quality gates on both platforms before it ships.</p>
+      </div>
+      <a class="btn btn-ghost" href="#start">Pitch an app idea</a>
+    </div>
+  </div>
+
+  <section id="start">
+    <div class="wrap intake">
+      <div class="intake-intro">
+        <div class="eyebrow">Start a project</div>
+        <h2>Have an idea for an app? <span class="amber">Let's build it.</span></h2>
+        <p>Answer four short questions. It takes about two minutes, and your idea stays confidential. If you'd like an NDA before sharing details, say so in the last step.</p>
+        <ol class="steps-legend" id="stepsLegend">
+          <li class="on"><b>1</b>What you have in mind</li>
+          <li><b>2</b>Platforms and stage</li>
+          <li><b>3</b>The idea</li>
+          <li><b>4</b>How to reach you</li>
+        </ol>
+      </div>
+
+      <form class="wizard" id="wizard" novalidate>
+        <div class="wz-top">
+          <span id="wzCount">Step 1 of 4</span>
+          <div class="wz-bar" aria-hidden="true"><i id="wzBar" style="width:25%"></i></div>
+        </div>
+
+        <fieldset class="wz-step" data-step="1">
+          <legend>What do you have in mind?</legend>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="kind" value="New app" required><span><b>A new app</b><small>An idea for iPhone, Android, or both</small></span></label>
+            <label class="opt"><input type="radio" name="kind" value="Website"><span><b>A website</b><small>A marketing, product or mission site</small></span></label>
+            <label class="opt"><input type="radio" name="kind" value="Existing product"><span><b>Help with an existing product</b><small>Rescue, rebuild, or add features</small></span></label>
+            <label class="opt"><input type="radio" name="kind" value="Partnership"><span><b>A partnership</b><small>Work together or join a project</small></span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="wz-step" data-step="2" hidden>
+          <legend>Where should it run?</legend>
+          <div class="opts row">
+            <label class="opt sm"><input type="checkbox" name="platforms" value="iOS"><span><b>iPhone &amp; iPad</b></span></label>
+            <label class="opt sm"><input type="checkbox" name="platforms" value="Android"><span><b>Android</b></span></label>
+            <label class="opt sm"><input type="checkbox" name="platforms" value="Web"><span><b>Web</b></span></label>
+            <label class="opt sm"><input type="checkbox" name="platforms" value="Not sure"><span><b>Not sure yet</b></span></label>
+          </div>
+          <legend class="sub">How far along is it?</legend>
+          <div class="opts row">
+            <label class="opt sm"><input type="radio" name="stage" value="Just an idea"><span><b>Just an idea</b></span></label>
+            <label class="opt sm"><input type="radio" name="stage" value="Sketches or designs"><span><b>Sketches or designs</b></span></label>
+            <label class="opt sm"><input type="radio" name="stage" value="Working product"><span><b>A working product</b></span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="wz-step" data-step="3" hidden>
+          <legend>Tell us about the idea</legend>
+          <div class="fld full"><label for="w-name">Working name <em>(optional)</em></label><input id="w-name" name="project" maxlength="80" placeholder="What do you call it?"></div>
+          <div class="fld full"><label for="w-problem">What problem does it solve?</label><textarea id="w-problem" name="problem" rows="3" maxlength="3000" required placeholder="Who has the problem, and what would the app do about it?"></textarea></div>
+          <div class="pair">
+            <div class="fld"><label for="w-when">Timeline</label>
+              <select id="w-when" name="timeline"><option>Flexible</option><option>As soon as possible</option><option>1–3 months</option><option>3–6 months</option></select></div>
+            <div class="fld"><label for="w-budget">Budget</label>
+              <select id="w-budget" name="budget"><option>Not sure yet</option><option>Under $10k</option><option>$10k–$25k</option><option>$25k–$50k</option><option>$50k+</option></select></div>
+          </div>
+        </fieldset>
+
+        <fieldset class="wz-step" data-step="4" hidden>
+          <legend>How do we reach you?</legend>
+          <div class="pair">
+            <div class="fld"><label for="w-person">Name</label><input id="w-person" name="name" autocomplete="name" maxlength="120" required placeholder="Your name"></div>
+            <div class="fld"><label for="w-email">Email</label><input id="w-email" name="email" type="email" autocomplete="email" maxlength="200" required placeholder="you@example.com"></div>
+          </div>
+          <label class="check"><input type="checkbox" name="nda" value="yes"> Please send me an NDA before I share more details.</label>
+          <div class="trap" aria-hidden="true"><label for="w-company">Leave this empty</label><input id="w-company" name="botcheck" tabindex="-1" autocomplete="off"></div>
+          <div class="review" id="wzReview"></div>
+        </fieldset>
+
+        <p class="form-status" id="wzStatus" role="status" aria-live="polite"></p>
+        <div class="wz-nav">
+          <button type="button" class="btn btn-ghost" id="wzBack" hidden>Back</button>
+          <button type="button" class="btn btn-amber" id="wzNext">Continue</button>
+          <button type="submit" class="btn btn-amber" id="wzSend" hidden>Send my idea</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="wrap">
+      <div class="intro">
+        <h2>Have something that needs to work?</h2>
+        <p>Tell us about the app or site you have in mind. The founder reads every message personally.</p>
+        <small>Prefer email? support@apexdevelopmentstudio.com</small>
+      </div>
+      <form class="msg" id="msgForm" novalidate>
+        <div class="fld"><label for="f-name">Name</label><input id="f-name" name="name" type="text" autocomplete="name" maxlength="120" required placeholder="Your name"></div>
+        <div class="fld"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" maxlength="200" required placeholder="you@example.com"></div>
+        <div class="fld full"><label for="f-topic">Subject</label>
+          <select id="f-topic" name="inquiry_type" required>
+            <option value="" disabled selected>Select a topic…</option>
+            <option value="project">App or website project</option>
+            <option value="business">Business inquiry</option>
+            <option value="partnership">Partnership</option>
+            <option value="press">Press / media</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="fld full"><label for="f-msg">Message</label><textarea id="f-msg" name="message" rows="3" maxlength="4000" required placeholder="What are you building, and when do you need it?"></textarea></div>
+        <div class="trap" aria-hidden="true"><label for="f-company">Leave this empty</label><input id="f-company" name="botcheck" type="text" tabindex="-1" autocomplete="off"></div>
+        <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+        <div class="form-foot">
+          <span class="note">Sent securely over HTTPS. We use your details only to reply.</span>
+          <button class="btn btn-amber" type="submit" id="sendBtn">Send message</button>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Apex Development Studio LLC · Aldie, Virginia</span>
+    <span class="mono"><a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a></span>
+  </div>
+</footer>
+
+
+
+    <script type="module" src="/src/home.js"></script>
   </body>
 </html>

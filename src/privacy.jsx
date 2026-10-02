@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { LegalPage } from './components/LegalPage.jsx'
-import './index.css'
+import './legal.css'
 
 /**
  * Privacy policy.
@@ -40,8 +40,8 @@ const SECTIONS = [
       [
         'Hosting — the site is served by GitHub Pages. GitHub records standard web server information, including IP addresses, as described in the GitHub Privacy Statement.',
         'Fonts — typefaces load from Google Fonts, which means your browser makes a request to Google servers and Google receives your IP address.',
-        'Contact form — if you send us a message, your name, email address, chosen subject and message are transmitted through Web3Forms, which relays them to our inbox. We use that information only to reply to you.',
-        'Theme preference — your light/dark choice is stored in your browser’s local storage. It never leaves your browser and is not used to identify you.',
+        'Contact form — if you send us a message, your name, email address, chosen subject and message are transmitted through Web3Forms, which relays them to our inbox. We use that information only to reply to you. The “Start a project” form works the same way and also sends the details you choose to share about your idea, such as its platforms, stage, timeline and budget.',
+        'Browser storage — this site does not store anything in your browser’s cookies or local storage.',
       ],
     ],
   },
@@ -76,8 +76,8 @@ const SECTIONS = [
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <LegalPage
-      title="PRIVACY"
-      updated="3 August 2026"
+      title="Privacy"
+      updated="1 October 2026"
       lede="Apex Development Studio LLC builds applications that keep your information on your own device. This page explains exactly what that means, what the few exceptions are, and who else is involved when you use this website."
       sections={SECTIONS}
     />
