@@ -50,6 +50,37 @@ jobs:
             || { echo "::error::dist/CNAME has unexpected contents: $(cat dist/CNAME)"; exit 1; }
           echo "CNAME ok: $(cat dist/CNAME)"
 
+      # Keep earlier builds' hashed assets. GitHub Pages lets browsers cache
+      # each page for 10 minutes, and every deploy replaces /assets with new
+      # file names. A phone still holding the previous page would request
+      # stylesheets that no longer exist and render unstyled. So each deploy
+      # carries forward (a) whatever the live site references right now and
+      # (b) a rolling 30-day archive kept in the Actions cache. Old files are
+      # only ever added, never overwrite this build's own.
+      - name: Restore asset archive
+        uses: actions/cache@v4
+        with:
+          path: .asset-archive
+          key: pages-assets-${{ github.run_id }}
+          restore-keys: pages-assets-
+
+      - name: Carry forward earlier builds' assets
+        run: |
+          mkdir -p .asset-archive
+          # every page the live site serves: sitemap URLs plus the 404 page
+          urls=$(grep -o '<loc>[^<]*</loc>' dist/sitemap.xml | sed -e 's#<loc>##' -e 's#</loc>##')
+          urls="$urls https://apexdevelopmentstudio.com/404.html"
+          for u in $urls; do
+            curl -fsS --max-time 20 "$u" 2>/dev/null | grep -o '/assets/[A-Za-z0-9._-]*' || true
+          done | sort -u | while read -r a; do
+            f=".asset-archive/$(basename "$a")"
+            [ -f "$f" ] || curl -fsS --max-time 20 -o "$f" "https://apexdevelopmentstudio.com$a" || rm -f "$f"
+          done
+          rsync -a --ignore-existing .asset-archive/ dist/assets/
+          rsync -a --ignore-existing dist/assets/ .asset-archive/
+          find .asset-archive -type f -mtime +30 -delete
+          echo "assets published: $(ls dist/assets | wc -l) (archive: $(ls .asset-archive | wc -l))"
+
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
