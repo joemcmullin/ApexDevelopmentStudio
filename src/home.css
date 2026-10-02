@@ -137,10 +137,6 @@ section{padding-block:clamp(72px,10vw,128px)}
 .status i{width:8px;height:8px;border-radius:50%;background:var(--muted);display:inline-block}
 .status.live i{background:var(--ok);box-shadow:0 0 0 4px rgba(95,209,139,.15)}
 .status.soon i{background:var(--amber);box-shadow:0 0 0 4px rgba(242,178,51,.15)}
-.status.personal i{background:var(--amber);box-shadow:0 0 0 4px rgba(242,178,51,.15)}
-.photo-visual{background:#050608}
-.photo-visual img{position:absolute;top:50%;left:0;height:100%;width:auto;max-width:none;transform:translate(0,-50%);animation:drift 70s ease-in-out infinite alternate}
-@media (prefers-reduced-motion:reduce){.photo-visual img{animation:none}}
 .status.client i{background:#8FB3FF;box-shadow:0 0 0 4px rgba(143,179,255,.15)}
 .project h3{font-size:clamp(28px,3.2vw,40px);font-weight:800;line-height:1.05}
 .kind{font-family:var(--f-mono);font-size:12px;color:var(--muted);letter-spacing:.08em;margin-top:4px}

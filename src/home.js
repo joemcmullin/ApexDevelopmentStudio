@@ -251,8 +251,8 @@ import { initNav } from './nav.js'
 
   /* ================= personal project: panorama drift + twinkle ================= */
   (function pano(){
-    // every drifting panorama (biography tile and the photography work tile) pans across its own frame width
-    document.querySelectorAll('.pano, .photo-visual').forEach(el => {
+    // the biography's drifting panorama pans across its own frame width
+    document.querySelectorAll('.pano').forEach(el => {
       const setW = () => el.style.setProperty('--pano-w', el.clientWidth + 'px');
       new ResizeObserver(setW).observe(el); setW();
     });
