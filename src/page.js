@@ -2,8 +2,10 @@
 import './home.css'
 import './page.css'
 import { initForms } from './forms.js'
+import { initNav } from './nav.js'
 
 initForms()
+initNav()
 
 // About page: the drifting Milky Way panorama needs the frame width for its pan.
 const pano = document.querySelector('.pano')

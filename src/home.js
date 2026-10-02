@@ -1,5 +1,6 @@
 import './home.css'
 import { initForms } from './forms.js'
+import { initNav } from './nav.js'
 
 (() => {
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -250,9 +251,12 @@ import { initForms } from './forms.js'
 
   /* ================= personal project: panorama drift + twinkle ================= */
   (function pano(){
-    const box = document.querySelector('.pano'), img = box.querySelector('img');
-    const setW = () => box.style.setProperty('--pano-w', box.clientWidth + 'px');
-    new ResizeObserver(setW).observe(box); setW();
+    // every drifting panorama (biography tile and the photography work tile) pans across its own frame width
+    document.querySelectorAll('.pano, .photo-visual').forEach(el => {
+      const setW = () => el.style.setProperty('--pano-w', el.clientWidth + 'px');
+      new ResizeObserver(setW).observe(el); setW();
+    });
+    const box = document.querySelector('.pano');
     if (reduce) return;
     const cv = document.getElementById('twinkle'), c = cv.getContext('2d');
     let w = 0, h = 0, stars = [], on = false;
@@ -271,4 +275,5 @@ import { initForms } from './forms.js'
   })();
 
   initForms();
+  initNav();
 })();

@@ -171,9 +171,19 @@
     <div class="label"><div class="eyebrow">How every project runs</div><h2>One process, every platform.</h2></div>
     <div class="prose">
       <ol class="steps">
-        <li><div><b>Discovery</b><p>We talk through the problem, the people it's for, and what success looks like. You get a written scope and estimate.</p></div></li>
-        <li><div><b>Design and prototype</b><p>Screens and flows you can tap through before any production code is written.</p></div></li>
-        <li><div><b>Build with quality gates</b><p>Every feature passes code review, automated tests, an accessibility check and a privacy check before it's done.</p></div></li>
+        <li><div><b>Discovery: is this genuinely new?</b><p>We talk through the problem, the people it's for, and what success looks like. Then we ask the harder question: could this have been built five years ago? The strongest products now use what has only recently become possible, such as on-device intelligence, health records on the phone, and platform features that didn't exist before. If an idea is an old app with a new coat of paint, we'll tell you. You get a written scope and estimate.</p></div></li>
+        <li><div><b>Security, before design</b><p>Security is part of discovery, not something added at the end. Before a single screen is designed, we work out what the product has to protect and how it will protect it, and the design is built around those answers.</p>
+          <ul class="sec-list">
+            <li><strong>What needs protecting:</strong> every kind of data the product touches (personal, health, financial, location), how sensitive each is, and whether it needs to be collected at all.</li>
+            <li><strong>Who and what it's protected from:</strong> a simple threat model covering lost phones, stolen accounts, intercepted traffic, malicious users and over-reaching third-party code.</li>
+            <li><strong>Where data lives:</strong> on the device and in the person's own cloud account wherever possible, so there's no central store worth breaking into.</li>
+            <li><strong>How it's protected:</strong> encryption in transit and at rest, secrets in the platform keystore, sign-in that fits the risk, and least-privilege access for every part of the system.</li>
+            <li><strong>What the rules require:</strong> the store policies, privacy laws and industry standards that apply (health data, children's data, government work), mapped before design starts.</li>
+            <li><strong>Third-party code:</strong> every SDK and service reviewed for what it collects and where it sends it. Anything that doesn't earn its place stays out.</li>
+          </ul>
+          <p>The result is a short written security plan alongside the scope. Every later step, from design through launch, is checked against it.</p></div></li>
+        <li><div><b>Design and prototype</b><p>Screens and flows you can tap through, designed around the security plan, before any production code is written.</p></div></li>
+        <li><div><b>Build with quality gates</b><p>Every feature passes code review, automated tests, an accessibility check, and a security and privacy review against the plan before it's done.</p></div></li>
         <li><div><b>Launch</b><p>App Store and Google Play submission, or the website going live on your domain, handled for you.</p></div></li>
         <li><div><b>Support</b><p>Fixes, updates for new OS versions, and new features after launch.</p></div></li>
       </ol>
