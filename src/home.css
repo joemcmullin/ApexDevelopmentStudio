@@ -190,6 +190,7 @@ section{padding-block:clamp(72px,10vw,128px)}
 .num{padding:40px 24px;text-align:center}
 .num+.num{border-left:1px solid var(--line)}
 .num b{display:block;font-family:var(--f-display);font-size:clamp(44px,5.4vw,72px);font-weight:800;line-height:1;color:var(--amber);font-variant-numeric:tabular-nums;letter-spacing:-.03em}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .num b .reel{display:inline-block;height:1em;overflow:hidden;vertical-align:top;-webkit-mask-image:linear-gradient(transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(transparent,#000 8%,#000 92%,transparent)}
 .num b .reel-strip{display:block;will-change:transform}
 .num b .reel-strip span{display:block;height:1em;line-height:1;margin:0}

@@ -286,8 +286,8 @@ import { initNav } from './nav.js'
     const reels = [];
     band.querySelectorAll('.num b').forEach((b, n) => {
       const target = b.textContent.trim();
-      b.setAttribute('aria-label', target);
       b.textContent = '';
+      const sr = document.createElement('span'); sr.className = 'sr-only'; sr.textContent = target; b.append(sr);
       [...target].forEach((ch, i) => {
         if (!/\d/.test(ch)) { const s = document.createElement('span'); s.textContent = ch; s.setAttribute('aria-hidden', 'true'); b.append(s); return; }
         const win = document.createElement('span'); win.className = 'reel'; win.setAttribute('aria-hidden', 'true');
