@@ -3,6 +3,9 @@ import { fileURLToPath } from 'node:url'
 import { readFileSync } from 'node:fs'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import { renderLegal } from './src/legal/render.js'
+import { PAGE as PRIVACY } from './src/legal/privacy.js'
+import { PAGE as TERMS } from './src/legal/terms.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
@@ -54,8 +57,24 @@ function includes() {
   }
 }
 
+/**
+ * Legal pages as real HTML: replaces <!-- @legal privacy --> or
+ * <!-- @legal terms --> with the rendered page (src/legal/render.js), so the
+ * text is in the file itself rather than built by JavaScript in the browser.
+ */
+function legalPages() {
+  const pages = { privacy: PRIVACY, terms: TERMS }
+  return {
+    name: 'apex-legal',
+    transformIndexHtml: {
+      order: 'pre',
+      handler: html => html.replace(/<!--\s*@legal\s+(\w+)\s*-->/g, (_, k) => renderLegal(pages[k])),
+    },
+  }
+}
+
 export default defineConfig({
-  plugins: [includes(), react(), buildStamp()],
+  plugins: [includes(), legalPages(), react(), buildStamp()],
   base: '/',
   build: {
     outDir: 'dist',

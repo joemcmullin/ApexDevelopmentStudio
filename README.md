@@ -57,7 +57,7 @@ Privacy (`/privacy/`) and Terms (`/terms/`) keep their attorney-reviewed text, r
 | Layer | Technology |
 |---|---|
 | Home page | Plain HTML (`index.html`) + `src/home.css` + `src/home.js` (vanilla JS, canvas animations), built by Vite |
-| Legal pages | React 19 (`src/privacy.jsx`, `src/terms.jsx`, `src/components/LegalPage.jsx`) + `src/legal.css` |
+| Legal pages | Static HTML rendered at build time: wording in `src/legal/privacy.js` and `src/legal/terms.js` (attorney-reviewed), markup in `src/legal/render.js`, inserted by the `apex-legal` plugin in `vite.config.js`; styles `src/legal.css`. No JavaScript. |
 | Media | `public/media/` (app screenshots, animated medallion WebP, HINA scroll video, Milky Way panorama) |
 | Forms | **Web3Forms** (`POST https://api.web3forms.com/submit`), same access key as before. Honeypot field, length limits, one send per form per minute (in memory only) |
 | Fonts | Google Fonts: Plus Jakarta Sans, JetBrains Mono |

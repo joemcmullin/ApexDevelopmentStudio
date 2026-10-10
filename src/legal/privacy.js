@@ -1,8 +1,3 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import { LegalPage } from './components/LegalPage.jsx'
-import './legal.css'
-
 /**
  * Privacy policy.
  *
@@ -72,13 +67,9 @@ const SECTIONS = [
   },
 ]
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <LegalPage
-      title="Privacy"
-      updated="1 October 2026"
-      lede="Apex Development Studio LLC builds applications that keep your information on your own device. This page explains exactly what that means, what the few exceptions are, and who else is involved when you use this website."
-      sections={SECTIONS}
-    />
-  </React.StrictMode>,
-)
+export const PAGE = {
+  title: 'Privacy',
+  updated: '1 October 2026',
+  lede: 'Apex Development Studio LLC builds applications that keep your information on your own device. This page explains exactly what that means, what the few exceptions are, and who else is involved when you use this website.',
+  sections: SECTIONS,
+}
