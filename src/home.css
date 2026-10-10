@@ -132,7 +132,6 @@ section{padding-block:clamp(72px,10vw,128px)}
 .project .meta img{width:56px;height:56px;flex:none}
 .icon-tile{border-radius:13px}
 .icon-round{border-radius:50%;box-shadow:0 0 24px rgba(242,178,51,.25)}
-.icon-mono{width:56px;height:56px;border-radius:13px;display:grid;place-items:center;background:#1E2A44;color:#E9D8A6;font-weight:800;font-size:15px;letter-spacing:.04em;flex:none}
 .status{font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;display:inline-flex;align-items:center;gap:8px;color:var(--ink-2)}
 .status i{width:8px;height:8px;border-radius:50%;background:var(--muted);display:inline-block}
 .status.live i{background:var(--ok);box-shadow:0 0 0 4px rgba(95,209,139,.15)}
@@ -167,6 +166,7 @@ section{padding-block:clamp(72px,10vw,128px)}
 .site-visual{background:#FEFEFE}
 .site-visual video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center top;display:block}
 .site-visual{cursor:default}
+@media (max-width:900px){.site-visual{min-height:0;aspect-ratio:800/634}}
 
 /* ---------- capabilities (paper band) ---------- */
 .paper{background:var(--white);color:var(--paper-ink)}
