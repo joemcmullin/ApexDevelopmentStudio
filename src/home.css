@@ -168,22 +168,22 @@ section{padding-block:clamp(72px,10vw,128px)}
 .site-visual{cursor:default}
 @media (max-width:900px){.site-visual{min-height:0;aspect-ratio:800/840}}
 
-/* ---------- capabilities (paper band) ---------- */
-.paper{background:var(--white);color:var(--paper-ink)}
-.paper .eyebrow{color:var(--amber-deep)}
-.paper .head p{color:var(--paper-ink-2)}
-.caps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:2px solid var(--paper-ink)}
+/* ---------- capabilities (same dark stage as the rest of the page) ---------- */
+.paper{background:var(--stage);color:var(--ink)}
+.paper .eyebrow{color:var(--amber)}
+.paper .head p{color:var(--ink-2)}
+.caps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:2px solid var(--ink)}
 .cap{padding:32px 28px 8px 0;display:flex;flex-direction:column;gap:14px}
-.cap+.cap{padding-left:28px;border-left:1px solid #E3E1DC}
-.cap .tag{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber-deep)}
+.cap+.cap{padding-left:28px;border-left:1px solid var(--line)}
+.cap .tag{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber)}
 .cap h3{font-size:30px;font-weight:800}
-.cap p{margin:0;color:var(--paper-ink-2)}
+.cap p{margin:0;color:var(--ink-2)}
 .cap ul{list-style:none;padding:0;margin:6px 0 0;display:grid;gap:8px;font-size:15px}
 .cap li{display:flex;gap:10px}
-.cap-link{margin-top:auto;padding-top:14px;font-weight:700;color:var(--amber-deep);text-decoration:none}
+.cap-link{margin-top:auto;padding-top:14px;font-weight:700;color:var(--amber);text-decoration:none}
 .cap-link:hover{text-decoration:underline;text-underline-offset:4px}
-.cap li::before{content:"";width:6px;height:6px;margin-top:9px;background:var(--amber-deep);border-radius:1px;flex:none;transform:rotate(45deg)}
-@media (max-width:860px){.caps{grid-template-columns:1fr}.cap+.cap{padding-left:0;border-left:0;border-top:1px solid #E3E1DC}}
+.cap li::before{content:"";width:6px;height:6px;margin-top:9px;background:var(--amber);border-radius:1px;flex:none;transform:rotate(45deg)}
+@media (max-width:860px){.caps{grid-template-columns:1fr}.cap+.cap{padding-left:0;border-left:0;border-top:1px solid var(--line)}}
 
 /* ---------- numbers ---------- */
 .nums{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
