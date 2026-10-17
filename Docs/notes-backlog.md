@@ -10,7 +10,7 @@ Rules for every piece:
 - Health topics: no medical claims or advice (same rule as Journey Tracker's App Store listing).
 - Never name Joe's current employer. Past employers (SAIC, Navstar, Deloitte) are fine where relevant.
 - No client details without the client's written OK (HINA is on hold until Dr. Lansing agrees).
-- End with a short "Working on something similar?" line pointing to /#start.
+- End with a short "Working on something similar?" line pointing to /start/.
 
 ## Queue
 
