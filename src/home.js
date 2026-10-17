@@ -110,7 +110,9 @@ import { initNav } from './nav.js'
   else addEventListener('load', () => (window.requestIdleCallback || setTimeout)(startTopo, { timeout: 1200 }), { once:true });
 
   /* ================= Journey Tracker: shuffling iPhone deck ================= */
+  (function phoneDeck(){
   const deck = document.getElementById('deck');
+  if (!deck) return;
   const cards = [...deck.querySelectorAll('.iphone')];
   let order = cards.map((_, i) => i), timer = null, busy = false;
   function layout(){
@@ -147,10 +149,12 @@ import { initNav } from './nav.js'
   deck.addEventListener('pointerup', release); deck.addEventListener('pointercancel', release);
   deck.addEventListener('contextmenu', e => e.preventDefault());
   layout();
+  })();
 
   /* ================= Gleaming Beacon: sand stream (ported from gleamingbeacon.com) ================= */
   (function sand(){
     const box = document.getElementById('gbTile');
+    if (!box) return;
     const canvas = document.getElementById('sand'), c = canvas.getContext('2d');
     let w = 0, h = 0, grains = [], t = 0, last = 0, visible = false;
     const mouse = { cx:-1e4, cy:-1e4, vx:0, vy:0, lx:-1e4, ly:-1e4 };
@@ -225,7 +229,7 @@ import { initNav } from './nav.js'
     const box = document.getElementById('hinaVisual');
     // always show the page's full width: fill the tile when it is wider than the video,
     // otherwise fit the whole video (the strips above and below match the page's white)
-    const VA = 800/634;
+    const VA = 800/840;
     const fit = () => { const r = box.getBoundingClientRect(); v.style.objectFit = (r.width / r.height) >= VA ? 'cover' : 'contain'; };
     new ResizeObserver(fit).observe(box); fit();
     box.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse'){ holding = true; sync(); } });

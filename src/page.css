@@ -126,3 +126,9 @@
 .site-cap span:last-child{color:var(--ink-2);font-size:15px}
 @media (max-width:760px){.site-grid{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){.site-frame{transition:none}.site-card:hover .site-frame{transform:none}}
+
+/* Build page: Apex's own apps */
+.svc-grid.apps{grid-template-columns:repeat(2,minmax(0,1fr))}
+.svc .app-icon{width:56px;height:56px;border-radius:14px}
+.svc .app-icon.round{border-radius:50%}
+@media (max-width:900px){.svc-grid.apps{grid-template-columns:1fr}}
