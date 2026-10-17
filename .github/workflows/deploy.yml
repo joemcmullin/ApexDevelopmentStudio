@@ -1,8 +1,40 @@
-# Build the Vite site and publish it to GitHub Pages.
+# ==========================================================================
+#   Apex Development Studio LLC
+#   https://apexdevelopmentstudio.com
+# ==========================================================================
 #
-# Replaces the old "deploy from a branch" setup, where the compiled output
-# had to be committed by hand. Now the repo holds source only; this workflow
-# produces dist/ and hands it straight to Pages.
+#   Designed and engineered by
+#
+#       A P E X   D E V E L O P M E N T   S T U D I O   L L C
+#       https://apexdevelopmentstudio.com
+#       joemcmullin@apexdevelopmentstudio.com
+#
+#   Built with plain HTML, CSS and JavaScript, bundled by Vite.
+#
+#   Copyright (c) 2026 Apex Development Studio LLC. All rights reserved.
+# ==========================================================================
+
+# ============================================================================
+# deploy.yml: builds the site and publishes it to GitHub Pages.
+# ============================================================================
+#
+# WHAT THIS FILE IS
+#   A GitHub Actions workflow. On every push to main (or when run by hand
+#   from the Actions tab) it installs the packages, runs "npm run build",
+#   checks the custom domain survived, carries forward older asset files so
+#   cached pages still load, and publishes dist/ to GitHub Pages.
+#   It replaced the old "deploy from a branch" setup, where the built files
+#   had to be committed by hand. The repo now holds source only.
+#
+# WHERE IT APPEARS
+#   Nowhere on the page. Runs on GitHub after each push.
+#
+# HOW TO EDIT
+#   - Node version ......... node-version under setup-node (20).
+#   - Custom domain ........ public/CNAME. The check below fails the build if
+#                            it goes missing or changes.
+#   - Asset archive age .... "-mtime +30" (days) in the carry-forward step.
+
 name: Deploy site
 
 on:
@@ -18,7 +50,7 @@ permissions:
   id-token: write
 
 # If two pushes land close together, let the newer one finish and cancel the
-# older — but never cancel a deploy already in flight.
+# older, but never cancel a deploy already in flight.
 concurrency:
   group: pages
   cancel-in-progress: false

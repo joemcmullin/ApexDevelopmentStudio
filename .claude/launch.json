@@ -7,6 +7,12 @@
       "runtimeArgs": ["serve", "."],
       "port": 3002,
       "autoPort": true
+    },
+    {
+      "name": "Apex site (built preview)",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "preview"],
+      "port": 4312
     }
   ]
 }

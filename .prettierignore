@@ -1,0 +1,32 @@
+# ==========================================================================
+#   Apex Development Studio LLC
+#   https://apexdevelopmentstudio.com
+# ==========================================================================
+#
+#   Designed and engineered by
+#
+#       A P E X   D E V E L O P M E N T   S T U D I O   L L C
+#       https://apexdevelopmentstudio.com
+#       joemcmullin@apexdevelopmentstudio.com
+#
+#   Built with plain HTML, CSS and JavaScript, bundled by Vite.
+#
+#   Copyright (c) 2026 Apex Development Studio LLC. All rights reserved.
+# ==========================================================================
+
+# ============================================================================
+# .prettierignore: what "npm run format" leaves alone.
+# ============================================================================
+
+# Prettier formats the site's code only (src/ and the config files).
+# Everything below is built output, content or hand-laid files that
+# Prettier should leave exactly as they are.
+dist/
+node_modules/
+public/
+Docs/
+_brand_assets/
+*.html
+*.md
+*.yml
+*.json

@@ -1,11 +1,47 @@
-/**
- * Terms of service.
+/*
+ * ==========================================================================
+ *   Apex Development Studio LLC
+ *   https://apexdevelopmentstudio.com
+ * ==========================================================================
  *
- * Governing law is the Commonwealth of Virginia, confirmed by the owner.
- * Reviewed by an attorney (2026-08-03). Treat the wording as settled: changes
- * here are a legal decision, not a copy edit, so raise them with the owner
- * rather than tidying the prose.
+ *   Designed and engineered by
+ *
+ *       A P E X   D E V E L O P M E N T   S T U D I O   L L C
+ *       https://apexdevelopmentstudio.com
+ *       joemcmullin@apexdevelopmentstudio.com
+ *
+ *   Built with plain HTML, CSS and JavaScript, bundled by Vite.
+ *
+ *   Copyright (c) 2026 Apex Development Studio LLC. All rights reserved.
+ * ==========================================================================
  */
+
+/*
+ * ============================================================================
+ * terms.js: the wording of the Terms of service (/terms/).
+ * ============================================================================
+ *
+ * WHAT THIS FILE IS
+ *   The full text of the terms of service: the "Last updated" date, the
+ *   opening paragraph and each numbered section. src/legal/render.js turns it
+ *   into the page when the site is built. Governing law is the Commonwealth
+ *   of Virginia, confirmed by the owner.
+ *
+ * WHERE IT APPEARS
+ *   /terms/, linked from every page footer.
+ *
+ * HOW TO EDIT
+ *   - A section ............ SECTIONS below. Each has a heading (h) and a body
+ *                            of paragraphs. A list inside brackets becomes
+ *                            bullet points.
+ *   - Date and opening ..... PAGE at the bottom (updated, lede).
+ *
+ * IMPORTANT
+ *   Reviewed by an attorney (2026-08-03). Treat the wording as settled.
+ *   Changes here are a legal decision, not a copy edit, so raise them with
+ *   the owner rather than tidying the prose.
+ */
+
 const SECTIONS = [
   {
     h: 'AGREEMENT',

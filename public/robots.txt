@@ -1,6 +1,23 @@
-# robots.txt — Apex Development Studio (apexdevelopmentstudio.com)
-# Allow all crawlers full access to the site.
-# Sitemap reference tells crawlers where to find the sitemap.
+# ==========================================================================
+#   Apex Development Studio LLC
+#   https://apexdevelopmentstudio.com
+# ==========================================================================
+#
+#   Designed and engineered by
+#
+#       A P E X   D E V E L O P M E N T   S T U D I O   L L C
+#       https://apexdevelopmentstudio.com
+#       joemcmullin@apexdevelopmentstudio.com
+#
+#   Built with plain HTML, CSS and JavaScript, bundled by Vite.
+#
+#   Copyright (c) 2026 Apex Development Studio LLC. All rights reserved.
+# ==========================================================================
+
+# ============================================================================
+# robots.txt: tells search engines they may read the whole site, and
+# where the sitemap is. Published at https://apexdevelopmentstudio.com/robots.txt.
+# ============================================================================
 
 User-agent: *
 Allow: /

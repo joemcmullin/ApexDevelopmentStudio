@@ -3,24 +3,18 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "PROTOTYPE ONLY — cinematic rebuild concept for apexdevelopmentstudio.com. Not deployed.",
+  "description": "Company website for Apex Development Studio LLC (apexdevelopmentstudio.com). Plain HTML, CSS and JavaScript built with Vite.",
   "scripts": {
     "dev": "vite --host 127.0.0.1 --port 4311",
     "build": "vite build",
-    "preview": "vite preview --host 127.0.0.1 --port 4312"
-  },
-  "dependencies": {
-    "framer-motion": "^11.15.0",
-    "gsap": "^3.12.5",
-    "lucide-react": "^0.469.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "preview": "vite preview --host 127.0.0.1 --port 4312",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^4.3.4",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.49",
-    "tailwindcss": "^3.4.17",
+    "prettier": "3.3.3",
     "vite": "^6.0.7"
   }
 }

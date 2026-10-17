@@ -1,16 +1,50 @@
-/**
- * Privacy policy.
+/*
+ * ==========================================================================
+ *   Apex Development Studio LLC
+ *   https://apexdevelopmentstudio.com
+ * ==========================================================================
  *
- * Written to be accurate rather than reassuring. The site really does make
- * third-party requests — Web3Forms and GitHub Pages logging — and
- * a policy that claimed "nothing leaves your device, full stop" would be
- * false. Those are disclosed plainly below.
+ *   Designed and engineered by
  *
- * Reviewed by an attorney (2026-08-03). Treat the wording as settled. The
- * disclosures track real behaviour, so if the site's third parties change —
- * a new font host, a different form processor, any analytics at all — this
- * page becomes inaccurate and must be updated with it.
+ *       A P E X   D E V E L O P M E N T   S T U D I O   L L C
+ *       https://apexdevelopmentstudio.com
+ *       joemcmullin@apexdevelopmentstudio.com
+ *
+ *   Built with plain HTML, CSS and JavaScript, bundled by Vite.
+ *
+ *   Copyright (c) 2026 Apex Development Studio LLC. All rights reserved.
+ * ==========================================================================
  */
+
+/*
+ * ============================================================================
+ * privacy.js: the wording of the Privacy policy (/privacy/).
+ * ============================================================================
+ *
+ * WHAT THIS FILE IS
+ *   The full text of the privacy policy: the "Last updated" date, the opening
+ *   paragraph and each numbered section. src/legal/render.js turns it into
+ *   the page when the site is built.
+ *   It is written to be accurate rather than reassuring. The site really does
+ *   make third-party requests (Web3Forms for the forms, and GitHub Pages'
+ *   server logs), and those are disclosed plainly below.
+ *
+ * WHERE IT APPEARS
+ *   /privacy/, linked from every page footer.
+ *
+ * HOW TO EDIT
+ *   - A section ............ SECTIONS below. Each has a heading (h) and a body
+ *                            of paragraphs. A list inside brackets becomes
+ *                            bullet points.
+ *   - Date and opening ..... PAGE at the bottom (updated, lede).
+ *
+ * IMPORTANT
+ *   Reviewed by an attorney (2026-08-03). Treat the wording as settled. The
+ *   disclosures track what the site really does, so if its third parties
+ *   change (a new font host, a different form service, any analytics at all),
+ *   this page becomes inaccurate and must be updated with it.
+ */
+
 const SECTIONS = [
   {
     h: 'THE SHORT VERSION',

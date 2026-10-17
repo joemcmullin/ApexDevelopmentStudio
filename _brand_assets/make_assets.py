@@ -1,4 +1,35 @@
 #!/usr/bin/env python3
+# ==========================================================================
+#   Apex Development Studio LLC
+#   https://apexdevelopmentstudio.com
+# ==========================================================================
+#
+#   Designed and engineered by
+#
+#       A P E X   D E V E L O P M E N T   S T U D I O   L L C
+#       https://apexdevelopmentstudio.com
+#       joemcmullin@apexdevelopmentstudio.com
+#
+#   Built with plain HTML, CSS and JavaScript, bundled by Vite.
+#
+#   Copyright (c) 2026 Apex Development Studio LLC. All rights reserved.
+# ==========================================================================
+
+# ============================================================================
+# make_assets.py: makes an Apex iPhone wallpaper and profile pictures.
+# ============================================================================
+#
+# WHAT THIS FILE IS
+#   A one-off Python script (needs the Pillow package) that drew
+#   apex-wallpaper-iphone16.png, apex-profile-1024.png and
+#   apex-profile-1024-circle.png in this folder. It is not part of the
+#   website and the build never runs it.
+#
+# NOTE
+#   It still uses the previous crimson and purple brand colors and points
+#   MARK and OUT at an old folder (~/Projects/ApexDevelopmentStudio) that no
+#   longer exists, so it will not run as it is. The apex-brand-assets skill
+#   makes these images in the current gold brand.
 """Generate Apex Development Studio branded iPhone 16 wallpaper + profile image."""
 import math
 from PIL import Image, ImageDraw, ImageFont, ImageFilter

@@ -1,3 +1,44 @@
+<!--
+  ==========================================================================
+    Apex Development Studio LLC
+    https://apexdevelopmentstudio.com
+  ==========================================================================
+
+    Designed and engineered by
+
+        A P E X   D E V E L O P M E N T   S T U D I O   L L C
+        https://apexdevelopmentstudio.com
+        joemcmullin@apexdevelopmentstudio.com
+
+    Built with plain HTML, CSS and JavaScript, bundled by Vite.
+
+    Copyright (c) 2026 Apex Development Studio LLC. All rights reserved.
+  ==========================================================================
+-->
+<!--
+  partials/nav.html: the shared header and the phone menu.
+
+  WHAT THIS FILE IS
+    The bar at the top of every page (Apex mark and name, and the links
+    Advisory, Work, Build, About, Contact) and the full-screen phone menu
+    that replaces the links on narrow screens.
+
+  WHERE IT APPEARS
+    Every page with an "@include nav.html" line (all pages except
+    Privacy, Terms and the 404 page). The build drops this file in there.
+    The comments at the top of this file are left out when it is dropped in.
+
+  DEPENDS ON
+    src/nav.js (opens and closes the phone menu) and the "nav" and "phone
+    menu" styles in src/home.css.
+
+  HOW TO EDIT
+    - Desktop links ........ the <nav class="nav-links"> list.
+    - Phone menu links ..... the <nav class="menu-in"> list. Keep it in step
+                             with the desktop links. Number --i from 0 down
+                             the list so the links arrive in order.
+    - Tagline under name ... the <small> in the brand link.
+-->
 <header class="nav">
   <div class="wrap">
     <a class="brand" href="/">
