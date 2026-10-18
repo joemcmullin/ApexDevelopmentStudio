@@ -39,7 +39,10 @@
  *   - Date and opening ..... PAGE at the bottom (updated, lede).
  *
  * IMPORTANT
- *   Reviewed by an attorney (2026-08-03). Treat the wording as settled. The
+ *   Reviewed by an attorney (2026-08-03). Treat the wording as settled.
+ *   2026-10-18: added "Clients and our own business records" (client billing
+ *   data, the company's own bank feed through Plaid, retention periods) for
+ *   Plaid's production review. That section has not yet been attorney-reviewed. The
  *   disclosures track what the site really does, so if its third parties
  *   change (a new font host, a different form service, any analytics at all),
  *   this page becomes inaccurate and must be updated with it.
@@ -81,6 +84,14 @@ const SECTIONS = [
     ],
   },
   {
+    h: 'CLIENTS AND OUR OWN BUSINESS RECORDS',
+    body: [
+      'When we do paid work for a client, we keep the client’s name, contact person, email address and postal address so we can send invoices and correspond. Invoices go out by email through Google Workspace, and payments arrive by Zelle or check into our business bank account. We use these details only to bill and work with that client.',
+      'We keep our own books in internal software that runs only on our own computer. That software connects our own Wells Fargo business accounts through Plaid so their transactions flow into our books. Plaid only ever sees our company’s accounts. We never connect, request or store the bank accounts of app users, website visitors or clients.',
+      'We keep financial records, invoices and client billing details for seven years after the tax year ends, because tax law requires it, and then delete them. Messages from people who did not become clients are deleted after two years. A client may ask what we hold, ask for a copy or ask us to delete it, as described under Your Rights, and we keep only what the law requires us to keep.',
+    ],
+  },
+  {
     h: 'CHILDREN',
     body: [
       'Our apps are not directed at children under 13, and we do not knowingly collect personal information from them. If you believe a child has provided us information, write to us and we will address it.',
@@ -103,7 +114,7 @@ const SECTIONS = [
 
 export const PAGE = {
   title: 'Privacy',
-  updated: '1 October 2026',
+  updated: '18 October 2026',
   lede: 'Apex Development Studio LLC builds applications that keep your information on your own device. This page explains exactly what that means, what the few exceptions are, and who else is involved when you use this website.',
   sections: SECTIONS,
 }
