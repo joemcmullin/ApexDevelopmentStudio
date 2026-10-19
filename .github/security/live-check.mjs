@@ -13,6 +13,11 @@
 // in ApexSuite (server/security/ci/live-check.mjs).
 //
 //   node .github/security/live-check.mjs https://example.com [--wait 60]
+//   node .github/security/live-check.mjs https://example.com --probe out.json
+//     Probe mode, for a site whose host shows the studio Mac a bot check but
+//     not GitHub: records what the site answered (headers, cookies, page,
+//     redirect, certificate, /.git and /.env, source map, photo GPS) for
+//     ApexSuite to judge. The same plain requests, from GitHub's network.
 import fs from 'node:fs'
 import tls from 'node:tls'
 import { pathToFileURL } from 'node:url'
@@ -45,8 +50,53 @@ const certValidTo = host => new Promise((resolve, reject) => {
   s.on('timeout', () => { s.destroy(); reject(new Error('timed out')) })
 })
 
+/** True when a JPEG's EXIF block carries a GPS IFD (tag 0x8825). */
+export function jpegHasGps(buf) {
+  const i = buf.indexOf(Buffer.from('Exif\0\0'))
+  if (i < 0) return false
+  const exif = buf.subarray(i + 6, i + 6 + 65_536)
+  const tag = exif.subarray(0, 2).toString() === 'II' ? Buffer.from([0x25, 0x88]) : Buffer.from([0x88, 0x25])
+  return exif.indexOf(tag) >= 0
+}
+
+async function probe(url, out) {
+  const get = async (u, init = {}) => {
+    try {
+      const r = await fetch(u, { ...init, headers: { 'User-Agent': UA }, signal: AbortSignal.timeout(20_000) })
+      return { url: r.url || String(u), status: r.status, headers: Object.fromEntries([...r.headers.entries()]), setCookies: r.headers.getSetCookie?.() ?? [], body: await r.text() }
+    } catch (e) { return { url: String(u), status: 0, headers: {}, setCookies: [], body: '', error: String(e) } }
+  }
+  const page = await get(url)
+  const challenged = looksLikeBotChallenge(page.body)
+  const plain = await fetch(`http://${url.host}/`, { redirect: 'manual', headers: { 'User-Agent': UA }, signal: AbortSignal.timeout(20_000) }).catch(() => null)
+  let validTo = null
+  try { validTo = new Date(await certValidTo(url.hostname)).toISOString() } catch { /* left null */ }
+  const clip = r => ({ url: r.url, status: r.status, body: r.body.slice(0, 4000) })
+  const script = /<script\b[^>]*\ssrc=["']([^"']+\.js)["']/i.exec(page.body)?.[1]
+  const images = [...page.body.matchAll(/<img\b[^>]*\ssrc=["']([^"']+\.(?:jpe?g))(?:\?[^"']*)?["']/gi)].map(m => new URL(m[1], url).toString())
+  const photos = []
+  for (const img of [...new Set(images)].slice(0, 12)) {
+    try { const r = await fetch(img, { headers: { 'User-Agent': UA }, signal: AbortSignal.timeout(20_000) }); if (r.ok) photos.push({ url: img, gps: jpegHasGps(Buffer.from(await r.arrayBuffer())) }) } catch { /* skip */ }
+  }
+  const result = {
+    probedAt: new Date().toISOString(), url: url.href, challenged,
+    page: { status: page.status, headers: page.headers, setCookies: page.setCookies, html: page.body.slice(0, 500_000) },
+    redirect: plain ? { status: plain.status, location: plain.headers.get('location') } : null,
+    certValidTo: validTo,
+    git: clip(await get(new URL('/.git/HEAD', url))),
+    env: clip(await get(new URL('/.env', url))),
+    sourcemap: script ? clip(await get(`${new URL(script, url)}.map`)) : null,
+    photos,
+  }
+  fs.writeFileSync(out, JSON.stringify(result))
+  console.log(`Probe of ${url.host}: ${challenged ? 'bot-check page' : `answered ${page.status}`}, ${photos.length} photo(s) checked.`)
+  return challenged ? 1 : 0
+}
+
 async function main() {
   const url = new URL(process.argv[2])
+  const probeOut = process.argv.includes('--probe') ? process.argv[process.argv.indexOf('--probe') + 1] : null
+  if (probeOut) return probe(url, probeOut)
   const wait = Number(process.argv[process.argv.indexOf('--wait') + 1]) || 0
   if (process.argv.includes('--wait') && wait) await new Promise(r => setTimeout(r, wait * 1000))
   const out = text => { console.log(text); if (process.env.GITHUB_STEP_SUMMARY) fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, `${text}\n`) }
