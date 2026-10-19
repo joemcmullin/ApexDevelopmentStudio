@@ -1,0 +1,8 @@
+# Written by ApexSuite: secrets findings accepted as not secret, with their reasons in
+# ApexSuite › Operations › Security. Do not edit here.
+98f8db1caf74c0e3c91bd2b2a1e4e335ee46fef3:src/forms.js:generic-api-key:65
+4ec549075ab7f57c22101907f6efe1339294e637:src/forms.js:generic-api-key:10
+6c15d5b73aeea8c06e8b3edbb0b98cb2b37ca609:src/home.js:generic-api-key:275
+5e483f14b336ebdfbacd8d1d4515d34b75eb2414:src/components/ContactForm.jsx:generic-api-key:10
+0899183b2f4a0cae0721a8af889c83e77a6ca7b1:index.html:generic-api-key:1996
+4c819bc96b5252569545bcd17b2e539ece99a585:index.html:generic-api-key:1992

@@ -56,7 +56,13 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # Security gate (ApexSuite): npm audit, gitleaks and Semgrep. An open
+  # critical or high finding stops here, before anything is built or uploaded.
+  security:
+    uses: ./.github/workflows/security-gate.yml
+
   build:
+    needs: security
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -127,3 +133,16 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+
+  # Live check (ApexSuite): certificate, HTTPS redirect and headers, right
+  # after the deploy.
+  live-check:
+    name: Live check
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node .github/security/live-check.mjs https://apexdevelopmentstudio.com --wait 60

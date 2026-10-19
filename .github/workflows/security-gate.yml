@@ -1,0 +1,56 @@
+# Written by ApexSuite (server/security/ciSync.ts). Do not edit here: change it in
+# ApexSuite and run `npm run site:security -- --sync-ci`.
+#
+# Security gate for Apex Development Studio: npm audit, gitleaks and Semgrep, then fail on
+# any open critical or high finding that ApexSuite has not accepted.
+# The deploy workflow calls this, so a failure stops the deploy.
+name: Security gate
+
+on:
+  workflow_call:        # the deploy workflow runs this first and waits for it
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  gate:
+    name: Security gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0     # gitleaks reads the whole history
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: npm audit
+        working-directory: .
+        run: |
+          mkdir -p "$RUNNER_TEMP/security"
+          if [ -f package-lock.json ]; then npm audit --json > "$RUNNER_TEMP/security/npm-audit.json" || true; else echo "No package-lock.json, nothing to audit."; fi
+
+      - name: gitleaks 8.30.1
+        run: |
+          cd "$RUNNER_TEMP"
+          curl -fsSLo gitleaks.tgz https://github.com/gitleaks/gitleaks/releases/download/v8.30.1/gitleaks_8.30.1_linux_x64.tar.gz
+          echo "551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb  gitleaks.tgz" | sha256sum -c -
+          tar -xzf gitleaks.tgz gitleaks
+          cd "$GITHUB_WORKSPACE"
+          "$RUNNER_TEMP/gitleaks" git . --redact --no-banner --exit-code 0 --log-level error \
+            --gitleaks-ignore-path .github/security/gitleaksignore \
+            --report-format json --report-path "$RUNNER_TEMP/security/gitleaks.json"
+
+      - name: Semgrep 1.181.0
+        run: |
+          pipx install semgrep==1.181.0 > /dev/null
+          semgrep scan --config p/default --json --metrics=off --quiet --timeout 30 \
+            --exclude node_modules --exclude dist --exclude '*.min.js' --exclude originals --exclude public \
+            . > "$RUNNER_TEMP/security/semgrep.json" || true
+
+      - name: Decide
+        run: node .github/security/gate.mjs "$RUNNER_TEMP/security"
