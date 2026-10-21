@@ -43,7 +43,7 @@
  *   page.js instead.
  *
  * DEPENDS ON
- *   home.css (loaded from here), forms.js, nav.js, and these elements in
+ *   home.css (loaded from here), forms.js, nav.js, analytics.js, and these elements in
  *   index.html: #hero, #topo, #legend, #hinaVideo, #hinaVisual, #founder,
  *   #brief, .pano, #twinkle and .nums.
  *
@@ -69,6 +69,7 @@
 import './home.css'
 import { initForms } from './forms.js'
 import { initNav } from './nav.js'
+import { startAnalytics } from './analytics.js'
 ;(() => {
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches
 
@@ -556,4 +557,5 @@ import { initNav } from './nav.js'
 
   initForms()
   initNav()
+  startAnalytics()
 })()

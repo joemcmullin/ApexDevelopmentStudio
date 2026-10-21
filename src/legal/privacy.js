@@ -26,8 +26,8 @@
  *   paragraph and each numbered section. src/legal/render.js turns it into
  *   the page when the site is built.
  *   It is written to be accurate rather than reassuring. The site really does
- *   make third-party requests (Web3Forms for the forms, and GitHub Pages'
- *   server logs), and those are disclosed plainly below.
+ *   make third-party requests (Web3Forms for the forms, PostHog analytics
+ *   and GitHub Pages' server logs), and those are disclosed plainly below.
  *
  * WHERE IT APPEARS
  *   /privacy/, linked from every page footer.
@@ -43,16 +43,20 @@
  *   2026-10-18: added "Clients and our own business records" (client billing
  *   data, the company's own bank feed through Plaid, retention periods) for
  *   Plaid's production review. That section has not yet been attorney-reviewed. The
- *   disclosures track what the site really does, so if its third parties
- *   change (a new font host, a different form service, any analytics at all),
- *   this page becomes inaccurate and must be updated with it.
+ *   2026-10-21: PostHog analytics added to the website (see
+ *   src/analytics.js). Changed "The short version", the analytics and
+ *   browser storage bullets, and the bullet labels' punctuation in "What
+ *   this website collects". Not yet attorney-reviewed.
+ *   The disclosures track what the site really does, so if its third
+ *   parties change (a new font host, a different form service, a change to
+ *   what analytics.js collects), this page must be updated with it.
  */
 
 const SECTIONS = [
   {
     h: 'THE SHORT VERSION',
     body: [
-      'We do not run analytics. We do not embed advertising or tracking SDKs. We do not sell, rent, or share your personal information with anyone, and we never have.',
+      'This website uses PostHog analytics so we can see which pages people read and where the site falls short. We do not use advertising or ad-tracking tools. We do not sell, rent, or share your personal information with anyone, and we never have.',
       'What our apps record about your life stays on your device. If it syncs, it syncs through your own iCloud account, which we cannot read. We do not operate a server that holds your data, because we do not want one.',
     ],
   },
@@ -68,11 +72,12 @@ const SECTIONS = [
   {
     h: 'WHAT THIS WEBSITE COLLECTS',
     body: [
-      'This site sets no advertising or analytics cookies. It does, however, involve a few third parties, and you should know about them:',
+      'This site sets no advertising cookies. It does involve a few third parties, and you should know about them:',
       [
-        'Hosting — the site is served by GitHub Pages. GitHub records standard web server information, including IP addresses, as described in the GitHub Privacy Statement.',
-        'Contact form — if you send us a message, your name, email address, chosen subject and message are transmitted through Web3Forms, which relays them to our inbox. We use that information only to reply to you. The “Start a project” form works the same way and also sends the details you choose to share about your idea, such as its platforms, stage, timeline and budget.',
-        'Browser storage — this site does not store anything in your browser’s cookies or local storage.',
+        'Hosting: the site is served by GitHub Pages. GitHub records standard web server information, including IP addresses, as described in the GitHub Privacy Statement.',
+        'Contact form: if you send us a message, your name, email address, chosen subject and message are transmitted through Web3Forms, which relays them to our inbox. We use that information only to reply to you. The “Start a project” form works the same way and also sends the details you choose to share about your idea, such as its platforms, stage, timeline and budget.',
+        'Analytics: we use PostHog to understand how visitors use this site. PostHog records the pages you view, how far you scroll, where you click, how fast pages load, any errors you run into, and your general location (country and city), which it works out from your IP address. It also records visits as session replays so we can see where the site is confusing. Everything you type into a form is hidden in those replays, and we never send what you write to PostHog. We use this only to improve the site, never for advertising. If your browser sends a Do Not Track signal, analytics does not run.',
+        'Browser storage: PostHog sets one first-party cookie and uses your browser’s local storage to recognise a returning visitor and keep a visit together. Nothing else on this site stores anything in your browser.',
       ],
     ],
   },
@@ -114,7 +119,7 @@ const SECTIONS = [
 
 export const PAGE = {
   title: 'Privacy',
-  updated: '18 October 2026',
+  updated: '21 October 2026',
   lede: 'Apex Development Studio LLC builds applications that keep your information on your own device. This page explains exactly what that means, what the few exceptions are, and who else is involved when you use this website.',
   sections: SECTIONS,
 }

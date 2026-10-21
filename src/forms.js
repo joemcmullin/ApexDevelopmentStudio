@@ -33,7 +33,8 @@
  *
  * DEPENDS ON
  *   Web3Forms (api.web3forms.com), the form markup in index.html and
- *   start/index.html, and the form styles in home.css.
+ *   start/index.html, the form styles in home.css, and analytics.js for
+ *   the sent/failed events (never the form contents).
  *
  * HOW TO EDIT
  *   - Inbox ................... ACCESS_KEY below, from the Web3Forms dashboard.
@@ -50,11 +51,13 @@
  * NOTES
  *   Each form has a hidden "botcheck" field that people never see. If a bot
  *   fills it, the form shows its thank-you message and sends nothing. Each
- *   form sends at most once a minute, remembered in memory only, because the
- *   privacy policy promises the site stores nothing in the browser.
+ *   form sends at most once a minute, remembered in memory only, so the forms
+ *   themselves store nothing in the browser.
  *   Web3Forms sits behind Cloudflare, which blocks scripted browsers, so test
  *   the forms in a real browser.
  */
+
+import { track } from './analytics.js'
 
 export function initForms() {
   /* ================= form delivery (Web3Forms) =================
@@ -163,7 +166,9 @@ export function initForms() {
       return !msg
     }
     next.addEventListener('click', () => {
-      if (guard()) show(cur + 1)
+      if (!guard()) return
+      show(cur + 1)
+      track('project_form_step', { step: cur + 1 })
     })
     back.addEventListener('click', () => show(cur - 1))
     let sending = false
@@ -208,9 +213,11 @@ export function initForms() {
           'NDA requested': val('nda').length ? 'Yes' : 'No',
         })
         markSent('apex-sent-project')
+        track('project_form_submitted', { kind })
         send.textContent = 'Sent'
         done()
       } catch (err) {
+        track('project_form_failed', { reason: err.message })
         status.className = 'form-status err'
         status.textContent = `Your idea didn't send. ${err.message} Try again, or email support@apexdevelopmentstudio.com.`
         send.disabled = false
@@ -281,9 +288,11 @@ export function initForms() {
           message: f.get('message').trim(),
         })
         markSent('apex-sent-contact')
+        track('contact_form_submitted', { topic })
         form.reset()
         thanks()
       } catch (err) {
+        track('contact_form_failed', { reason: err.message })
         statusEl.className = 'form-status err'
         statusEl.textContent = `Your message didn't send. ${err.message} Try again, or email support@apexdevelopmentstudio.com.`
       } finally {

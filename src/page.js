@@ -22,8 +22,8 @@
  * ============================================================================
  *
  * WHAT THIS FILE IS
- *   Loads the shared styles, starts whichever form the page carries and the
- *   phone menu, and sizes the About page's drifting panorama.
+ *   Loads the shared styles, starts whichever form the page carries, the
+ *   phone menu and analytics, and sizes the About page's drifting panorama.
  *
  * WHERE IT APPEARS
  *   Build (/services/), the iOS, Android and Web service pages, the Journey
@@ -32,7 +32,7 @@
  *   use no JavaScript.
  *
  * DEPENDS ON
- *   home.css, page.css, forms.js and nav.js.
+ *   home.css, page.css, forms.js, nav.js and analytics.js.
  *
  * HOW TO EDIT
  *   - Inner page styles ...... page.css
@@ -49,9 +49,11 @@ import './home.css'
 import './page.css'
 import { initForms } from './forms.js'
 import { initNav } from './nav.js'
+import { startAnalytics } from './analytics.js'
 
 initForms()
 initNav()
+startAnalytics()
 
 // About page: the drifting Milky Way panorama needs the frame width for its pan.
 const pano = document.querySelector('.pano')
